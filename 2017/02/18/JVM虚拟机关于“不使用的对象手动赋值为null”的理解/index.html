@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="RicardoLee" />
+
+
+
+<meta name="description" content="今天逛博客,看到了一个关于一个对象有没有必要手动赋值为null的问题，捋了捋思路，决定写个测试代码来实践一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM虚拟机关于“不使用的对象手动赋值为null”的理解">
+<meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/index.html">
+<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:description" content="今天逛博客,看到了一个关于一个对象有没有必要手动赋值为null的问题，捋了捋思路，决定写个测试代码来实践一下。">
+<meta property="og:updated_time" content="2017-02-18T08:05:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM虚拟机关于“不使用的对象手动赋值为null”的理解">
+<meta name="twitter:description" content="今天逛博客,看到了一个关于一个对象有没有必要手动赋值为null的问题，捋了捋思路，决定写个测试代码来实践一下。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JVM虚拟机关于“不使用的对象手动赋值为null”的理解 | RicardoLee‘Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b05b150e77dbc9b387880e502eea917e";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签</a></li>
+                        
+                            <li><a href="/about/">我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/JustDoItLee" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
+                            
+                                <a class="fa CSDN" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
+                            
+                                <a class="fa Quora" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
+                            
+                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
+                            
+                                <a class="fa LinkedIn" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
+                            
+                                <a class="fa QQ" href="/657994434" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/种子/">种子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">90后Java程序员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签</a></li>
+                
+                    <li><a href="/about/">我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/JustDoItLee" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
+                            
+                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
+                            
+                                <a class="fa LinkedIn" target="_blank" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/657994434" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JVM虚拟机关于“不使用的对象手动赋值为null”的理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/" class="article-date">
+      <time datetime="2017-02-18T08:03:12.000Z" itemprop="datePublished">2017-02-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JVM虚拟机关于“不使用的对象手动赋值为null”的理解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象/">对象</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>今天逛博客,看到了一个关于<font color="blue">一个对象有没有必要手动赋值为null</font>的问题，捋了捋思路，决定写个测试代码来实践一下。<br><a id="more"></a><br><br><br>百说不如一用，直接上代码:<br><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test1</span> &#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</div><div class="line">		<span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">64</span> * <span class="number">1024</span> * <span class="number">1024</span>];<span class="comment">//作用就是向内存中填充一个10MB的对象</span></div><div class="line">		System.gc();<span class="comment">//手动执行GC操作</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行程序前，可以将JVM参数设置为如下:<br><br>-verbose:gc<br><br>-XX:+PrintGCDetails<br><br>控制台部分输出结果如下:<br><br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="name">GC</span> (<span class="name">System.gc</span>()) [<span class="name">PSYoungGen:</span> <span class="number">3932</span>K-&gt;744K(<span class="name">76288K</span>)] <span class="number">69468</span>K-&gt;66288K(<span class="name">251392K</span>), <span class="number">0.0016500</span> secs] [<span class="name">Times:</span> user=0.00 sys=0.03, real=0.00 secs] </div><div class="line">[<span class="name">Full</span> GC (<span class="name">System.gc</span>()) [<span class="name">PSYoungGen:</span> <span class="number">744</span>K-&gt;0K(<span class="name">76288K</span>)] [<span class="name">ParOldGen:</span> <span class="number">65544</span>K-&gt;66145K(<span class="name">175104K</span>)] <span class="number">66288</span>K-&gt;66145K(<span class="name">251392K</span>), [<span class="name">Metaspace:</span> <span class="number">3169</span>K-&gt;3169K(<span class="name">1056768K</span>)], <span class="number">0.0101306</span> secs] [<span class="name">Times:</span> user=0.00 sys=0.00, real=0.01 secs]</div></pre></td></tr></table></figure></p>
+<p>根据ParOldGen: 65544K-&gt;66145K(175104K)可以看出，bytes对象并没有因为没有使用而被gc回收。<br><br><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test2</span> &#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * -verbose:GC</div><div class="line">	 * -XX:+PrintGCDetails</div><div class="line">	 * @param args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</div><div class="line">		&#123;</div><div class="line">	           <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">64</span> * <span class="number">1024</span> * <span class="number">1024</span>];</div><div class="line">		&#125;</div><div class="line">		System.gc();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>控制台输出结果如下:<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[GC (System.gc()) [PSYoungGen: <span class="number">3932</span><span class="keyword">K</span>-&gt;<span class="number">776</span><span class="keyword">K</span>(<span class="number">76288</span><span class="keyword">K</span>)] <span class="number">69468</span><span class="keyword">K</span>-&gt;<span class="number">66320</span><span class="keyword">K</span>(<span class="number">251392</span><span class="keyword">K</span>), <span class="number">0.0013737</span> secs] [<span class="keyword">Times</span>: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs] </div><div class="line">[<span class="keyword">Full</span> GC (System.gc()) [PSYoungGen: <span class="number">776</span><span class="keyword">K</span>-&gt;<span class="number">0</span><span class="keyword">K</span>(<span class="number">76288</span><span class="keyword">K</span>)] [ParOldGen: <span class="number">65544</span><span class="keyword">K</span>-&gt;<span class="number">66145</span><span class="keyword">K</span>(<span class="number">175104</span><span class="keyword">K</span>)] <span class="number">66320</span><span class="keyword">K</span>-&gt;<span class="number">66145</span><span class="keyword">K</span>(<span class="number">251392</span><span class="keyword">K</span>), [Metaspace: <span class="number">3169</span><span class="keyword">K</span>-&gt;<span class="number">3169</span><span class="keyword">K</span>(<span class="number">1056768</span><span class="keyword">K</span>)], <span class="number">0.0063873</span> secs] [<span class="keyword">Times</span>: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.01</span> secs] </div><div class="line">Heap</div><div class="line"> PSYoungGen      total <span class="number">76288</span><span class="keyword">K</span>, used <span class="number">655</span><span class="keyword">K</span> [<span class="number">0x000000076b500000</span>, <span class="number">0x0000000770a00000</span>, <span class="number">0x00000007c0000000</span>)</div><div class="line">  eden space <span class="number">65536</span><span class="keyword">K</span>, <span class="number">1</span>% used [<span class="number">0x000000076b500000</span>,<span class="number">0x000000076b5a3ee8</span>,<span class="number">0x000000076f500000</span>)</div><div class="line">  from space <span class="number">10752</span><span class="keyword">K</span>, <span class="number">0</span>% used [<span class="number">0x000000076f500000</span>,<span class="number">0x000000076f500000</span>,<span class="number">0x000000076ff80000</span>)</div><div class="line">  to   space <span class="number">10752</span><span class="keyword">K</span>, <span class="number">0</span>% used [<span class="number">0x000000076ff80000</span>,<span class="number">0x000000076ff80000</span>,<span class="number">0x0000000770a00000</span>)</div><div class="line"> ParOldGen       total <span class="number">175104</span><span class="keyword">K</span>, used <span class="number">66145</span><span class="keyword">K</span> [<span class="number">0x00000006c1e00000</span>, <span class="number">0x00000006cc900000</span>, <span class="number">0x000000076b500000</span>)</div><div class="line">  object space <span class="number">175104</span><span class="keyword">K</span>, <span class="number">37</span>% used [<span class="number">0x00000006c1e00000</span>,<span class="number">0x00000006c5e987b8</span>,<span class="number">0x00000006cc900000</span>)</div><div class="line"> Metaspace       used <span class="number">3176</span><span class="keyword">K</span>, capacity <span class="number">4494</span><span class="keyword">K</span>, committed <span class="number">4864</span><span class="keyword">K</span>, reserved <span class="number">1056768</span><span class="keyword">K</span></div><div class="line">  class space    used <span class="number">346</span><span class="keyword">K</span>, capacity <span class="number">386</span><span class="keyword">K</span>, committed <span class="number">512</span><span class="keyword">K</span>, reserved <span class="number">1048576</span><span class="keyword">K</span></div></pre></td></tr></table></figure></p>
+<p>可以看出，根据gc日志[ParOldGen: 65544K-&gt;66145K(175104K)] ，gc依然没有回收bytes对象，哪怕已经不在方法区了，我们再次修改代码。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test3</span> &#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * -verbose:GC</div><div class="line">	 * -XX:+PrintGCDetails</div><div class="line">	 * @param args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">64</span> * <span class="number">1024</span> * <span class="number">1024</span>];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">		System.gc();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>gc日志输出如下:<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[GC (System.gc()) [PSYoungGen: <span class="number">3932</span><span class="keyword">K</span>-&gt;<span class="number">776</span><span class="keyword">K</span>(<span class="number">76288</span><span class="keyword">K</span>)] <span class="number">69468</span><span class="keyword">K</span>-&gt;<span class="number">66320</span><span class="keyword">K</span>(<span class="number">251392</span><span class="keyword">K</span>), <span class="number">0.0014193</span> secs] [<span class="keyword">Times</span>: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs] </div><div class="line">[<span class="keyword">Full</span> GC (System.gc()) [PSYoungGen: <span class="number">776</span><span class="keyword">K</span>-&gt;<span class="number">0</span><span class="keyword">K</span>(<span class="number">76288</span><span class="keyword">K</span>)] [ParOldGen: <span class="number">65544</span><span class="keyword">K</span>-&gt;<span class="number">609</span><span class="keyword">K</span>(<span class="number">175104</span><span class="keyword">K</span>)] <span class="number">66320</span><span class="keyword">K</span>-&gt;<span class="number">609</span><span class="keyword">K</span>(<span class="number">251392</span><span class="keyword">K</span>), [Metaspace: <span class="number">3169</span><span class="keyword">K</span>-&gt;<span class="number">3169</span><span class="keyword">K</span>(<span class="number">1056768</span><span class="keyword">K</span>)], <span class="number">0.0076485</span> secs] [<span class="keyword">Times</span>: user=<span class="number">0.02</span> sys=<span class="number">0.00</span>, real=<span class="number">0.01</span> secs] </div><div class="line">Heap</div><div class="line"> PSYoungGen      total <span class="number">76288</span><span class="keyword">K</span>, used <span class="number">655</span><span class="keyword">K</span> [<span class="number">0x000000076b500000</span>, <span class="number">0x0000000770a00000</span>, <span class="number">0x00000007c0000000</span>)</div><div class="line">  eden space <span class="number">65536</span><span class="keyword">K</span>, <span class="number">1</span>% used [<span class="number">0x000000076b500000</span>,<span class="number">0x000000076b5a3ee8</span>,<span class="number">0x000000076f500000</span>)</div><div class="line">  from space <span class="number">10752</span><span class="keyword">K</span>, <span class="number">0</span>% used [<span class="number">0x000000076f500000</span>,<span class="number">0x000000076f500000</span>,<span class="number">0x000000076ff80000</span>)</div><div class="line">  to   space <span class="number">10752</span><span class="keyword">K</span>, <span class="number">0</span>% used [<span class="number">0x000000076ff80000</span>,<span class="number">0x000000076ff80000</span>,<span class="number">0x0000000770a00000</span>)</div><div class="line"> ParOldGen       total <span class="number">175104</span><span class="keyword">K</span>, used <span class="number">609</span><span class="keyword">K</span> [<span class="number">0x00000006c1e00000</span>, <span class="number">0x00000006cc900000</span>, <span class="number">0x000000076b500000</span>)</div><div class="line">  object space <span class="number">175104</span><span class="keyword">K</span>, <span class="number">0</span>% used [<span class="number">0x00000006c1e00000</span>,<span class="number">0x00000006c1e987a8</span>,<span class="number">0x00000006cc900000</span>)</div><div class="line"> Metaspace       used <span class="number">3176</span><span class="keyword">K</span>, capacity <span class="number">4494</span><span class="keyword">K</span>, committed <span class="number">4864</span><span class="keyword">K</span>, reserved <span class="number">1056768</span><span class="keyword">K</span></div><div class="line">  class space    used <span class="number">346</span><span class="keyword">K</span>, capacity <span class="number">386</span><span class="keyword">K</span>, committed <span class="number">512</span><span class="keyword">K</span>, reserved <span class="number">1048576</span><span class="keyword">K</span></div></pre></td></tr></table></figure></p>
+<p>见证奇迹的时候到，[ParOldGen: 65544K-&gt;609K(175104K)]，竟然被回收了！这是为什么？当创建bytes对象的时候，那是因为当我们创建bytes对象的时候，局部变量表中当然有bytes的引用，哪怕我们没有使用，但GC roots依然存在着和bytes对象的关联。根据test2和代码test3，我们大概可以猜到如果不操作局部变量表，那么GC roots依然会保留，所以test2依然没有回收，但是到了test3，就回收了。好吧，再来一个无用的测试，我们手动赋值为null看看结果。<br><br><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestMain</span> &#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * -verbose:GC</div><div class="line">	 * -XX:+PrintGCDetails</div><div class="line">	 * @param args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</div><div class="line">		<span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">64</span> * <span class="number">1024</span> * <span class="number">1024</span>];</div><div class="line">		<span class="comment">//do something</span></div><div class="line">		bytes = <span class="literal">null</span>;</div><div class="line">		System.gc();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其实都能想到，果然被gc干掉了……当然这只是一个实验，总结性的话就不说了，反正我也说不来，不过实践出真理！</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">JVM虚拟机关于“不使用的对象手动赋值为null”的理解</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>发布时间:</span>2017-02-18, 16:03:12</p>
+        <p><span>最后更新:</span>2017-02-18, 16:05:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/" title="JVM虚拟机关于“不使用的对象手动赋值为null”的理解">http://justdoitlee.github.io/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        <br>
+    </div>
+
+  <br>
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/18/黑车司机发车器Java版/">
+                    黑车司机发车器Java版
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JVM虚拟机关于“不使用的对象手动赋值为null”的理解　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/" data-title="JVM虚拟机关于“不使用的对象手动赋值为null”的理解" data-url="http://justdoitlee.github.io/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"undefined"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/18/黑车司机发车器Java版/" title="下一篇: 黑车司机发车器Java版">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">JVM虚拟机关于“不使用的对象手动赋值为null”的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/黑车司机发车器Java版/">黑车司机发车器Java版</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 RicardoLee
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/JustDoItLee/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by RicardoLee <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
