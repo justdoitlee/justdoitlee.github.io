@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="RicardoLee" />
+
+
+
+<meta name="description" content="使用反射实例对象
+使用反射机制，我们可以在运行时动态加载类并且实例化对象，操作对象的方法、改变类成员的值，甚至还可以改变私有（private）成员的值。
+我们可以用 Class 的 newInstance() 方法来实例化一个对象，实例化的对象是以 Object 传回的，例如：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java反射学习总结（五）">
+<meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（五）/index.html">
+<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:description" content="使用反射实例对象
+使用反射机制，我们可以在运行时动态加载类并且实例化对象，操作对象的方法、改变类成员的值，甚至还可以改变私有（private）成员的值。
+我们可以用 Class 的 newInstance() 方法来实例化一个对象，实例化的对象是以 Object 传回的，例如：">
+<meta property="og:updated_time" content="2017-02-18T13:17:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java反射学习总结（五）">
+<meta name="twitter:description" content="使用反射实例对象
+使用反射机制，我们可以在运行时动态加载类并且实例化对象，操作对象的方法、改变类成员的值，甚至还可以改变私有（private）成员的值。
+我们可以用 Class 的 newInstance() 方法来实例化一个对象，实例化的对象是以 Object 传回的，例如：">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Java反射学习总结（五） | RicardoLee‘Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b05b150e77dbc9b387880e502eea917e";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                            <li><a href="/rice/index.html">蹭饭图</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/JustDoItLee" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
+                            
+                                <a class="fa CSDN" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
+                            
+                                <a class="fa Quora" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
+                            
+                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
+                            
+                                <a class="fa LinkedIn" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
+                            
+                                <a class="fa QQ" href="/657994434" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logger/">Logger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache/">cache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/公平/">公平</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军规/">军规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小插件/">小插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/常量/">常量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/常量池/">常量池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接口/">接口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时间复杂度/">时间复杂度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/泛型/">泛型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/种子/">种子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空间复杂度/">空间复杂度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自增序号/">自增序号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迁移/">迁移</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态动态绑定/">静态动态绑定</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饥饿/">饥饿</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">90后Java程序员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                    <li><a href="/rice/index.html">蹭饭图</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/JustDoItLee" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
+                            
+                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
+                            
+                                <a class="fa LinkedIn" target="_blank" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/657994434" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Java反射学习总结（五）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/18/Java反射学习总结（五）/" class="article-date">
+      <time datetime="2017-02-18T13:16:51.000Z" itemprop="datePublished">2017-02-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java反射学习总结（五）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/反射/">反射</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>使用反射实例对象</strong></p>
+<p>使用反射机制，我们可以在运行时动态加载类并且实例化对象，操作对象的方法、改变类成员的值，甚至还可以改变私有（private）成员的值。</p>
+<p>我们可以用 Class 的 newInstance() 方法来实例化一个对象，实例化的对象是以 Object 传回的，例如：<br><a id="more"></a><br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Class c</span> = Class.forName(className);</div><div class="line"><span class="attribute">Object obj</span> = c.newInstance();</div></pre></td></tr></table></figure></p>
+<p>下面范例动态加载list接口的类：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> NewInstanceDemo &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">Class</span> c = <span class="keyword">Class</span>.forName(args[<span class="number">0</span>]);</div><div class="line">            List list = (List) c.newInstance();</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">                list.add(<span class="string">"element "</span> + i);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (Object o : list.toArray()) &#123;</div><div class="line">                System.out.<span class="keyword">println</span>(o);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"找不到指定的类"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">java CoreJava<span class="selector-class">.day_2</span><span class="selector-class">.NewInstanceDemo</span> java<span class="selector-class">.util</span><span class="selector-class">.ArrayList</span></div><div class="line">element <span class="number">0</span></div><div class="line">element <span class="number">1</span></div><div class="line">element <span class="number">2</span></div><div class="line">element <span class="number">3</span></div><div class="line">element <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>实际上如果想要使用反射来动态加载类，通常是对对象的接口或类别都一无所知，也就无法像上面对 newInstance() 传回的对象进行接口转换。</p>
+<p>如果加载的类中具备无参数的构造方法，则可以无参数的 newInstance() 来构造一个不指定初始化的引用，如果要在动态加载及生成对象时指定对象的引用，则要先指定参数类型、取得 Constructor 对象、使用 Constructor 的 newInstance() 并指定参数。</p>
+<p>可以用一个例子来说明，先定义一个student类:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> 李智</div><div class="line"> * <span class="doctag">@date</span> 2016/12/05</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> score;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</div><div class="line">        name = <span class="string">"N/A"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> score)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.score = score;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setScore</span><span class="params">(<span class="keyword">int</span> score)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.score = score;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getScore</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> score;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name + <span class="string">":"</span> + score;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以用 Class.forName() 来加载 Student ，并使用第二个有参数的构造方法来构造Student 实例：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> NewInstanceDemo2 &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">Class</span> c = <span class="keyword">Class</span>.forName(args[<span class="number">0</span>]);</div><div class="line"></div><div class="line">            <span class="comment">// 指定参数</span></div><div class="line">            <span class="keyword">Class</span>[] params = <span class="keyword">new</span> <span class="keyword">Class</span>[<span class="number">2</span>];</div><div class="line">            <span class="comment">// 第一个是String</span></div><div class="line">            params[<span class="number">0</span>] = String.<span class="keyword">class</span>;</div><div class="line">            <span class="comment">// 第二个是int</span></div><div class="line">            params[<span class="number">1</span>] = Integer.TYPE;</div><div class="line"></div><div class="line">            <span class="comment">// 取得对应的构造方法</span></div><div class="line">            Constructor constructor =</div><div class="line">                    c.getConstructor(params);</div><div class="line"></div><div class="line">            <span class="comment">// 指定引用内容</span></div><div class="line">            Object[] argObjs = <span class="keyword">new</span> Object[<span class="number">2</span>];</div><div class="line">            argObjs[<span class="number">0</span>] = <span class="string">"caterpillar"</span>;</div><div class="line">            argObjs[<span class="number">1</span>] = <span class="keyword">new</span> Integer(<span class="number">90</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 给定引用并初始化</span></div><div class="line">            Object obj = constructor.newInstance(argObjs);</div><div class="line">            <span class="comment">// toString()查看</span></div><div class="line">            System.out.<span class="keyword">println</span>(obj);</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"找不到类"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (SecurityException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"没有所指定的方法"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">java</span> <span class="selector-tag">NewInstanceDemo2</span> <span class="selector-tag">CoreJava</span><span class="selector-class">.day_2</span><span class="selector-class">.Student</span></div><div class="line"><span class="selector-tag">caterpillar</span><span class="selector-pseudo">:90</span></div></pre></td></tr></table></figure>
+<p><strong>调用方法</strong></p>
+<p>使用反射可以取回类上方法的对象代表，方法的物件代表是 java.lang.reflect.Method 的实例，我们可以使用它的 invoke() 方法来动态调用指定的方法，例如调用上面 Student 上的 setName() 等方法：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> InvokeMethodDemo &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">Class</span> c = <span class="keyword">Class</span>.forName(args[<span class="number">0</span>]);</div><div class="line">            <span class="comment">// 使用无参构造方法实例对象</span></div><div class="line">            Object targetObj = c.newInstance();</div><div class="line">            <span class="comment">// 设置参数类型</span></div><div class="line">            <span class="keyword">Class</span>[] param1 = &#123;String.<span class="keyword">class</span>&#125;;</div><div class="line">            <span class="comment">// 根据参数取回方法</span></div><div class="line">            Method setNameMethod = c.getMethod(<span class="string">"setName"</span>, param1);</div><div class="line">            <span class="comment">// 设置引用</span></div><div class="line">            Object[] argObjs1 = &#123;<span class="string">"caterpillar"</span>&#125;;</div><div class="line">            <span class="comment">// 给引用调用指定对象的方法方法</span></div><div class="line">            setNameMethod.invoke(targetObj, argObjs1);</div><div class="line"></div><div class="line"></div><div class="line">            <span class="keyword">Class</span>[] param2 = &#123;Integer.TYPE&#125;;</div><div class="line">            Method setScoreMethod =</div><div class="line">                    c.getMethod(<span class="string">"setScore"</span>, param2);</div><div class="line"></div><div class="line">            Object[] argObjs2 = &#123;<span class="keyword">new</span> Integer(<span class="number">90</span>)&#125;;</div><div class="line">            setScoreMethod.invoke(targetObj, argObjs2);</div><div class="line">            <span class="comment">// 显示类描述</span></div><div class="line">            System.out.<span class="keyword">println</span>(targetObj);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"找不到类"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (SecurityException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"没有这个方法"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以指定加载 Student 类并生成实例，接着可以动态调用 setName() 和 setScore() 方法，由于调用setName() 和 setScore() 所设置的参数是 “caterpillar” 和90。</p>
+<p>在很少的情況下，我们需要突破 Java 的存取限制来调用受保护的（protected）或私有（private）的方法（例如我们拿到一个组件（Component），但我们没法修改它的原始码来改变某个私有方法的权限，而我们又一定要调用某个私有方法），这时我们可以使用反射机制來达到目的，一个存取私有方法的例子如下：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">Method</span> <span class="title">privateMethod</span> = </span></div><div class="line">            <span class="title">c</span>.<span class="title">getDeclaredMethod</span><span class="params">("somePrivateMethod", <span class="keyword">new</span> <span class="keyword">Class</span>[0])</span>;</div><div class="line">privateMethod.setAccessible(<span class="keyword">true</span>);</div><div class="line">privateMethod.invoke(targetObj, argObjs);</div></pre></td></tr></table></figure>
+<p>使用反射来动态调用方法的实例例子之一是在 JavaBean 的设定，例如在 JSP/Servlet 中，可以根据使用者的请求名和 JavaBean 的属性自动对比，将请求值设置到指定的 JavaBean 上，并自动根据参数类型转换。</p>
+<p>下面是一个map的小例子：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class CommandUtil &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">Object</span> getCommand(Map requestMap,</div><div class="line">                                    <span class="keyword">String</span> commandClass)</div><div class="line">            <span class="keyword">throws</span> Exception &#123;</div><div class="line">        Class c = Class.forName(commandClass);</div><div class="line">        <span class="keyword">Object</span> o = c.newInstance();</div><div class="line"></div><div class="line">        <span class="keyword">return</span> updateCommand(requestMap, o);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 使用reflection自动找出要更新的属性</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">Object</span> updateCommand(</div><div class="line">            Map requestMap,</div><div class="line">            <span class="keyword">Object</span> command)</div><div class="line">            <span class="keyword">throws</span> Exception &#123;</div><div class="line">        Method[] methods =</div><div class="line">                command.getClass().getDeclaredMethods();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; methods.length; i++) &#123;</div><div class="line">            <span class="comment">// 略过private、protected成员</span></div><div class="line">            <span class="comment">// 且找出必须是set开头的方法</span></div><div class="line">            <span class="keyword">if</span> (!Modifier.isPrivate(methods[i].getModifiers()) &amp;&amp;</div><div class="line">                    !Modifier.isProtected(methods[i].getModifiers()) &amp;&amp;</div><div class="line">                    methods[i].getName().startsWith(<span class="string">"set"</span>)) &#123;</div><div class="line">                <span class="comment">// 取得不包括set方法</span></div><div class="line">                <span class="keyword">String</span> name = methods[i].getName()</div><div class="line">                        .substring(<span class="number">3</span>)</div><div class="line">                        .toLowerCase();</div><div class="line">                <span class="comment">// 如果setter名称键值对相同</span></div><div class="line">                <span class="comment">// 调用对应的setter并给值</span></div><div class="line">                <span class="keyword">if</span> (requestMap.containsKey(name)) &#123;</div><div class="line">                    <span class="keyword">String</span> param = (<span class="keyword">String</span>) requestMap.<span class="built_in">get</span>(name);</div><div class="line">                    <span class="keyword">Object</span>[] values = findOutParamValues(</div><div class="line">                            param, methods[i]);</div><div class="line">                    methods[i].invoke(command, values);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> command;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 转换对应类型</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">Object</span>[] findOutParamValues(</div><div class="line">            <span class="keyword">String</span> param, Method method) &#123;</div><div class="line">        Class[] params = method.getParameterTypes();</div><div class="line">        <span class="keyword">Object</span>[] objs = <span class="keyword">new</span> <span class="keyword">Object</span>[params.length];</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; params.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (params[i] == <span class="keyword">String</span>.class) &#123;</div><div class="line">                objs[i] = param;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (params[i] == Short.TYPE) &#123;</div><div class="line">                <span class="keyword">short</span> number = Short.parseShort(param);</div><div class="line">                objs[i] = <span class="keyword">new</span> Short(number);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (params[i] == Integer.TYPE) &#123;</div><div class="line">                <span class="built_in">int</span> number = Integer.parseInt(param);</div><div class="line">                objs[i] = <span class="keyword">new</span> Integer(number);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (params[i] == Long.TYPE) &#123;</div><div class="line">                <span class="keyword">long</span> number = Long.parseLong(param);</div><div class="line">                objs[i] = <span class="keyword">new</span> Long(number);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (params[i] == Float.TYPE) &#123;</div><div class="line">                <span class="built_in">float</span> number = Float.parseFloat(param);</div><div class="line">                objs[i] = <span class="keyword">new</span> Float(number);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (params[i] == Double.TYPE) &#123;</div><div class="line">                <span class="keyword">double</span> number = Double.parseDouble(param);</div><div class="line">                objs[i] = <span class="keyword">new</span> Double(number);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (params[i] == Boolean.TYPE) &#123;</div><div class="line">                <span class="built_in">boolean</span> bool = Boolean.parseBoolean(param);</div><div class="line">                objs[i] = <span class="keyword">new</span> Boolean(bool);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> objs;</div><div class="line">    &#125;</div><div class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> Exception &#123;</div><div class="line">        Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; request = </div><div class="line">                  <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;();</div><div class="line">        request.put(<span class="string">"name"</span>, <span class="string">"caterpillar"</span>);</div><div class="line">        request.put(<span class="string">"score"</span>, <span class="string">"90"</span>);</div><div class="line">        <span class="keyword">Object</span> obj = CommandUtil.getCommand(request, args[<span class="number">0</span>]);</div><div class="line">        System.out.<span class="built_in">println</span>(obj);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>CommandUtil 可以自动根据方法上的参数类型，将Map 中的value转换成相应的类型，目前它可以转换基本类型和 String。</p>
+<p>输出：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">java</span> <span class="selector-tag">CommandUtilDemo</span> <span class="selector-tag">CoreJava</span><span class="selector-class">.day_2</span><span class="selector-class">.Student</span></div><div class="line"><span class="selector-tag">caterpillar</span><span class="selector-pseudo">:90</span></div></pre></td></tr></table></figure>
+<p>当然也可以修改<strong>成员变量</strong>，尽管直接读取类的成员属性（Field）是不被鼓励的，但我们仍是可以直接存取公共的（public）成员属性的，而我们甚至也可以通过反射机制来读取私用成员变量，以一个例子来说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> 李智</div><div class="line"> * <span class="doctag">@date</span> 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestField</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> testInt;</div><div class="line">    <span class="keyword">public</span> String testString;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> testInt + <span class="string">":"</span> + testString;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后利用反射机制动态的读取成员变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">package <span class="type">CoreJava</span>.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AssignFieldDemo</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="type">String</span>[] args) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="type">Class</span> <span class="built_in">c</span> = <span class="type">Class</span>.forName(args[<span class="number">0</span>]);</div><div class="line">            <span class="type">Object</span> targetObj = <span class="built_in">c</span>.newInstance();</div><div class="line"></div><div class="line">            <span class="type">Field</span> testInt = <span class="built_in">c</span>.getField(<span class="string">"testInt"</span>);</div><div class="line">            testInt.setInt(targetObj, <span class="number">99</span>);</div><div class="line"></div><div class="line">            <span class="type">Field</span> testString = <span class="built_in">c</span>.getField(<span class="string">"testString"</span>);</div><div class="line">            testString.<span class="keyword">set</span>(targetObj, <span class="string">"caterpillar"</span>);</div><div class="line"></div><div class="line">            <span class="type">System</span>.out.<span class="built_in">println</span>(targetObj);</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">ArrayIndexOutOfBoundsException</span> e) &#123;</div><div class="line">            <span class="type">System</span>.out.<span class="built_in">println</span>(<span class="string">"没有指定类"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">ClassNotFoundException</span> e) &#123;</div><div class="line">            <span class="type">System</span>.out.<span class="built_in">println</span>(<span class="string">"找不到指定的类"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">SecurityException</span> e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">NoSuchFieldException</span> e) &#123;</div><div class="line">            <span class="type">System</span>.out.<span class="built_in">println</span>(<span class="string">"找不到指定的成员变量"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">InstantiationException</span> e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">IllegalAccessException</span> e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">java</span> <span class="selector-tag">AssignFieldDemo</span> <span class="selector-tag">CoreJava</span><span class="selector-class">.day_2</span><span class="selector-class">.TestField</span></div><div class="line">99<span class="selector-pseudo">:caterpillar</span></div></pre></td></tr></table></figure>
+<p>如果有必要的话，也可以通过反射机制来读取私有的成员变量，例如：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Field privateField = c.getDeclaredField(<span class="string">"privateField"</span>)<span class="comment">; </span></div><div class="line">privateField.setAccessible(true)<span class="comment">;</span></div><div class="line">privateField.setInt(targetObj, <span class="number">99</span>)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p><strong>数组</strong><br>在 Java 中数组也是一个对象，也会有一个 Class 实例来表示它，我们用几个基本类型和String来进行测试：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">package CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> ArrayDemo &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        <span class="keyword">short</span>[] sArr = <span class="keyword">new</span> <span class="keyword">short</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">int</span>[] iArr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">long</span>[] lArr = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">float</span>[] fArr = <span class="keyword">new</span> <span class="keyword">float</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">double</span>[] dArr = <span class="keyword">new</span> <span class="keyword">double</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">byte</span>[] bArr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">boolean</span>[] zArr = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">5</span>];</div><div class="line">        <span class="keyword">String</span>[] strArr = <span class="keyword">new</span> <span class="keyword">String</span>[<span class="number">5</span>];</div><div class="line"></div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"short 数组："</span> + sArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"int 数组："</span> + iArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"long 数组："</span> + lArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"float 数组："</span> + fArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"double 数组："</span> + dArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"byte 数组："</span> + bArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"boolean 数组："</span> + zArr.getClass());</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"String 数组："</span> + strArr.getClass());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">short</span> 数组：<span class="keyword">class</span> [S</div><div class="line"><span class="keyword">int</span> 数组：<span class="keyword">class</span> [I</div><div class="line"><span class="keyword">long</span> 数组：<span class="keyword">class</span> [J</div><div class="line"><span class="keyword">float</span> 数组：<span class="keyword">class</span> [F</div><div class="line"><span class="keyword">double</span> 数组：<span class="keyword">class</span> [D</div><div class="line"><span class="keyword">byte</span> 数组：<span class="keyword">class</span> [B</div><div class="line"><span class="keyword">boolean</span> 数组：<span class="keyword">class</span> [Z</div><div class="line"><span class="keyword">String</span> 数组：<span class="keyword">class</span> [Ljava.lang.<span class="keyword">String</span>;</div><div class="line"></div><div class="line"><span class="built_in">Process</span> finished with exit code <span class="number">0</span></div></pre></td></tr></table></figure>
+<p>要使用<strong>反射机制动态生成数组</strong>的话，也可以这样：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.<span class="keyword">Array</span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class NewArrayDemo &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        Class c = <span class="keyword">String</span>.class;</div><div class="line">        <span class="keyword">Object</span> objArr = <span class="keyword">Array</span>.newInstance(c, <span class="number">5</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">            <span class="keyword">Array</span>.<span class="built_in">set</span>(objArr, i, i + <span class="string">""</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">            System.out.<span class="built_in">print</span>(<span class="keyword">Array</span>.<span class="built_in">get</span>(objArr, i) + <span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">        System.out.<span class="built_in">println</span>();</div><div class="line"></div><div class="line">        <span class="keyword">String</span>[] strs = (<span class="keyword">String</span>[]) objArr;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">String</span> s : strs) &#123;</div><div class="line">            System.out.<span class="built_in">print</span>(s + <span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Array.newInstance() 的第一个参数是指定参数类型，而第二个参数是用来指定数组长度的，结果如下：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">0 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></div><div class="line"><span class="symbol">0 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>如果是二维数组，也是一样的：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.<span class="keyword">Array</span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/5</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class NewArrayDemo2 &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        Class c = <span class="keyword">String</span>.class;</div><div class="line"></div><div class="line">        <span class="comment">// 打算建立一个3*4数组</span></div><div class="line">        <span class="built_in">int</span>[] dim = <span class="keyword">new</span> <span class="built_in">int</span>[]&#123;<span class="number">3</span>, <span class="number">4</span>&#125;;</div><div class="line">        <span class="keyword">Object</span> objArr = <span class="keyword">Array</span>.newInstance(c, dim);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</div><div class="line">            <span class="keyword">Object</span> row = <span class="keyword">Array</span>.<span class="built_in">get</span>(objArr, i);</div><div class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) &#123;</div><div class="line">                <span class="keyword">Array</span>.<span class="built_in">set</span>(row, j, <span class="string">""</span> + (i + <span class="number">1</span>) * (j + <span class="number">1</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</div><div class="line">            <span class="keyword">Object</span> row = <span class="keyword">Array</span>.<span class="built_in">get</span>(objArr, i);</div><div class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) &#123;</div><div class="line">                System.out.<span class="built_in">print</span>(<span class="keyword">Array</span>.<span class="built_in">get</span>(row, j) + <span class="string">" "</span>);</div><div class="line">            &#125;</div><div class="line">            System.out.<span class="built_in">println</span>();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span></div><div class="line"><span class="symbol">2 </span><span class="number">4</span> <span class="number">6</span> <span class="number">8</span></div><div class="line"><span class="symbol">3 </span><span class="number">6</span> <span class="number">9</span> <span class="number">12</span></div></pre></td></tr></table></figure>
+<p>如果想要知道数组元素的类型，可以在取得数组的 Class 实例之后，使用 Class 实例的 getComponentType() 方法，所取回的是元素的 Class 实例，例如：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span>[] iArr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</div><div class="line">System.out.<span class="built_in">println</span>(iArr.getClass().getComponentType());</div></pre></td></tr></table></figure>
+<p>对反射的总结差不多就写到这里了，查阅了很多资料，网络上写的也是参差不齐的，在手写的几十个demo支撑下，得出的一点关于反射的东西，肯定不能说全部正确，但是还是可以提供一些帮助的  -。-</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/02/18/Java反射学习总结（五）/">Java反射学习总结（五）</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>发布时间:</span>2017-02-18, 21:16:51</p>
+        <p><span>最后更新:</span>2017-02-18, 21:17:36</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/18/Java反射学习总结（五）/" title="Java反射学习总结（五）">http://justdoitlee.github.io/2017/02/18/Java反射学习总结（五）/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Java反射学习总结（五）/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        <br>
+    </div>
+
+  <br>
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/02/18/Java接口是常量存放的最佳地点吗？/">
+                    Java接口是常量存放的最佳地点吗？
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/18/Java反射学习总结（四）/">
+                    Java反射学习总结（四）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Java反射学习总结（五）　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/18/Java反射学习总结（五）/" data-title="Java反射学习总结（五）" data-url="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（五）/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"undefined"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/02/18/Java接口是常量存放的最佳地点吗？/" title="上一篇: Java接口是常量存放的最佳地点吗？">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/18/Java反射学习总结（四）/" title="下一篇: Java反射学习总结（四）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/58到家数据库30条军规解读/">58到家数据库30条军规解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/apache-poi操作-适用于word-2007/">apache poi操作(适用于word 2007)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/时间复杂度和空间复杂度详解/">时间复杂度和空间复杂度详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/2016年总结/">2016年总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">jdk1.8的HashMap和ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Browser的通讯”/">cordova中与inBrowser的通讯</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/高级for循环使用remove-add-问题/">高级for循环使用remove/add 问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/HashMap面试题总结！/">HashMap面试题总结！</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/浅谈HashMap/">浅谈HashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/">nginx 基本入门(至今为止见过最好的 nginx 入门文章，没有之一。)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java泛型总结/">Java泛型总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java-8-最佳技巧/">Java 8 最佳技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Logger级别/">Logger级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java接口是常量存放的最佳地点吗？/">Java接口是常量存放的最佳地点吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（五）/">Java反射学习总结（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（四）/">Java反射学习总结（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（三）/">Java反射学习总结（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（二）/">Java反射学习总结（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（一/">Java反射学习总结（一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/我们为什么要用Spring，SpringMVC/">我们为什么要用Spring，SpringMVC</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java的静态-动态绑定/">Java的静态/动态绑定</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/mysql-如何插入一列自增序号/">mysql 如何插入一列自增序号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/关于Ajax的cache参数的测试/">关于Ajax的cache参数的测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM常量池及字符串-比较分析/">JVM常量池及字符串==比较分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/关于多线程的饥饿和公平/">关于多线程的饥饿和公平</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/实验插入b站h5播放器/">实验插入b站h5播放器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">JVM虚拟机关于“不使用的对象手动赋值为null”的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/黑车司机发车器Java版/">黑车司机发车器Java版</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/Hello-Hexo/">Hello Hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+               <div id="days"></div>
+                    <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js">
+                    //这里调用了公共库中现成的 js 文件，也可以直接调用站点中的 js 文件
+                    </script>
+                    <script>
+                        var begin = moment([2015,09,15]); //定义博客开始时间
+                        var now = moment(); //使用 moment() 获取当前时间
+                        document.getElementById('days').innerHTML ="博客已运行 "+now.diff(begin,'days')+" 天"
+                    // 使用 now.diff(begin,'days') 函数获取天数，这里天数考虑了闰年
+                    </script>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/JustDoItLee/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by RicardoLee <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

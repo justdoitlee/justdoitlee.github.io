@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="RicardoLee" />
+
+
+
+<meta name="description" content="一. 我们为什么需要泛型？
+首先，我们看下下面这段简短的代码:
+12345678910111213141516171819202122package CoreJava.day_5;import java.util.ArrayList;import java.util.List;/** * @author 李智 * @date 2016/12/15 */public class GenericTes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java泛型总结">
+<meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Java泛型总结/index.html">
+<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:description" content="一. 我们为什么需要泛型？
+首先，我们看下下面这段简短的代码:
+12345678910111213141516171819202122package CoreJava.day_5;import java.util.ArrayList;import java.util.List;/** * @author 李智 * @date 2016/12/15 */public class GenericTes">
+<meta property="og:updated_time" content="2017-02-18T13:27:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java泛型总结">
+<meta name="twitter:description" content="一. 我们为什么需要泛型？
+首先，我们看下下面这段简短的代码:
+12345678910111213141516171819202122package CoreJava.day_5;import java.util.ArrayList;import java.util.List;/** * @author 李智 * @date 2016/12/15 */public class GenericTes">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Java泛型总结 | RicardoLee‘Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b05b150e77dbc9b387880e502eea917e";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                            <li><a href="/rice/index.html">蹭饭图</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/JustDoItLee" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
+                            
+                                <a class="fa CSDN" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
+                            
+                                <a class="fa Quora" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
+                            
+                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
+                            
+                                <a class="fa LinkedIn" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
+                            
+                                <a class="fa QQ" href="/657994434" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logger/">Logger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache/">cache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/公平/">公平</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军规/">军规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小插件/">小插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/常量/">常量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/常量池/">常量池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接口/">接口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时间复杂度/">时间复杂度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/泛型/">泛型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/种子/">种子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空间复杂度/">空间复杂度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自增序号/">自增序号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迁移/">迁移</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态动态绑定/">静态动态绑定</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饥饿/">饥饿</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">90后Java程序员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                    <li><a href="/rice/index.html">蹭饭图</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/JustDoItLee" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
+                            
+                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
+                            
+                                <a class="fa LinkedIn" target="_blank" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/657994434" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Java泛型总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/18/Java泛型总结/" class="article-date">
+      <time datetime="2017-02-18T13:26:07.000Z" itemprop="datePublished">2017-02-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java泛型总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/泛型/">泛型</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>一. 我们为什么需要泛型？</strong></p>
+<p>首先，我们看下下面这段简短的代码:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class GenericTest &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        List list = <span class="keyword">new</span> ArrayList();</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"justdoit"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"core"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="number">100</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++) &#123;</div><div class="line">            <span class="keyword">String</span> name = (<span class="keyword">String</span>) list.<span class="built_in">get</span>(i); <span class="comment">// 1</span></div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"name:"</span> + name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>我们定义一个List类型的集合，先向其中加入了两个字符串类型的值，随后加入一个Integer类型的值。这是完全允许的，因为此时list默认的类型为Object类型。在之后的循环中，由于忘记了之前在list中也加入了Integer类型的值或其他编码原因，很容易出现类似于//1中的错误。因为编译阶段正常，而运行时会出现“java.lang.ClassCastException”异常。因此，导致此类错误编码过程中不易发现。</p>
+<p> <strong>在如上的编码过程中，我们发现主要存在两个问题：</strong></p>
+<p>1.当我们将一个对象放入集合中，集合不会记住此对象的类型，当再次从集合中取出此对象时，改对象的编译类型变成了Object类型，但其运行时类型任然为其本身类型。</p>
+<p>2.因此，//1处取出集合元素时需要人为的强制类型转化到具体的目标类型，且很容易出现“java.lang.ClassCastException”异常。</p>
+<font color="#008080"><strong>那么有没有什么办法可以使集合能够记住集合内元素各类型，且能够达到只要编译时不出现问题，运行时就不会出现“java.lang.ClassCastException”异常呢？答案就是使用泛型。</strong></font>
+
+<p><strong>二.什么是泛型？</strong></p>
+<p>泛型，即“参数化类型”。一提到参数，最熟悉的就是定义方法时有形参，然后调用此方法时传递实参。那么参数化类型怎么理解呢？顾名思义，就是将类型由原来的具体的类型参数化，类似于方法中的变量参数，此时类型也定义成参数形式（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）。</p>
+<p>这样说有点复杂，我们来看下上面那个例子采用泛型的写法:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class GenericTest_2 &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        <span class="comment">/*</span></div><div class="line">        List list = new ArrayList();</div><div class="line">        list.add("justdoit");</div><div class="line">        list.add("core");</div><div class="line">        list.add(100);</div><div class="line">        */</div><div class="line"></div><div class="line">        List&lt;<span class="keyword">String</span>&gt; list = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">String</span>&gt;();</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"justdoit"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"core"</span>);</div><div class="line">        <span class="comment">//list.add(100);   // 1  提示编译错误</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++) &#123;</div><div class="line">            <span class="keyword">String</span> name = list.<span class="built_in">get</span>(i); <span class="comment">// 2</span></div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"name:"</span> + name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>采用泛型写法后，在//1处想加入一个Integer类型的对象时会出现编译错误，通过List&lt; String&gt;，直接限定了list集合中只能含有String类型的元素，从而在//2处无须进行强制类型转换，因为此时，集合能够记住元素的类型信息，编译器已经能够确认它是String类型了。</p>
+<p>结合上面的泛型定义，我们知道在List&lt; String&gt;中，String是类型实参，也就是说，相应的List接口中肯定含有类型形参。且get()方法的返回结果也直接是此形参类型（也就是对应的传入的类型实参）。下面就来看看List接口的的具体定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    Object[] toArray();</div><div class="line"></div><div class="line">    &lt;T&gt; T[] toArray(T[] a);</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(<span class="keyword">int</span> index, Collection&lt;? extends E&gt; c)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(Object o)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lastIndexOf</span><span class="params">(Object o)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">List&lt;E&gt; <span class="title">subList</span><span class="params">(<span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以看到，在List接口中采用泛型化定义之后，&lt; E&gt;中的E表示类型形参，可以接收具体的类型实参，并且此接口定义中，凡是出现E的地方均表示相同的接受自外部的类型实参。</p>
+<p>自然的，ArrayList作为List接口的实现类，其定义形式是:</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; </span></div><div class="line">        <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> add(E e) &#123;</div><div class="line">        ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></div><div class="line">        elementData[size++] = e;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> E get(<span class="keyword">int</span> <span class="keyword">index</span>) &#123;</div><div class="line">        rangeCheck(<span class="keyword">index</span>);</div><div class="line">        checkForComodification();</div><div class="line">        <span class="keyword">return</span> ArrayList.<span class="keyword">this</span>.elementData(offset + <span class="keyword">index</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//...省略掉其他具体的定义过程</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由此，我们可以从源代码角度明白了为什么//1处加入Integer类型对象编译错误，且//2处get()到的类型直接就是String类型了。</p>
+<p><strong>三.自定义泛型接口、泛型类和泛型方法</strong></p>
+<p>从上面的内容中，大家已经明白了泛型的具体运作过程。也知道了接口、类和方法也都可以使用泛型去定义，以及相应的使用。是的，在具体使用时，可以分为泛型接口、泛型类和泛型方法。</p>
+<p>自定义泛型接口、泛型类和泛型方法与上述Java源码中的List、ArrayList类似。如下，我们看一个最简单的泛型类和方法定义：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> 李智</div><div class="line"> * <span class="doctag">@date</span> 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericTest_3</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> static void main(String[] args) &#123;</div><div class="line"></div><div class="line">        Box&lt;String&gt; name = new Box&lt;String&gt;(<span class="string">"core"</span>);</div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"name:"</span> + name.getData());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span>&lt;<span class="type">T</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> T <span class="keyword">data</span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> Box() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> Box(T <span class="keyword">data</span>) &#123;</div><div class="line">        <span class="keyword">this</span>.<span class="keyword">data</span> = <span class="keyword">data</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> T getData() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">data</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在泛型接口、泛型类和泛型方法的定义过程中，我们常见的如T、E、K、V等形式的参数常用于表示泛型形参，由于接收来自外部使用时候传入的类型实参。那么对于不同传入的类型实参，生成的相应对象实例的类型是不是一样的呢？</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">package CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> GenericTest_4 &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line"></div><div class="line">        Box&lt;<span class="keyword">String</span>&gt; name = <span class="keyword">new</span> Box&lt;<span class="keyword">String</span>&gt;(<span class="string">"core"</span>);</div><div class="line">        Box&lt;Integer&gt; age = <span class="keyword">new</span> Box&lt;Integer&gt;(<span class="number">712</span>);</div><div class="line"></div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"name class:"</span> + name.getClass());      <span class="comment">// CoreJava.day_5.Box</span></div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"age class:"</span> + age.getClass());        <span class="comment">// CoreJava.day_5.Box</span></div><div class="line">        System.out.<span class="built_in">println</span>(name.getClass() == age.getClass());    <span class="comment">// true</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由此，我们发现，在使用泛型类时，虽然传入了不同的泛型实参，但并没有真正意义上生成不同的类型，传入不同泛型实参的泛型类在内存上只有一个，即还是原来的最基本的类型（本实例中为Box），当然，在逻辑上我们可以理解成多个不同的泛型类型。</p>
+<p>究其原因，在于Java中的泛型这一概念提出的目的，导致其只是作用于代码编译阶段，在编译过程中，对于正确检验泛型结果后，会将泛型的相关信息擦出，也就是说，成功编译过后的class文件中是不包含任何泛型信息的。泛型信息不会进入到运行时阶段。</p>
+<font color="#008080"><strong>对此总结成一句话：泛型类型在逻辑上看以看成是多个不同的类型，实际上都是相同的基本类型。</strong></font>
+
+
+<p><strong>四.类型通配符</strong></p>
+<p>接着上面的结论，我们知道，Box&lt; Number&gt;和Box&lt; Integer&gt;实际上都是Box类型，现在需要继续探讨一个问题，那么在逻辑上，类似于Box&lt; Number&gt;和Box&lt; Integer&gt;是否可以看成具有父子关系的泛型类型呢？</p>
+<p>为了弄清这个问题，我们继续看下下面这个例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> 李智</div><div class="line"> * <span class="doctag">@date</span> 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericTest_6</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">        Box&lt;Number&gt; name = <span class="keyword">new</span> Box&lt;Number&gt;(<span class="number">99</span>);</div><div class="line">        Box&lt;Integer&gt; age = <span class="keyword">new</span> Box&lt;Integer&gt;(<span class="number">712</span>);</div><div class="line"></div><div class="line">        getData(name);</div><div class="line"></div><div class="line">        <span class="comment">//The method getData(Box&lt;Number&gt;) in the type GenericTest is</span></div><div class="line">        <span class="comment">//not applicable for the arguments (Box&lt;Integer&gt;)</span></div><div class="line">        getData(age);   <span class="comment">// 1</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getData</span><span class="params">(Box&lt;Number&gt; data)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"data :"</span> + data.getData());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们发现，在代码//1处出现了错误提示信息：The method getData(Box&lt; Number&gt;) in the t ype GenericTest is not applicable for the arguments (Box&lt; Integer&gt;)。显然，通过提示信息，我们知道Box&lt; Number&gt;在逻辑上不能视为Box&lt; Integer&gt;的父类。那么，原因是什么呢？</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> 李智</div><div class="line"> * <span class="doctag">@date</span> 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericTest_5</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> static void main(String[] args) &#123;</div><div class="line"></div><div class="line">        Box&lt;Integer&gt; a = new Box&lt;Integer&gt;(<span class="number">712</span>);</div><div class="line">        Box&lt;Number&gt; b = a;  <span class="comment">// 1</span></div><div class="line">        Box&lt;<span class="built_in">Float</span>&gt; f = new Box&lt;<span class="built_in">Float</span>&gt;(<span class="number">3.14</span>f);</div><div class="line">        b.setData(f);        <span class="comment">// 2</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> static void getData(Box&lt;Number&gt; <span class="keyword">data</span>) &#123;</div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"data :"</span> + <span class="keyword">data</span>.getData());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span>&lt;<span class="type">T</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> T <span class="keyword">data</span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> Box() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> Box(T <span class="keyword">data</span>) &#123;</div><div class="line">        setData(<span class="keyword">data</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> T getData() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">data</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> void setData(T <span class="keyword">data</span>) &#123;</div><div class="line">        <span class="keyword">this</span>.<span class="keyword">data</span> = <span class="keyword">data</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子中，显然//1和//2处肯定会出现错误提示的。在此我们可以使用反证法来进行说明。</p>
+<p>假设Box&lt; Number&gt;在逻辑上可以视为Box&lt; Integer&gt;的父类，那么//1和//2处将不会有错误提示了，那么问题就出来了，通过getData()方法取出数据时到底是什么类型呢？Integer? Float? 还是Number？且由于在编程过程中的顺序不可控性，导致在必要的时候必须要进行类型判断，且进行强制类型转换。显然，这与泛型的理念矛盾，因此，<font color="#008080"><strong>在逻辑上Box&lt; Number&gt;不能视为Box&lt; Integer&gt;的父类。</strong></font></p>
+<p>好，那我们回过头来继续看“类型通配符”中的第一个例子，我们知道其具体的错误提示的深层次原因了。那么如何解决呢？总不能再定义一个新的函数吧。这和Java中的多态理念显然是违背的，<font color="#008080"><strong>因此，我们需要一个在逻辑上可以用来表示同时是Box&lt; Integer&gt;和Box&lt; Number&gt;的父类的一个引用类型，由此，类型通配符应运而生。</strong></font></p>
+<p>类型通配符一般是使用 ? 代替具体的类型实参。注意了，此处是类型实参，而不是类型形参！且Box&lt;?&gt;在逻辑上是Box&lt; Integer&gt;、Box&lt; Number&gt;…等所有Box&lt;具体类型实参&gt;的父类。由此，我们依然可以定义泛型方法，来完成此类需求。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">package CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> GenericTest_7 &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">void</span> main(<span class="built_in">String</span>[] args) &#123;</div><div class="line"></div><div class="line">        Box&lt;<span class="built_in">String</span>&gt; name = <span class="keyword">new</span> Box&lt;<span class="built_in">String</span>&gt;(<span class="string">"core"</span>);</div><div class="line">        Box&lt;Integer&gt; age = <span class="keyword">new</span> Box&lt;Integer&gt;(<span class="number">712</span>);</div><div class="line">        Box&lt;<span class="built_in">Number</span>&gt; <span class="built_in">number</span> = <span class="keyword">new</span> Box&lt;<span class="built_in">Number</span>&gt;(<span class="number">314</span>);</div><div class="line"></div><div class="line">        getData(name);</div><div class="line">        getData(age);</div><div class="line">        getData(<span class="built_in">number</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">void</span> getData(Box&lt;?&gt; data) &#123;</div><div class="line">        System.out.println(<span class="string">"data :"</span> + data.getData());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有时候，<font color="#008080"><strong>我们还可能听到类型通配符上限和类型通配符下限</strong>。具体有是怎么样的呢？</font></p>
+<p>在上面的例子中，如果需要定义一个功能类似于getData()的方法，但对类型实参又有进一步的限制：只能是Number类及其子类。此时，需要用到类型通配符上限。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">package CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> GenericTest_8 &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">void</span> main(<span class="built_in">String</span>[] args) &#123;</div><div class="line"></div><div class="line">        Box&lt;<span class="built_in">String</span>&gt; name = <span class="keyword">new</span> Box&lt;<span class="built_in">String</span>&gt;(<span class="string">"core"</span>);</div><div class="line">        Box&lt;Integer&gt; age = <span class="keyword">new</span> Box&lt;Integer&gt;(<span class="number">712</span>);</div><div class="line">        Box&lt;<span class="built_in">Number</span>&gt; <span class="built_in">number</span> = <span class="keyword">new</span> Box&lt;<span class="built_in">Number</span>&gt;(<span class="number">314</span>);</div><div class="line"></div><div class="line">        getData(name);</div><div class="line">        getData(age);</div><div class="line">        getData(<span class="built_in">number</span>);</div><div class="line"></div><div class="line">        <span class="comment">//getUpperNumberData(name); // 1</span></div><div class="line">        getUpperNumberData(age);    <span class="comment">// 2</span></div><div class="line">        getUpperNumberData(<span class="built_in">number</span>); <span class="comment">// 3</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">void</span> getData(Box&lt;?&gt; data) &#123;</div><div class="line">        System.out.println(<span class="string">"data :"</span> + data.getData());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">void</span> getUpperNumberData(Box&lt;? extends <span class="built_in">Number</span>&gt; data) &#123;</div><div class="line">        System.out.println(<span class="string">"data :"</span> + data.getData());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时，显然，在代码//1处调用将出现错误提示，而//2 //3处调用正常。</p>
+<font color="#008080"><strong>类型通配符上限通过形如Box&lt; ? extends Number&gt;形式定义，相对应的，类型通配符下限为Box&lt; ? super Number&gt;形式，其含义与类型通配符上限正好相反</strong>，</font>在此不作过多阐述了。<br><br><br><br><strong>五.话外篇</strong><br><br>本文中的例子主要是为了阐述泛型中的一些思想而简单举出的，并不一定有着实际的可用性。另外，一提到泛型，相信大家用到最多的就是在集合中，其实，在实际的编程过程中，自己可以使用泛型去简化开发，且能很好的保证代码质量。并且还要注意的一点是，Java中没有所谓的泛型数组一说。<br><br><font color="red"><strong>对于泛型，最主要的还是需要理解其背后的思想和目的。</strong></font>
+
+
+
+
+
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/02/18/Java泛型总结/">Java泛型总结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>发布时间:</span>2017-02-18, 21:26:07</p>
+        <p><span>最后更新:</span>2017-02-18, 21:27:08</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/18/Java泛型总结/" title="Java泛型总结">http://justdoitlee.github.io/2017/02/18/Java泛型总结/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Java泛型总结/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        <br>
+    </div>
+
+  <br>
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/">
+                    nginx 基本入门(至今为止见过最好的 nginx 入门文章，没有之一。)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/18/Java-8-最佳技巧/">
+                    Java 8 最佳技巧
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Java泛型总结　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/18/Java泛型总结/" data-title="Java泛型总结" data-url="http://justdoitlee.github.io/2017/02/18/Java泛型总结/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"undefined"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/" title="上一篇: nginx 基本入门(至今为止见过最好的 nginx 入门文章，没有之一。)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/18/Java-8-最佳技巧/" title="下一篇: Java 8 最佳技巧">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/58到家数据库30条军规解读/">58到家数据库30条军规解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/apache-poi操作-适用于word-2007/">apache poi操作(适用于word 2007)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/时间复杂度和空间复杂度详解/">时间复杂度和空间复杂度详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/2016年总结/">2016年总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">jdk1.8的HashMap和ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Browser的通讯”/">cordova中与inBrowser的通讯</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/高级for循环使用remove-add-问题/">高级for循环使用remove/add 问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/HashMap面试题总结！/">HashMap面试题总结！</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/浅谈HashMap/">浅谈HashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/">nginx 基本入门(至今为止见过最好的 nginx 入门文章，没有之一。)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java泛型总结/">Java泛型总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java-8-最佳技巧/">Java 8 最佳技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Logger级别/">Logger级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java接口是常量存放的最佳地点吗？/">Java接口是常量存放的最佳地点吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（五）/">Java反射学习总结（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（四）/">Java反射学习总结（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（三）/">Java反射学习总结（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（二）/">Java反射学习总结（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（一/">Java反射学习总结（一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/我们为什么要用Spring，SpringMVC/">我们为什么要用Spring，SpringMVC</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java的静态-动态绑定/">Java的静态/动态绑定</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/mysql-如何插入一列自增序号/">mysql 如何插入一列自增序号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/关于Ajax的cache参数的测试/">关于Ajax的cache参数的测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM常量池及字符串-比较分析/">JVM常量池及字符串==比较分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/关于多线程的饥饿和公平/">关于多线程的饥饿和公平</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/实验插入b站h5播放器/">实验插入b站h5播放器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">JVM虚拟机关于“不使用的对象手动赋值为null”的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/黑车司机发车器Java版/">黑车司机发车器Java版</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/Hello-Hexo/">Hello Hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+               <div id="days"></div>
+                    <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js">
+                    //这里调用了公共库中现成的 js 文件，也可以直接调用站点中的 js 文件
+                    </script>
+                    <script>
+                        var begin = moment([2015,09,15]); //定义博客开始时间
+                        var now = moment(); //使用 moment() 获取当前时间
+                        document.getElementById('days').innerHTML ="博客已运行 "+now.diff(begin,'days')+" 天"
+                    // 使用 now.diff(begin,'days') 函数获取天数，这里天数考虑了闰年
+                    </script>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/JustDoItLee/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by RicardoLee <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
