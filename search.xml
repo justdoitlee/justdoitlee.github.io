@@ -4,19 +4,33 @@
   
     
     <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>http://justdoitlee.github.io/2017/02/18/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+      <title><![CDATA[黑车司机发车器Java版]]></title>
+      <url>http://justdoitlee.github.io/2017/02/18/%E9%BB%91%E8%BD%A6%E5%8F%B8%E6%9C%BA%E5%8F%91%E8%BD%A6%E5%99%A8Java%E7%89%88/</url>
+      <content type="html"><![CDATA[<p>既然是发的黑车，磁力链接那套就不必仔细研究了，<br>磁力链接其实类似于这样（下面的这个是真车）：</p>
+<blockquote>
+<p>magnet:?xt=urn:btih:3AEA94481B0A406C66083F14C6F42635C14562C2</p>
+</blockquote>
+<a id="more"></a>
+<p>说白了就是随机填充 40 个字母或数字，不过有一定几率会发出真车。</p>
+<p><img src="https://ooo.0o0.ooo/2016/12/25/585f760101362.png" alt="这里写图片描述"></p>
+<hr>
+
+<p>代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"> public class OldDriver &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		java.util.Scanner input = new java.util.Scanner(System.in);</div><div class="line">		System.out.println(&quot;黑车司机虚假磁力链接发车器&quot;);</div><div class="line">		System.out.print(&quot;输入需要发的黑车数量：&quot;);</div><div class="line">		int ljs = input.nextInt();</div><div class="line">		for (int i=1;i&lt;=ljs;i++)&#123;</div><div class="line">			System.out.println(&quot;magnet:?xt=urn:btih:&quot;+CLSC());</div><div class="line">/*调用 CLSC 函数，获取 40 个随机生成的字符串（CLSC指 磁力生成）*/</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public static String CLSC()&#123;</div><div class="line">		String cllj = &quot;&quot;;</div><div class="line">		String randomchar;</div><div class="line">		String chars = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;;</div><div class="line">		for (int i=0;i&lt;40;i++)&#123;</div><div class="line">			int RandomNumber = (int)(Math.random()*35);</div><div class="line">/*随机生成一个范围在 [0,35] 的数字*/</div><div class="line">			randomchar = &quot;&quot; + chars.charAt(RandomNumber);</div><div class="line">/*随机选择一个字符，字符位置由上一步随机数字决定*/</div><div class="line">			cllj = cllj+randomchar;</div><div class="line">/*将随机字符附到 cllj 字符串上，重复 40 次*/</div><div class="line">		&#125;</div><div class="line">		return cllj;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">黑车司机虚假磁力链接发车器</div><div class="line">输入需要发的黑车数量：5</div><div class="line">magnet:?xt=urn:btih:126XT8JCPZ6ZWV1Q77OSOAD2P2UOWOAZEIGNN0UH</div><div class="line">magnet:?xt=urn:btih:VEKIXXTDDC6STSZN2IS1IQSW6RHJ6ZGC7NEGYIAJ</div><div class="line">magnet:?xt=urn:btih:G8Z7O3AIGY2C1PRRNJEZ6Q1VY3HGZQ34E2MOQUWR</div><div class="line">magnet:?xt=urn:btih:MRXYGZUFONLDPN5G4E5EDCWMWLI00PB8ZVK6IIKQ</div><div class="line">magnet:?xt=urn:btih:3WQ1IYXW0MD3Z32DT80NCJBLTAJ0FC837TB2HW2M</div></pre></td></tr></table></figure></p>
 ]]></content>
       
+        <categories>
+            
+            <category> Java二三事 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -Java -黑车 -种子 </tag>
+            
+        </tags>
         
     </entry>
     
