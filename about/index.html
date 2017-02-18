@@ -230,7 +230,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/种子/">种子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迁移/">迁移</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小插件/">小插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/种子/">种子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迁移/">迁移</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
                     </div>
                 </section>
                 
@@ -376,7 +376,7 @@
 
 
           
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>李智，90后<br><br><br>Java工程师一枚，目前在厦门</p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>李智，90后<br><br><br>Java工程师一枚，目前在厦门</p>
 <p>专业技能<br></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•计算机语言<br></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;熟悉Java , 了解C、Python、JavaScript、HTML、CSS<br></p>
@@ -476,8 +476,16 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2016-2017 RicardoLee
+               <div id="days"></div>
+                    <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js">
+                    //这里调用了公共库中现成的 js 文件，也可以直接调用站点中的 js 文件
+                    </script>
+                    <script>
+                        var begin = moment([2015,09,15]); //定义博客开始时间
+                        var now = moment(); //使用 moment() 获取当前时间
+                        document.getElementById('days').innerHTML ="博客已运行 "+now.diff(begin,'days')+" 天"
+                    // 使用 now.diff(begin,'days') 函数获取天数，这里天数考虑了闰年
+                    </script>
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/JustDoItLee/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by RicardoLee <i class="fa fa-heart animated infinite pulse"></i>

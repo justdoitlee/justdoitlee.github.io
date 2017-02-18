@@ -15,12 +15,94 @@
 
 
 
+<meta name="description" content="2048
+
+  
+  
+  
+   
+   
+  
+  
+
+  
+  
+  
+
+
+  
+    
+      2048
+      
+        0
+        0
+      
+    
+
+    
+      Join the numbers and get to the 2048 tile!
+      New Game">
 <meta property="og:type" content="website">
 <meta property="og:title" content="RicardoLee‘Blog">
-<meta property="og:url" content="http://justdoitlee.github.io/archives/index.html">
+<meta property="og:url" content="http://justdoitlee.github.io/2048/index.html">
 <meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:description" content="2048
+
+  
+  
+  
+   
+   
+  
+  
+
+  
+  
+  
+
+
+  
+    
+      2048
+      
+        0
+        0
+      
+    
+
+    
+      Join the numbers and get to the 2048 tile!
+      New Game">
+<meta property="og:updated_time" content="2015-10-20T03:43:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RicardoLee‘Blog">
+<meta name="twitter:description" content="2048
+
+  
+  
+  
+   
+   
+  
+  
+
+  
+  
+  
+
+
+  
+    
+      2048
+      
+        0
+        0
+      
+    
+
+    
+      Join the numbers and get to the 2048 tile!
+      New Game">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,7 +134,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Archives | RicardoLee‘Blog</title>
+<title>RicardoLee‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -63,7 +145,7 @@
         animate: true,
         isHome: false,
         isPost: false,
-        isArchive: true,
+        isArchive: false,
         isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -305,171 +387,211 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2048/index.html" class="article-date">
+      <time datetime="2017-02-18T10:57:37.000Z" itemprop="datePublished">2017-02-18</time>
+</a>
+
+
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+    <div class="article-entry" itemprop="articleBody">
       
+          
+              <style>
+    .article-meta { display: none; }
+    #container .article .article-title { padding-right: 0; }
+    .article-header {
+        padding: 0;
+        padding-top: 26px;
+        border-left: none;
+        text-align: center;
+    }
+    .article-header:hover { border-left: none; }
+    .article-title { font-size: 1.6em }
+    .article-entry hr { margin: 0;}
+    .article-meta,
+    #container .article-info-post.article-info { display: none;}
+    #container .article .article-title { padding: 0; }
+</style>
+
+
+          
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2048</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">2048</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="above-game">
+      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+      <a class="restart-button">New Game</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Keep going</a>
+          <a class="retry-button">Try again</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+    </p>
+    <hr>
+    <p>
+    <strong class="important">Note:</strong> This site is the official version of 2048. You can play it on your phone via <a href="http://git.io/2048" target="_blank" rel="external">http://git.io/2048.</a> All other apps or sites are derivatives or fakes, and should be used with caution.
+    </p>
+    <hr>
+    <p>
+    Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+    </p>
+  </div>
+
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/application.js"></script>
+</body>
+</html>
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
+    </div>
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/02/18/实验插入b站h5播放器/" class="archive-article-date">
-      <time datetime="2017-02-18T08:42:57.000Z" itemprop="datePublished">02-18</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/18/实验插入b站h5播放器/">实验插入b站h5播放器</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/博客/">博客</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小插件/">小插件</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
+  
+    
+  <br>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/" class="archive-article-date">
-      <time datetime="2017-02-18T08:03:12.000Z" itemprop="datePublished">02-18</time>
-</a>
 
 
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
         </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">JVM虚拟机关于“不使用的对象手动赋值为null”的理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象/">对象</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/02/18/黑车司机发车器Java版/" class="archive-article-date">
-      <time datetime="2017-02-18T06:42:57.000Z" itemprop="datePublished">02-18</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/18/黑车司机发车器Java版/">黑车司机发车器Java版</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/种子/">种子</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/02/17/Hello-Hexo/" class="archive-article-date">
-      <time datetime="2017-02-17T08:10:24.000Z" itemprop="datePublished">02-17</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/17/Hello-Hexo/">Hello Hexo</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/蜜汁开始/">蜜汁开始</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/迁移/">迁移</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
     
 
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2048/index.html" data-title="" data-url="http://justdoitlee.github.io/2048/index.html"></div>
+    <script>
+        var duoshuoQuery = {short_name:"undefined"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
