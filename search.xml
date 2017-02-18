@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[58到家数据库30条军规解读]]></title>
+      <title><![CDATA[数据库30条军规解读]]></title>
       <url>http://justdoitlee.github.io/2017/02/18/58%E5%88%B0%E5%AE%B6%E6%95%B0%E6%8D%AE%E5%BA%9330%E6%9D%A1%E5%86%9B%E8%A7%84%E8%A7%A3%E8%AF%BB/</url>
       <content type="html"><![CDATA[<script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>军规适用场景：并发量大、数据量大的互联网业务<br><br>军规：介绍内容<br><br>解读：讲解原因，解读比军规更重要<br> <a id="more"></a><br>一、基础规范</p>
 <p>（1）必须使用InnoDB存储引擎</p>
