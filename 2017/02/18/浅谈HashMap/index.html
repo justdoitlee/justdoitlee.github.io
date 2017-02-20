@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no" />
-<meta name="author" content="RicardoLee" />
+<meta name="author" content="李智" />
 
 
 
@@ -20,7 +20,7 @@ Map用于保存具有key-value映射关系的数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈HashMap">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/浅谈HashMap/index.html">
-<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:site_name" content="李智‘Blog">
 <meta property="og:description" content="什么是Map?
 Map用于保存具有key-value映射关系的数据">
 <meta property="og:image" content="http://img.blog.csdn.net/20161224234534698">
@@ -35,7 +35,7 @@ Map用于保存具有key-value映射关系的数据">
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="李智‘Blog" type="application/atom+xml">
 
 
 
@@ -62,7 +62,7 @@ Map用于保存具有key-value映射关系的数据">
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>浅谈HashMap | RicardoLee‘Blog</title>
+<title>浅谈HashMap | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -117,7 +117,7 @@ Map用于保存具有key-value映射关系的数据">
             <img src="/img/avatar.png" class="animated zoomIn">
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+          <h1 class="header-author"><a href="/">李智</a></h1>
         </hgroup>
 
         
@@ -257,7 +257,7 @@ Map用于保存具有key-value映射关系的数据">
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">李智</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -265,7 +265,7 @@ Map用于保存具有key-value映射关系的数据">
                 <img src="/img/avatar.png" class="animated zoomIn">
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">李智</a></h1>
             </hgroup>
             
             <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
@@ -359,7 +359,7 @@ Map用于保存具有key-value映射关系的数据">
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>什么是Map?</strong></p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p><strong>什么是Map?</strong></p>
 <font color="#008080">Map用于保存具有key-value映射关系的数据</font><br><a id="more"></a><br>首先看图！<br><br><img src="http://img.blog.csdn.net/20161224234534698" alt="这里写图片描述"><br><br>可以看出Java 中有四种常见的Map实现——HashMap, TreeMap, Hashtable和LinkedHashMap：<br><br>·HashMap就是一张hash表，键和值都没有排序。<br><br>·TreeMap以红黑树结构为基础，键值可以设置按某种顺序排列。<br><br>·LinkedHashMap保存了插入时的顺序。<br><br>·Hashtable是同步的(而HashMap是不同步的)。所以如果在线程安全的环境下应该多使用HashMap，而不是Hashtable，因为Hashtable对同步有额外的开销。<br><br><br><strong>我们在这里简单的说说HashMap：</strong><br><br>(1)HashMap是基于哈希表实现的，每一个元素是一个key-value对，其内部通过单链表解决冲突问题，容量不足（超过了阀值）时，同样会自动增长。<br><br>(2)HashMap是非线程安全的，只用于单线程环境下，多线程环境下可以采用concurrent并发包下的concurrentHashMap。<br><br>(3)HashMap 实现了Serializable接口，因此它支持序列化。<br><br>(4)HashMap还实现了Cloneable接口，故能被克隆。<br><br><br><br>先从<strong>HashMap的存储结构</strong>说起：<br><br><img src="http://img.blog.csdn.net/20161224235308725" alt="这里写图片描述"><br><br>蓝色部分即代表哈希表本身（其实是一个数组），数组的每个元素都是一个单链表的头节点，链表是用来解决hash地址冲突的，如果不同的key映射到了数组的同一位置处，就将其放入单链表中保存。<br><br><strong>HashMap的构造方法中有两个很重要的参数：</strong><font color="#008080">初始容量和加载因子</font>
 
 <p>这两个参数是影响HashMap性能的重要参数，其中容量表示哈希表中槽的数量（即哈希数组的长度），初始容量是创建哈希表时的容量（默认为16），加载因子是哈希表当前key的数量和容量的比值，当哈希表中的条目数超出了加载因子与当前容量的乘积时，则要对该哈希表提前进行 resize 操作（即扩容）。如果加载因子越大，对空间的利用更充分，但是查找效率会降低（链表长度会越来越长）；如果加载因子太小，那么表中的数据将过于稀疏（很多空间还没用，就开始扩容了），严重浪费。</p>
@@ -398,12 +398,12 @@ Map用于保存具有key-value映射关系的数据">
     
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2017/02/18/浅谈HashMap/">浅谈HashMap</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
         <p><span>发布时间:</span>2017-02-18, 21:34:09</p>
         <p><span>最后更新:</span>2017-02-18, 21:38:48</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/18/浅谈HashMap/" title="浅谈HashMap">http://justdoitlee.github.io/2017/02/18/浅谈HashMap/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/浅谈HashMap/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/浅谈HashMap/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -473,7 +473,7 @@ Map用于保存具有key-value映射关系的数据">
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"浅谈HashMap　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"浅谈HashMap　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 

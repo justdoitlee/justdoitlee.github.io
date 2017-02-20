@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no" />
-<meta name="author" content="RicardoLee" />
+<meta name="author" content="李智" />
 
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Logger级别">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Logger级别/index.html">
-<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:site_name" content="李智‘Blog">
 <meta property="og:description" content="日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)，">
 <meta property="og:updated_time" content="2017-02-18T13:24:21.000Z">
 <meta name="twitter:card" content="summary">
@@ -29,7 +29,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="李智‘Blog" type="application/atom+xml">
 
 
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Logger级别 | RicardoLee‘Blog</title>
+<title>Logger级别 | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -111,7 +111,7 @@
             <img src="/img/avatar.png" class="animated zoomIn">
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+          <h1 class="header-author"><a href="/">李智</a></h1>
         </hgroup>
 
         
@@ -251,7 +251,7 @@
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">李智</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -259,7 +259,7 @@
                 <img src="/img/avatar.png" class="animated zoomIn">
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">李智</a></h1>
             </hgroup>
             
             <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
@@ -353,7 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
 <font color="red">日志记录的级别有继承性，子类会记录父类的所有的日志级别。</font>
       
     </div>
@@ -363,12 +363,12 @@
     
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2017/02/18/Logger级别/">Logger级别</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
         <p><span>发布时间:</span>2017-02-18, 21:22:28</p>
         <p><span>最后更新:</span>2017-02-18, 21:24:21</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/18/Logger级别/" title="Logger级别">http://justdoitlee.github.io/2017/02/18/Logger级别/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Logger级别/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Logger级别/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -438,7 +438,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Logger级别　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Logger级别　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 

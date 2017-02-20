@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no" />
-<meta name="author" content="RicardoLee" />
+<meta name="author" content="李智" />
 
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="高级for循环使用remove/add 问题">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/高级for循环使用remove-add-问题/index.html">
-<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:site_name" content="李智‘Blog">
 <meta property="og:description" content="今天在高级for循环中用了一下remove发现报错，写了个demo测试看：1234567 List&amp;lt;String&amp;gt; a = new ArrayList&amp;lt;String&amp;gt;(); a.add(&quot;1&quot;); a.add(&quot;2&quot;); for (String temp : a) &amp;#123;     if(&quot;1&quot;.equals(temp))&amp;#123;         a.remove(">
 <meta property="og:image" content="http://img.blog.csdn.net/20161229172604530">
 <meta property="og:updated_time" content="2017-02-18T13:47:47.000Z">
@@ -31,7 +31,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="李智‘Blog" type="application/atom+xml">
 
 
 
@@ -58,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>高级for循环使用remove/add 问题 | RicardoLee‘Blog</title>
+<title>高级for循环使用remove/add 问题 | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -113,7 +113,7 @@
             <img src="/img/avatar.png" class="animated zoomIn">
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+          <h1 class="header-author"><a href="/">李智</a></h1>
         </hgroup>
 
         
@@ -253,7 +253,7 @@
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">李智</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -261,7 +261,7 @@
                 <img src="/img/avatar.png" class="animated zoomIn">
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">李智</a></h1>
             </hgroup>
             
             <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
@@ -355,7 +355,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>今天在高级for循环中用了一下remove发现报错，写了个demo测试看：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> List&lt;<span class="keyword">String</span>&gt; a = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">String</span>&gt;();</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"1"</span>);</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"2"</span>);</div><div class="line"> <span class="keyword">for</span> (<span class="keyword">String</span> temp : a) &#123;</div><div class="line">     <span class="keyword">if</span>(<span class="string">"1"</span>.equals(temp))&#123;</div><div class="line">         a.remove(temp);</div><div class="line">&#125; &#125;</div></pre></td></tr></table></figure></p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>今天在高级for循环中用了一下remove发现报错，写了个demo测试看：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> List&lt;<span class="keyword">String</span>&gt; a = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">String</span>&gt;();</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"1"</span>);</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"2"</span>);</div><div class="line"> <span class="keyword">for</span> (<span class="keyword">String</span> temp : a) &#123;</div><div class="line">     <span class="keyword">if</span>(<span class="string">"1"</span>.equals(temp))&#123;</div><div class="line">         a.remove(temp);</div><div class="line">&#125; &#125;</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>此时代码是没有问题的，运行正常；但是把”1”.equals(temp)换成”2”.equals(temp)之后，问题就出来了！</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java<span class="selector-class">.util</span><span class="selector-class">.ConcurrentModificationException</span></div><div class="line">	at java<span class="selector-class">.util</span><span class="selector-class">.ArrayList</span><span class="variable">$Itr</span>.checkForComodification(ArrayList<span class="selector-class">.java</span>:<span class="number">901</span>)</div><div class="line">	at java<span class="selector-class">.util</span><span class="selector-class">.ArrayList</span><span class="variable">$Itr</span>.next(ArrayList<span class="selector-class">.java</span>:<span class="number">851</span>)</div><div class="line">	at main<span class="selector-class">.exam</span><span class="selector-class">.ForeachTest</span><span class="selector-class">.main</span>(ForeachTest<span class="selector-class">.java</span>:<span class="number">15</span>)</div><div class="line">	at sun<span class="selector-class">.reflect</span><span class="selector-class">.NativeMethodAccessorImpl</span><span class="selector-class">.invoke0</span>(Native Method)</div><div class="line">	at sun<span class="selector-class">.reflect</span><span class="selector-class">.NativeMethodAccessorImpl</span><span class="selector-class">.invoke</span>(NativeMethodAccessorImpl<span class="selector-class">.java</span>:<span class="number">62</span>)</div><div class="line">	at sun<span class="selector-class">.reflect</span><span class="selector-class">.DelegatingMethodAccessorImpl</span><span class="selector-class">.invoke</span>(DelegatingMethodAccessorImpl<span class="selector-class">.java</span>:<span class="number">43</span>)</div><div class="line">	at java<span class="selector-class">.lang</span><span class="selector-class">.reflect</span><span class="selector-class">.Method</span><span class="selector-class">.invoke</span>(Method<span class="selector-class">.java</span>:<span class="number">497</span>)</div><div class="line">	at com<span class="selector-class">.intellij</span><span class="selector-class">.rt</span><span class="selector-class">.execution</span><span class="selector-class">.application</span><span class="selector-class">.AppMain</span><span class="selector-class">.main</span>(AppMain<span class="selector-class">.java</span>:<span class="number">147</span>)</div></pre></td></tr></table></figure>
@@ -374,12 +374,12 @@
     
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2017/02/18/高级for循环使用remove-add-问题/">高级for循环使用remove/add 问题</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
         <p><span>发布时间:</span>2017-02-18, 21:43:31</p>
         <p><span>最后更新:</span>2017-02-18, 21:47:47</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/18/高级for循环使用remove-add-问题/" title="高级for循环使用remove/add 问题">http://justdoitlee.github.io/2017/02/18/高级for循环使用remove-add-问题/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/高级for循环使用remove-add-问题/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/高级for循环使用remove-add-问题/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -449,7 +449,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"高级for循环使用remove/add 问题　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"高级for循环使用remove/add 问题　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 

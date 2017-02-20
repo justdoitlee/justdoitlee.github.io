@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no" />
-<meta name="author" content="RicardoLee" />
+<meta name="author" content="李智" />
 
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Ajax的cache参数的测试">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/关于Ajax的cache参数的测试/index.html">
-<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:site_name" content="李智‘Blog">
 <meta property="og:description" content="&amp;nbsp;&amp;nbsp;其实这次做这个测试是因为和同学谈论@requestbody时引发的一个笑话，我之前一直以为ajax中的dataType: &amp;#39;json&amp;#39;是传输去后台的数据格式，后来分分钟被打脸，查了一下百度，才知道原来dataType: &amp;#39;json&amp;#39;是期望返回的数据类型，由此才发现原来ajax并没有平常用的那么简单。">
 <meta property="og:image" content="http://img.blog.csdn.net/20161123204951948">
 <meta property="og:image" content="http://img.blog.csdn.net/20161123205002870">
@@ -34,7 +34,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="李智‘Blog" type="application/atom+xml">
 
 
 
@@ -61,7 +61,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>关于Ajax的cache参数的测试 | RicardoLee‘Blog</title>
+<title>关于Ajax的cache参数的测试 | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -116,7 +116,7 @@
             <img src="/img/avatar.png" class="animated zoomIn">
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+          <h1 class="header-author"><a href="/">李智</a></h1>
         </hgroup>
 
         
@@ -256,7 +256,7 @@
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">李智</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -264,7 +264,7 @@
                 <img src="/img/avatar.png" class="animated zoomIn">
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">李智</a></h1>
             </hgroup>
             
             <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
@@ -358,7 +358,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>&nbsp;&nbsp;其实这次做这个测试是因为和同学谈论@requestbody时引发的一个笑话，我之前一直以为ajax中的<code>dataType: &#39;json&#39;</code>是传输去后台的数据格式，后来分分钟被打脸，查了一下百度，才知道原来<code>dataType: &#39;json&#39;</code>是期望返回的数据类型，由此才发现原来ajax并没有平常用的那么简单。<br><a id="more"></a><br>首先我们来看一下什么是Ajax：<br>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。<br>有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。(以上来自w3cschool)</p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>&nbsp;&nbsp;其实这次做这个测试是因为和同学谈论@requestbody时引发的一个笑话，我之前一直以为ajax中的<code>dataType: &#39;json&#39;</code>是传输去后台的数据格式，后来分分钟被打脸，查了一下百度，才知道原来<code>dataType: &#39;json&#39;</code>是期望返回的数据类型，由此才发现原来ajax并没有平常用的那么简单。<br><a id="more"></a><br>首先我们来看一下什么是Ajax：<br>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。<br>有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。(以上来自w3cschool)</p>
 <p>在看这些资料的过程中，一个参数引起了我的注意：<strong>cache</strong> 这个cache有true和false两个方向，<font color="red">显式的要求如果当前请求有缓存的话，直接使用缓存。如果该属性设置为 false，则每次都会向服务器请求</font>。由此我做了下面的测试：</p>
 <p>首先创建一个servlet，用来接收客户端发来的请求</p>
 <p>AjaxServlet.java</p>
@@ -381,12 +381,12 @@
     
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2017/02/18/关于Ajax的cache参数的测试/">关于Ajax的cache参数的测试</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
         <p><span>发布时间:</span>2017-02-18, 20:42:59</p>
         <p><span>最后更新:</span>2017-02-18, 20:46:06</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/18/关于Ajax的cache参数的测试/" title="关于Ajax的cache参数的测试">http://justdoitlee.github.io/2017/02/18/关于Ajax的cache参数的测试/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/关于Ajax的cache参数的测试/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/关于Ajax的cache参数的测试/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -456,7 +456,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"关于Ajax的cache参数的测试　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"关于Ajax的cache参数的测试　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 

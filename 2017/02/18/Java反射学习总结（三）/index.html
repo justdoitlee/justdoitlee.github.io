@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no" />
-<meta name="author" content="RicardoLee" />
+<meta name="author" content="李智" />
 
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java反射学习总结（三）">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（三）/index.html">
-<meta property="og:site_name" content="RicardoLee‘Blog">
+<meta property="og:site_name" content="李智‘Blog">
 <meta property="og:description" content="Class对象表示所加载的类，取得Class对象后，我们就可以愉快的取得与类相关的信息了，就像包（package,package也是类名的一部分哦~），构造方法，方法，属性等信息，而每一个信息，也会有相应的类别形态，比如包对应的是 java.lang.Package，构造方法对应的是java.lang.reflect.Constructor，成员方法对应的是 java.lang.reflect.M">
 <meta property="og:updated_time" content="2017-02-18T13:15:40.000Z">
 <meta name="twitter:card" content="summary">
@@ -29,7 +29,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="RicardoLee‘Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="李智‘Blog" type="application/atom+xml">
 
 
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Java反射学习总结（三） | RicardoLee‘Blog</title>
+<title>Java反射学习总结（三） | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -111,7 +111,7 @@
             <img src="/img/avatar.png" class="animated zoomIn">
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="/">RicardoLee</a></h1>
+          <h1 class="header-author"><a href="/">李智</a></h1>
         </hgroup>
 
         
@@ -251,7 +251,7 @@
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">RicardoLee</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">李智</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -259,7 +259,7 @@
                 <img src="/img/avatar.png" class="animated zoomIn">
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">RicardoLee</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">李智</a></h1>
             </hgroup>
             
             <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
@@ -353,7 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>Class对象表示所加载的类，取得Class对象后，我们就可以愉快的取得与类相关的信息了，就像包（package,package也是类名的一部分哦~），构造方法，方法，属性等信息，而每一个信息，也会有相应的类别形态，比如包对应的是 java.lang.Package，构造方法对应的是java.lang.reflect.Constructor，成员方法对应的是 java.lang.reflect.Method，属性对应的是 java.lang.reflect.Field等。<br><a id="more"></a><br>先来个简单的例子吧，获取一下包名：</p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>Class对象表示所加载的类，取得Class对象后，我们就可以愉快的取得与类相关的信息了，就像包（package,package也是类名的一部分哦~），构造方法，方法，属性等信息，而每一个信息，也会有相应的类别形态，比如包对应的是 java.lang.Package，构造方法对应的是java.lang.reflect.Constructor，成员方法对应的是 java.lang.reflect.Method，属性对应的是 java.lang.reflect.Field等。<br><a id="more"></a><br>先来个简单的例子吧，获取一下包名：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_2;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/4</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> ClassInfoDemo &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">Class</span> c = <span class="keyword">Class</span>.forName(args[<span class="number">0</span>]);</div><div class="line">            <span class="keyword">Package</span> p = c.getPackage();</div><div class="line">            System.out.<span class="keyword">println</span>(p.getName());</div><div class="line">        &#125; <span class="keyword">catch</span> (ArrayIndexOutOfBoundsException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"没有指定类"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            System.out.<span class="keyword">println</span>(<span class="string">"找不到指定类"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">java</span> <span class="selector-tag">ClassInfoDemo</span> <span class="selector-tag">java</span><span class="selector-class">.util</span><span class="selector-class">.ArrayList</span></div><div class="line"><span class="selector-tag">java</span><span class="selector-class">.util</span></div></pre></td></tr></table></figure>
@@ -372,12 +372,12 @@
     
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2017/02/18/Java反射学习总结（三）/">Java反射学习总结（三）</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">RicardoLee</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
         <p><span>发布时间:</span>2017-02-18, 21:14:58</p>
         <p><span>最后更新:</span>2017-02-18, 21:15:40</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/18/Java反射学习总结（三）/" title="Java反射学习总结（三）">http://justdoitlee.github.io/2017/02/18/Java反射学习总结（三）/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Java反射学习总结（三）/　　作者: RicardoLee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Java反射学习总结（三）/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -447,7 +447,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Java反射学习总结（三）　| RicardoLee‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Java反射学习总结（三）　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
