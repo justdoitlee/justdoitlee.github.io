@@ -4,6 +4,40 @@
   
     
     <entry>
+      <title><![CDATA[数据库系统分层优化]]></title>
+      <url>http://justdoitlee.github.io/2017/02/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E5%B1%82%E4%BC%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>网上有丰富的数据库优化方案，但是大多都是零零碎碎，系统地介绍数据库优化的很少。笔者根据自己的经验，以及参考了其他高手的优化文章，整理一份系统的优化方案。</p>
+<p>数据库优化的目的是提高DB的工作效率，减少响应时间。基于此，笔者认为应该从如下四个层次来优化数据库性能。<br><a id="more"></a></p>
+<p><li>硬件层面优化</li></p>
+<p><li>操作系统/DBMS层面优化</li></p>
+<p><li>DB设计层面优化</li></p>
+<p><li>程序设计层面的优化</li></p>
+<blockquote>
+<ol>
+<li>硬件层面优化<br>该层面的优化是最底层的，包括内存、CPU、磁盘/磁盘阵列等硬件的优化。虽然可优化的点并不多，但是在整个数据库优化中不可或缺。</li>
+<li>操作系统/DBMS层面的优化<br>包括DBMS的选择、缓存的设置、数据文件的存储位置及方法(连续存储/随机存储)、存储引擎的选择(MySQL里面会有多个引擎)、I/O优化(磁盘I/O、逻辑I/O)。该层面的优化内容相对不多，但是数据库优化的瓶颈一般都在这里。</li>
+<li>DB设计层面优化<br>该层面可优化的点很多，包括数据库范式、数据表结构、数据类型、视图、索引、表/字段冗余、表分割(水平分割及垂直分割、分类分割)、表触发器、命名等多方面，而且每个方面又有很多的知识点，这是数据库优化的基础。</li>
+<li>程序设计层面优化<br>这里由程序员控制层面的优化。包括SQL语句、存储过程、临时表、业务逻辑、算法设计、运算符、条件顺序、数据库函数。这层的知识点比较散，而且多。程序员应该下功夫的地方。</li>
+</ol>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据库那点事 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 优化 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[希尔排序]]></title>
       <url>http://justdoitlee.github.io/2017/02/20/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</url>
       <content type="html"><![CDATA[<script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>希尔排序，也称<strong>递减增量排序算法</strong>，是插入排序的一种更高效的改进版本。希尔排序是非稳定排序算法。<br>希尔排序是基于插入排序的以下两点性质而提出改进方法的：</p>
