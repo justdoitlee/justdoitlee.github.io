@@ -57,7 +57,7 @@
 <p>虚拟机指令为：</p>
 <figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mov    <span class="number">0</span>xc(<span class="built_in">%r</span>11),<span class="built_in">%eax</span>       <span class="comment">; Load</span></div><div class="line">mov    <span class="built_in">%eax</span>,<span class="built_in">%r</span>8d            </div><div class="line">inc    <span class="built_in">%r</span>8d                 <span class="comment">; Increment</span></div><div class="line"><span class="keyword">lock</span> cmpxchg <span class="built_in">%r</span>8d,<span class="number">0</span>xc(<span class="built_in">%r</span>11) <span class="comment">; Compare and exchange</span></div></pre></td></tr></table></figure>
 <p>因为CAS是基于乐观锁的，也就是说当写入的时候，如果寄存器旧值已经不等于现值，说明有其他CPU在修改，那就继续尝试。所以这就保证了操作的原子性。</p>
-<p> <img src="http://images.cnitblog.com/blog/28306/201402/191824486252285.png " width="300" height="300" alt="图片名称" align="center"></p>
+<p> <img src="http://images.cnitblog.com/blog/28306/201402/191824486252285.png " width="400" height="300" alt="图片名称" align="center"></p>
 ]]></content>
       
         <categories>
