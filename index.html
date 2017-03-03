@@ -312,6 +312,86 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Volatile小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/03/Volatile小结/" class="article-date">
+      <time datetime="2017-03-03T06:24:05.000Z" itemprop="datePublished">2017-03-03</time>
+</a>
+
+ 
+    <a href="/2017/03/03/Volatile小结/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2017/03/03/Volatile小结/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/03/Volatile小结/">Volatile小结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>1）Java 中能创建 Volatile 数组吗？</p>
+</blockquote>
+<p>能，Java 中可以创建 volatile 类型数组，不过只是一个指向数组的引用，而不是整个数组。我的意思是，如果改变引用指向的数组，将会受到 volatile 的保护，但是如果多个线程同时改变数组的元素，volatile 标示符就不能起到之前的保护作用了。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/03/03/Volatile小结/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-为什么volatile不能保证原子性而Atomic可以？" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1008,83 +1088,6 @@
       
         <p class="article-more-link">
           <a href="/2017/02/18/Browser的通讯”/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-高级for循环使用remove-add-问题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/18/高级for循环使用remove-add-问题/" class="article-date">
-      <time datetime="2017-02-18T13:43:31.000Z" itemprop="datePublished">2017-02-18</time>
-</a>
-
- 
-    <a href="/2017/02/18/高级for循环使用remove-add-问题/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2017/02/18/高级for循环使用remove-add-问题/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/18/高级for循环使用remove-add-问题/">高级for循环使用remove/add 问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>今天在高级for循环中用了一下remove发现报错，写了个demo测试看：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> List&lt;<span class="keyword">String</span>&gt; a = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">String</span>&gt;();</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"1"</span>);</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"2"</span>);</div><div class="line"> <span class="keyword">for</span> (<span class="keyword">String</span> temp : a) &#123;</div><div class="line">     <span class="keyword">if</span>(<span class="string">"1"</span>.equals(temp))&#123;</div><div class="line">         a.remove(temp);</div><div class="line">&#125; &#125;</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/18/高级for循环使用remove-add-问题/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

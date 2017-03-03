@@ -4,6 +4,42 @@
   
     
     <entry>
+      <title><![CDATA[Volatile小结]]></title>
+      <url>http://justdoitlee.github.io/2017/03/03/Volatile%E5%B0%8F%E7%BB%93/</url>
+      <content type="html"><![CDATA[<script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><blockquote>
+<p>1）Java 中能创建 Volatile 数组吗？</p>
+</blockquote>
+<p>能，Java 中可以创建 volatile 类型数组，不过只是一个指向数组的引用，而不是整个数组。我的意思是，如果改变引用指向的数组，将会受到 volatile 的保护，但是如果多个线程同时改变数组的元素，volatile 标示符就不能起到之前的保护作用了。<br><a id="more"></a></p>
+<blockquote>
+<p>2）volatile 能使得一个非原子操作变成原子操作吗？</p>
+</blockquote>
+<p>一个典型的例子是在类中有一个 long 类型的成员变量。如果你知道该成员变量会被多个线程访问，如计数器、价格等，你最好是将其设置为 volatile。为什么？因为 Java 中读取 long 类型变量不是原子的，需要分成两步，如果一个线程正在修改该 long 变量的值，另一个线程可能只能看到该值的一半（前 32 位）。但是对一个 volatile 型的 long 或 double 变量的读写是原子。</p>
+<blockquote>
+<p>3）volatile 修饰符的有过什么实践？</p>
+</blockquote>
+<p>一种实践是用 volatile 修饰 long 和 double 变量，使其能按原子类型来读写。double 和 long 都是64位宽，因此对这两种类型的读是分为两部分的，第一次读取第一个 32 位，然后再读剩下的 32 位，这个过程不是原子的，但 Java 中 volatile 型的 long 或 double 变量的读写是原子的。volatile 修复符的另一个作用是提供内存屏障（memory barrier），例如在分布式框架中的应用。简单的说，就是当你写一个 volatile 变量之前，Java 内存模型会插入一个写屏障（write barrier），读一个 volatile 变量之前，会插入一个读屏障（read barrier）。意思就是说，在你写一个 volatile 域时，能保证任何线程都能看到你写的值，同时，在写之前，也能保证任何数值的更新对所有线程是可见的，因为内存屏障会将其他所有写的值更新到缓存。</p>
+<blockquote>
+<p>4）volatile 类型变量提供什么保证？</p>
+</blockquote>
+<p>volatile 变量提供顺序和可见性保证，例如，JVM 或者 JIT为了获得更好的性能会对语句重排序，但是 volatile 类型变量即使在没有同步块的情况下赋值也不会与其他语句重排序。 volatile 提供 happens-before 的保证，确保一个线程的修改能对其他线程是可见的。某些情况下，volatile 还能提供原子性，如读 64 位数据类型，像 long 和 double 都不是原子的，但 volatile 类型的 double 和 long 就是原子的。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Java二三事 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[为什么volatile不能保证原子性而Atomic可以？]]></title>
       <url>http://justdoitlee.github.io/2017/03/02/%E4%B8%BA%E4%BB%80%E4%B9%88volatile%E4%B8%8D%E8%83%BD%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7%E8%80%8CAtomic%E5%8F%AF%E4%BB%A5%EF%BC%9F/</url>
       <content type="html"><![CDATA[<script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>在Java中long赋值不是原子操作，因为先写32位，再写后32位，分两步操作，而AtomicLong赋值是原子操作，为什么？为什么volatile能替代简单的锁，却不能保证原子性？这里面涉及volatile，是java中的一个我觉得这个词在Java规范中从未被解释清楚的神奇关键词，在Sun的JDK官方文档是这样形容volatile的：<br><a id="more"></a></p>
