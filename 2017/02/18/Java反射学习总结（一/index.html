@@ -353,7 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>Java提供的反射机制允许我们在运行时期动态加载类，检测和修改它本身状态或行为，要举反射机制的一个实例的话，就是在整合开发环境中所提供的方法提示或者类的检查工具，另外像jsp中的javabean自动收集请求也用到了反射，还有我们经常用的框架也可以看到反射机制的使用，这样可以达到动态加载使用者自己定义的类的目的。<br><a id="more"></a><br>在我们拿到一个类时，即使对它一无所知，但是其实他本身就包括了很多信息，Java在需要使用某个类时才会将类加载，并在jvm中以一个<strong>java.lang.Class</strong>的实例存在，从Class实例开始，我们可以获取类的信息。</p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>Java提供的反射机制允许我们在运行时期动态加载类，检测和修改它本身状态或行为，要举反射机制的一个实例的话，就是在整合开发环境中所提供的方法提示或者类的检查工具，另外像jsp中的javabean自动收集请求也用到了反射，还有我们经常用的框架也可以看到反射机制的使用，这样可以达到动态加载使用者自己定义的类的目的。<br><a id="more"></a><br>在我们拿到一个类时，即使对它一无所知，但是其实他本身就包括了很多信息，Java在需要使用某个类时才会将类加载，并在jvm中以一个<strong>java.lang.Class</strong>的实例存在，从Class实例开始，我们可以获取类的信息。</p>
 <p><strong>Class类的加载</strong></p>
 <p>Java在真正需要使用一个类的时候才会进行加载，而不是在程序启动时加载所有的类，因为大多数人都只使用到应用程序的部分资源，在需要某些功能时在加载某些资源，这样可以让系统的资源运用更有效率。</p>
 <p>一个java.lang.Class代表了Java程序中运行时加载类或者接口的实例，也可以用来表达enum（枚举），annotation（注解），数组，基本数据类型；Class类没有public构造方法，Class是由jvm自动生成的，每当一个类被加载时，jvm就会自动生成一个Class实例。</p>
