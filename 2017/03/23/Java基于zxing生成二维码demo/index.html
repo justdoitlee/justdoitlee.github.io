@@ -15,16 +15,18 @@
 
 
 
-<meta name="description" content="今天看到《Java核心技术I》书上的动态绑定，意思就是当子类和父类存在同一个方法，子类重写了父类的方法，程序在运行时调用方法是调用父类的方法还是子类的重写方法呢？程序会在运行的时候自动选择调用某个方法（根据方法表）。看完这里不由自主的想到，有动态肯定也就有静态吧，于是去求助了下google，首先看了下什么是绑定:绑定指的是一个方法的调用与方法所在的类(方法主体)关联起来。对java来说，绑定分为静">
+<meta name="description" content="QR码属于矩阵式二维码中的一个种类，由DENSO(日本电装)公司开发，由JIS和ISO将其标准化。QR码的样子其实在很多场合已经能够被看到了，我这还是贴个图展示一下：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java的静态/动态绑定">
-<meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Java的静态-动态绑定/index.html">
+<meta property="og:title" content="Java基于zxing生成二维码demo">
+<meta property="og:url" content="http://justdoitlee.github.io/2017/03/23/Java基于zxing生成二维码demo/index.html">
 <meta property="og:site_name" content="李智‘Blog">
-<meta property="og:description" content="今天看到《Java核心技术I》书上的动态绑定，意思就是当子类和父类存在同一个方法，子类重写了父类的方法，程序在运行时调用方法是调用父类的方法还是子类的重写方法呢？程序会在运行的时候自动选择调用某个方法（根据方法表）。看完这里不由自主的想到，有动态肯定也就有静态吧，于是去求助了下google，首先看了下什么是绑定:绑定指的是一个方法的调用与方法所在的类(方法主体)关联起来。对java来说，绑定分为静">
-<meta property="og:updated_time" content="2017-02-18T12:59:04.000Z">
+<meta property="og:description" content="QR码属于矩阵式二维码中的一个种类，由DENSO(日本电装)公司开发，由JIS和ISO将其标准化。QR码的样子其实在很多场合已经能够被看到了，我这还是贴个图展示一下：">
+<meta property="og:image" content="http://img.blog.csdn.net/20170323193748791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTWVsb2RfYmM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-23T11:44:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java的静态/动态绑定">
-<meta name="twitter:description" content="今天看到《Java核心技术I》书上的动态绑定，意思就是当子类和父类存在同一个方法，子类重写了父类的方法，程序在运行时调用方法是调用父类的方法还是子类的重写方法呢？程序会在运行的时候自动选择调用某个方法（根据方法表）。看完这里不由自主的想到，有动态肯定也就有静态吧，于是去求助了下google，首先看了下什么是绑定:绑定指的是一个方法的调用与方法所在的类(方法主体)关联起来。对java来说，绑定分为静">
+<meta name="twitter:title" content="Java基于zxing生成二维码demo">
+<meta name="twitter:description" content="QR码属于矩阵式二维码中的一个种类，由DENSO(日本电装)公司开发，由JIS和ISO将其标准化。QR码的样子其实在很多场合已经能够被看到了，我这还是贴个图展示一下：">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170323193748791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTWVsb2RfYmM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Java的静态/动态绑定 | 李智‘Blog</title>
+<title>Java基于zxing生成二维码demo | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -309,11 +311,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Java的静态-动态绑定" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Java基于zxing生成二维码demo" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/18/Java的静态-动态绑定/" class="article-date">
-      <time datetime="2017-02-18T12:57:05.000Z" itemprop="datePublished">2017-02-18</time>
+      <a href="/2017/03/23/Java基于zxing生成二维码demo/" class="article-date">
+      <time datetime="2017-03-23T11:43:10.000Z" itemprop="datePublished">2017-03-23</time>
 </a>
 
 
@@ -328,7 +330,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java的静态/动态绑定
+      Java基于zxing生成二维码demo
     </h1>
   
 
@@ -343,7 +345,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态动态绑定/">静态动态绑定</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二维码/">二维码</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -353,35 +355,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>今天看到《Java核心技术I》书上的动态绑定，意思就是当子类和父类存在同一个方法，子类重写了父类的方法，程序在运行时调用方法是调用父类的方法还是子类的重写方法呢？程序会在运行的时候自动选择调用某个方法（根据方法表）。<br>看完这里不由自主的想到，有动态肯定也就有静态吧，于是去求助了下google，首先看了下什么是<strong>绑定</strong>:<br>绑定指的是一个方法的调用与方法所在的类(方法主体)关联起来。对java来说，绑定分为静态绑定和动态绑定；或者叫做前期绑定和后期绑定。<br><a id="more"></a><br>然后我们分别看看两者之间含义以及差别<br><br><strong>动态绑定</strong>：在运行时根据具体对象的类型进行绑定。若一种语言实现了后期绑定，同时必须提供一些机制，可在运行期间判断对象的类型，并分别调用适当的方法。也就是说，编译器此时依然不知道对象的类型，但方法调用机制能自己去调查，找到正确的方法主体。不同的语言对后期绑定的实现方法是有所区别的。但我们至少可以这样认为：它们都要在对象中安插某些特殊类型的信息。</p>
-<p><strong>动态绑定的过程</strong>：<br><br>虚拟机提取对象的实际类型的方法表；–&gt;<br>虚拟机搜索方法签名；–&gt;<br>调用方法。</p>
-<p><strong>静态绑定</strong>：在程序执行前方法已经被绑定（也就是说在编译过程中就已经知道这个方法到底是哪个类中的方法），此时由编译器或其它连接程序实现。针对java，可以简单的理解为程序编译期的绑定；这里要特别说明一点，java当中的方法只有final，static，private和构造方法是前期绑定。</p>
-<p><strong>差别</strong>：其实上述解释可以看出很多东西了。<br><br>（1）静态绑定发生在编译时期，动态绑定发生在运行时<br><br>（2）使用private或static或final修饰的变量或者方法，使用静态绑定。而虚方法（可以被子类重写的方法）则会根据运行时的对象进行动态绑定。<br><br>（3）静态绑定使用类信息来完成，而动态绑定则需要使用对象信息来完成。<br><br>（4）重载(Overload)的方法使用静态绑定完成，而重写(Override)的方法则使用动态绑定完成。</p>
-<p><strong>下面开始代码测试</strong>：</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> class Test &#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">      <span class="keyword">String</span> <span class="built_in">str</span> = <span class="keyword">new</span> <span class="keyword">String</span>();</div><div class="line">      Lee lee = <span class="keyword">new</span> Lee();</div><div class="line">      lee.say(<span class="built_in">str</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">static</span> class Lee &#123;</div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> say(<span class="keyword">Object</span> obj) &#123;</div><div class="line">          System.out.<span class="built_in">println</span>(<span class="string">"这是个Object"</span>);</div><div class="line">      &#125;   </div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> say(<span class="keyword">String</span> <span class="built_in">str</span>) &#123;</div><div class="line">          System.out.<span class="built_in">println</span>(<span class="string">"这是个String"</span>);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>执行结果</strong>：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ java <span class="keyword">Test</span></div><div class="line">这是个<span class="built_in">String</span></div></pre></td></tr></table></figure></p>
-<p>在上面的代码中，lee方法存在两个重载的实现，一个是接收Object类型的对象作为参数，另一个则是接收String类型的对象作为参数。而str是一个String对象，所有接收String类型参数的call方法会被调用。而这里的绑定就是在编译时期根据参数类型进行的静态绑定。</p>
-<p><strong>接着我们反编译验证一下</strong>:</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">javap -c Test    </div><div class="line">Compiled from <span class="string">"Test.java"</span></div><div class="line">public class CoreJava.day_2.Test &#123;</div><div class="line">  public CoreJava.day_2.Test();</div><div class="line">    <span class="built_in">Code</span>:</div><div class="line">       <span class="number">0</span>: aload_0</div><div class="line">       <span class="number">1</span>: invokespecial <span class="meta">#1                  <span class="comment">// Method java/lang/Object."&lt;init&gt;":()V</span></span></div><div class="line">       <span class="number">4</span>: <span class="keyword">return</span></div><div class="line"></div><div class="line">  public static void main(java.lang.<span class="keyword">String</span>[]);</div><div class="line">    <span class="built_in">Code</span>:</div><div class="line">       <span class="number">0</span>: <span class="keyword">new</span>           <span class="meta">#2                  <span class="comment">// class java/lang/String</span></span></div><div class="line">       <span class="number">3</span>: dup</div><div class="line">       <span class="number">4</span>: invokespecial <span class="meta">#3                  <span class="comment">// Method java/lang/String."&lt;init&gt;":()V</span></span></div><div class="line">       <span class="number">7</span>: astore_1</div><div class="line">       <span class="number">8</span>: <span class="keyword">new</span>           <span class="meta">#4                  <span class="comment">// class CoreJava/day_2/Test$Lee</span></span></div><div class="line">      <span class="number">11</span>: dup</div><div class="line">      <span class="number">12</span>: invokespecial <span class="meta">#5                  <span class="comment">// Method CoreJava/day_2/Test$Lee."&lt;init&gt;":()V</span></span></div><div class="line">      <span class="number">15</span>: astore_2</div><div class="line">      <span class="number">16</span>: aload_2</div><div class="line">      <span class="number">17</span>: aload_1</div><div class="line">      <span class="number">18</span>: invokevirtual <span class="meta">#6                  <span class="comment">// Method CoreJava/day_2/Test$Lee.call:(Ljava/lang/String;)V</span></span></div><div class="line">      <span class="number">21</span>: <span class="keyword">return</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>看到了这一行18: invokevirtual #6                  // Method CoreJava/day_2/Test$Lee.call:(Ljava/lang/String;)V确实是发生了静态绑定，确定了调用了接收String对象作为参数的say方法。</p>
-<p><strong>现在可以改写一下</strong>：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</div><div class="line">      String <span class="keyword">str</span> = <span class="keyword">new</span> String();</div><div class="line">      Lee lee = <span class="keyword">new</span> SecLee();</div><div class="line">      lee.say(<span class="keyword">str</span>);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Lee</span> </span>&#123;</div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> say(String <span class="keyword">str</span>) &#123;</div><div class="line">          System.out.println(<span class="string">"这是个String"</span>);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SecLee</span> <span class="keyword">extends</span> <span class="title">Lee</span> </span>&#123;</div><div class="line">      @Override</div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> say(String <span class="keyword">str</span>) &#123;</div><div class="line">          System.out.println(<span class="string">"这是第二李的String"</span>);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>结果为</strong>：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ java <span class="keyword">Test</span></div><div class="line">这是第二李的<span class="built_in">String</span></div></pre></td></tr></table></figure>
-<p>上面，用SecLee继承了Lee，并且重写了say方法。我们声明了一个Lee类型的变量lee，但是这个变量指向的是他的子类SecLee。根据结果可以看出，其调用了SecLee的say方法实现，而不是Lee的say方法。这一结果的产生的原因是因为在运行时发生了动态绑定，在绑定过程中需要确定调用哪个版本的say方法实现。</p>
-<p><strong>再看看反编译的结果</strong>：</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">javap -c Test</div><div class="line">警告: 二进制文件Test包含CoreJava.day_2.Test</div><div class="line">Compiled from <span class="string">"Test.java"</span></div><div class="line">public class CoreJava.day_2.Test &#123;</div><div class="line">  public CoreJava.day_2.Test();</div><div class="line">    <span class="built_in">Code</span>:</div><div class="line">       <span class="number">0</span>: aload_0</div><div class="line">       <span class="number">1</span>: invokespecial <span class="meta">#1                  <span class="comment">// Method java/lang/Object."&lt;init&gt;":()V</span></span></div><div class="line">       <span class="number">4</span>: <span class="keyword">return</span></div><div class="line"></div><div class="line">  public static void main(java.lang.<span class="keyword">String</span>[]);</div><div class="line">    <span class="built_in">Code</span>:</div><div class="line">       <span class="number">0</span>: <span class="keyword">new</span>           <span class="meta">#2                  <span class="comment">// class java/lang/String</span></span></div><div class="line">       <span class="number">3</span>: dup</div><div class="line">       <span class="number">4</span>: invokespecial <span class="meta">#3                  <span class="comment">// Method java/lang/String."&lt;init&gt;":()V</span></span></div><div class="line">       <span class="number">7</span>: astore_1</div><div class="line">       <span class="number">8</span>: <span class="keyword">new</span>           <span class="meta">#4                  <span class="comment">// class CoreJava/day_2/Test$SecLee</span></span></div><div class="line">      <span class="number">11</span>: dup</div><div class="line">      <span class="number">12</span>: invokespecial <span class="meta">#5                  <span class="comment">// Method CoreJava/day_2/Test$SecLee."&lt;init&gt;":()V</span></span></div><div class="line">      <span class="number">15</span>: astore_2</div><div class="line">      <span class="number">16</span>: aload_2</div><div class="line">      <span class="number">17</span>: aload_1</div><div class="line">      <span class="number">18</span>: invokevirtual <span class="meta">#6                  <span class="comment">// Method CoreJava/day_2/Test$Lee.say:(Ljava/lang/String;)V</span></span></div><div class="line">      <span class="number">21</span>: <span class="keyword">return</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>正如上面的结果，18: invokevirtual #6                  // Method CoreJava/day_2/Test Lee.say:(Ljava/lang/String;)V这里是TestLee.say而非Test$SecLee.say，因为编译期无法确定调用子类还是父类的实现，所以只能丢给运行时的动态绑定来处理。</p>
-<p>既然重写测试了，<strong>那我们再试试重载</strong>：</p>
-<p>下面的例子更复杂！Lee类中存在say方法的两种重载，更复杂的是SecLee集成Lee并且重写了这两个方法。其实这种情况是上面两种情况的复合情况。<br>下面的代码首先会发生静态绑定，确定调用参数为String对象的say方法，然后在运行时进行动态绑定确定执行子类还是父类的say实现。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test</span> &#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</div><div class="line">      String str = <span class="keyword">new</span> String();</div><div class="line">      Lee lee = <span class="keyword">new</span> SecLee();</div><div class="line">      lee.say(str);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">Lee</span> &#123;</div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params">Object obj</span>) </span>&#123;</div><div class="line">          System.<span class="keyword">out</span>.println(<span class="string">"这是Object"</span>);</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params">String str</span>) </span>&#123;</div><div class="line">          System.<span class="keyword">out</span>.println(<span class="string">"这是String"</span>);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">SecLee</span> <span class="title">extends</span> <span class="title">Lee</span> &#123;</div><div class="line">      @<span class="function">Override</span></div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params">Object obj</span>) &#123;</div><div class="line">          System.<span class="keyword">out</span>.println(<span class="string">"这是第二李的Object"</span>);</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      @<span class="function">Override</span></div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params">String str</span>) &#123;</div><div class="line">          System.<span class="keyword">out</span>.println(<span class="string">"这是第二李的String"</span>);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>结果</strong>:</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ java <span class="keyword">Test</span></div><div class="line">这是第二李的<span class="built_in">String</span></div></pre></td></tr></table></figure>
-<p>结果在意料之中，就不多说了。</p>
-<p>那么问题来了，<font color="red"><strong>非动态绑定不可么？</strong></font><br>其实某些方法的绑定也可以由静态绑定实现，比如说：</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">      <span class="keyword">String</span> <span class="built_in">str</span> = <span class="keyword">new</span> <span class="keyword">String</span>();</div><div class="line">      <span class="keyword">final</span> Lee lee = <span class="keyword">new</span> SecLee();</div><div class="line">      lee.say(<span class="built_in">str</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出，这里lee持有SecLee的对象并且lee变量为final，立即执行了say方法，编译器理论上通过足够的分析代码，是可以知道应该调用SecLee的say方法。</p>
-<p><strong>结论：</strong><br>由于动态绑定需要在运行时确定执行哪个版本的方法实现或者变量，比起静态绑定起来要耗时，所以正如书上所说的，有些程序员认为，除非有足够的理由使用多态性，应该把所有的方法都声明为final，private或者static进行修饰。我觉得这个有点偏激了，具体使用仁者见仁，智者见智吧。</p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>QR码属于矩阵式二维码中的一个种类，由DENSO(日本电装)公司开发，由JIS和ISO将其标准化。QR码的样子其实在很多场合已经能够被看到了，我这还是贴个图展示一下：</p>
+<p><img src="http://img.blog.csdn.net/20170323193748791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTWVsb2RfYmM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" height="300" width="300"><br><a id="more"></a></p>
+<p>这个图如果被正确解码，应该看到百度。</p>
+<p>具体的也不说什么了，百度一大把，直接上源码~</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">package com.lincoln.Untils;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.google.zxing.BarcodeFormat;</div><div class="line"><span class="keyword">import</span> com.google.zxing.EncodeHintType;</div><div class="line"><span class="keyword">import</span> com.google.zxing.MultiFormatWriter;</div><div class="line"><span class="keyword">import</span> com.google.zxing.common.BitMatrix;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</div><div class="line"><span class="keyword">import</span> java.io.<span class="built_in">File</span>;</div><div class="line"><span class="keyword">import</span> java.io.OutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.awt.<span class="built_in">image</span>.BufferedImage;</div><div class="line"><span class="keyword">import</span> java.util.Hashtable;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> QRUtil &#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> BLACK = <span class="number">0xFF000000</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> WHITE = <span class="number">0xFFFFFFFF</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * @param args</div><div class="line">     * @throws Exception</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) throws Exception &#123;</div><div class="line">        <span class="keyword">String</span> <span class="built_in">text</span> = <span class="string">"http://www.baidu.com"</span>;</div><div class="line">        <span class="keyword">int</span> <span class="built_in">width</span> = <span class="number">300</span>;</div><div class="line">        <span class="keyword">int</span> <span class="built_in">height</span> = <span class="number">300</span>;</div><div class="line">        <span class="comment">//二维码的图片格式</span></div><div class="line">        <span class="keyword">String</span> format = <span class="string">"gif"</span>;</div><div class="line">        Hashtable hints = <span class="keyword">new</span> Hashtable();</div><div class="line">        <span class="comment">//内容所使用编码</span></div><div class="line">        hints.<span class="built_in">put</span>(EncodeHintType.CHARACTER_SET, <span class="string">"utf-8"</span>);</div><div class="line">        BitMatrix bitMatrix = <span class="keyword">new</span> MultiFormatWriter().encode(<span class="built_in">text</span>,</div><div class="line">                BarcodeFormat.QR_CODE, <span class="built_in">width</span>, <span class="built_in">height</span>, hints);</div><div class="line">        <span class="comment">//生成二维码</span></div><div class="line">        <span class="built_in">File</span> outputFile = <span class="keyword">new</span> <span class="built_in">File</span>(<span class="string">"/Users/lizhi/Downloads"</span> + <span class="built_in">File</span>.separator + <span class="string">"new.gif"</span>);</div><div class="line">        QRUtil.writeToFile(bitMatrix, format, outputFile);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> QRUtil() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> BufferedImage toBufferedImage(BitMatrix matrix) &#123;</div><div class="line">        <span class="keyword">int</span> <span class="built_in">width</span> = matrix.getWidth();</div><div class="line">        <span class="keyword">int</span> <span class="built_in">height</span> = matrix.getHeight();</div><div class="line">        BufferedImage <span class="built_in">image</span> = <span class="keyword">new</span> BufferedImage(<span class="built_in">width</span>, <span class="built_in">height</span>, BufferedImage.TYPE_INT_RGB);</div><div class="line">        <span class="built_in">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; <span class="built_in">width</span>; x++) &#123;</div><div class="line">            <span class="built_in">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; <span class="built_in">height</span>; y++) &#123;</div><div class="line">                <span class="built_in">image</span>.setRGB(x, y, matrix.<span class="built_in">get</span>(x, y) ? BLACK : WHITE);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="built_in">image</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> writeToFile(BitMatrix matrix, <span class="keyword">String</span> format, <span class="built_in">File</span> file)</div><div class="line">            throws IOException &#123;</div><div class="line">        BufferedImage <span class="built_in">image</span> = toBufferedImage(matrix);</div><div class="line">        <span class="built_in">if</span> (!ImageIO.<span class="built_in">write</span>(<span class="built_in">image</span>, format, file)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Could not write an image of format "</span> + format + <span class="string">" to "</span> + file);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> writeToStream(BitMatrix matrix, <span class="keyword">String</span> format, OutputStream stream)</div><div class="line">            throws IOException &#123;</div><div class="line">        BufferedImage <span class="built_in">image</span> = toBufferedImage(matrix);</div><div class="line">        <span class="built_in">if</span> (!ImageIO.<span class="built_in">write</span>(<span class="built_in">image</span>, format, stream)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Could not write an image of format "</span> + format);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>恩，就这么简单。</p>
 
       
     </div>
@@ -390,13 +369,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/02/18/Java的静态-动态绑定/">Java的静态/动态绑定</a></p>
+        <p><span>本文标题:</span><a href="/2017/03/23/Java基于zxing生成二维码demo/">Java基于zxing生成二维码demo</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
-        <p><span>发布时间:</span>2017-02-18, 20:57:05</p>
-        <p><span>最后更新:</span>2017-02-18, 20:59:04</p>
+        <p><span>发布时间:</span>2017-03-23, 19:43:10</p>
+        <p><span>最后更新:</span>2017-03-23, 19:44:19</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/02/18/Java的静态-动态绑定/" title="Java的静态/动态绑定">http://justdoitlee.github.io/2017/02/18/Java的静态-动态绑定/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Java的静态-动态绑定/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/23/Java基于zxing生成二维码demo/" title="Java基于zxing生成二维码demo">http://justdoitlee.github.io/2017/03/23/Java基于zxing生成二维码demo/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/03/23/Java基于zxing生成二维码demo/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -409,16 +388,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/02/18/我们为什么要用Spring，SpringMVC/">
-                    我们为什么要用Spring，SpringMVC
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/02/18/mysql-如何插入一列自增序号/">
-                    mysql 如何插入一列自增序号
+                <a href="/2017/03/23/Java网易短信接入demo/">
+                    Java网易短信接入demo
                 </a>
             </div>
         
@@ -466,7 +439,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Java的静态/动态绑定　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Java基于zxing生成二维码demo　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -482,7 +455,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/18/Java的静态-动态绑定/" data-title="Java的静态/动态绑定" data-url="http://justdoitlee.github.io/2017/02/18/Java的静态-动态绑定/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/03/23/Java基于zxing生成二维码demo/" data-title="Java基于zxing生成二维码demo" data-url="http://justdoitlee.github.io/2017/03/23/Java基于zxing生成二维码demo/"></div>
     <script>
         var duoshuoQuery = {short_name:"undefined"};
         var loadComment = function(){
@@ -505,15 +478,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/02/18/我们为什么要用Spring，SpringMVC/" title="上一篇: 我们为什么要用Spring，SpringMVC">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/02/18/mysql-如何插入一列自增序号/" title="下一篇: mysql 如何插入一列自增序号">
+            <a href="/2017/03/23/Java网易短信接入demo/" title="下一篇: Java网易短信接入demo">
                 <i class="fa fa-angle-right"></i>
             </a>
         
