@@ -15,16 +15,21 @@
 
 
 
-<meta name="description" content="日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)，">
+<meta name="description" content="用户中心是几乎每一个公司必备的基础服务，用户注册、登录、信息查询与修改都离不开用户中心。
+当数据量越来越大时，需要多用户中心进行水平切分。最常见的水平切分方式，按照userId取模分库：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Logger级别">
-<meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Logger级别/index.html">
+<meta property="og:title" content="userId分库，怎么通过其他字段查询">
+<meta property="og:url" content="http://justdoitlee.github.io/2017/04/18/userId分库，怎么通过其他字段查询/index.html">
 <meta property="og:site_name" content="李智‘Blog">
-<meta property="og:description" content="日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)，">
-<meta property="og:updated_time" content="2017-02-18T13:24:21.000Z">
+<meta property="og:description" content="用户中心是几乎每一个公司必备的基础服务，用户注册、登录、信息查询与修改都离不开用户中心。
+当数据量越来越大时，需要多用户中心进行水平切分。最常见的水平切分方式，按照userId取模分库：">
+<meta property="og:image" content="http://img.blog.csdn.net/20170418093703450">
+<meta property="og:updated_time" content="2017-04-18T02:13:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Logger级别">
-<meta name="twitter:description" content="日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)，">
+<meta name="twitter:title" content="userId分库，怎么通过其他字段查询">
+<meta name="twitter:description" content="用户中心是几乎每一个公司必备的基础服务，用户注册、登录、信息查询与修改都离不开用户中心。
+当数据量越来越大时，需要多用户中心进行水平切分。最常见的水平切分方式，按照userId取模分库：">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170418093703450">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +61,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Logger级别 | 李智‘Blog</title>
+<title>userId分库，怎么通过其他字段查询 | 李智‘Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -309,11 +314,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Logger级别" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-userId分库，怎么通过其他字段查询" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/18/Logger级别/" class="article-date">
-      <time datetime="2017-02-18T13:22:28.000Z" itemprop="datePublished">2017-02-18</time>
+      <a href="/2017/04/18/userId分库，怎么通过其他字段查询/" class="article-date">
+      <time datetime="2017-04-18T02:12:40.000Z" itemprop="datePublished">2017-04-18</time>
 </a>
 
 
@@ -328,7 +333,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Logger级别
+      userId分库，怎么通过其他字段查询
     </h1>
   
 
@@ -337,13 +342,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
+    <a class="article-category-link" href="/categories/数据库那点事/">数据库那点事</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logger/">Logger</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分库/">分库</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -353,8 +358,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
-<font color="red">日志记录的级别有继承性，子类会记录父类的所有的日志级别。</font>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>用户中心是几乎每一个公司必备的基础服务，用户注册、登录、信息查询与修改都离不开用户中心。</p>
+<p>当数据量越来越大时，需要多用户中心进行水平切分。最常见的水平切分方式，<strong>按照userId取模分库</strong>：<a id="more"></a></p>
+<p>例如：</p>
+<p><img src="http://img.blog.csdn.net/20170418093703450" height="300px" width="500px"></p>
+<p>通过userId取模，将数据分布到多个数据库实例上去，提高服务实例个数，降低单库数据量，以达到扩容的目的。</p>
+<p>这样水平切分之后，userId属性上的查询可以直接路由到库，如上图，假设访问uid=10的数据，取模后能够直接定位db1。</p>
+<p>但是分库之后，对于其他字段的查询，就不能这么幸运了。假设访问userName=”lizhi”的数据，由于不知道数据落在哪个库上，<strong>往往需要遍历所有库，当分库数量多起来，性能会显著降低</strong>。</p>
+<p>所以我要们寻找如何高效查询的方法！（以下用userName为例）</p>
+<h2>索引表法</h2>
+
+<p>思路：userId直接定位到库，userName不能直接定位到库，如果通过userName能查询到userId，问题解决。</p>
+<p>解决方案：<br><br>1）建立一个索引表记录userName-&gt;userId的映射关系<br>2）用userName来访问时，先通过索引表查询到userId，再定位相应的库<br>3）索引表属性较少，可以容纳非常多数据，一般不需要分库<br>4）如果数据量过大，可以通过userName来分库</p>
+<p>潜在不足：多一次数据库查询，性能下降一倍。</p>
+<p></p><h2>缓存映射法</h2><br>思路：访问索引表性能较低，把映射关系放在缓存里性能更佳。<p></p>
+<p>解决方案：<br><br>1）userName查询先到cache中查询userId，再根据userId定位数据库<br>2）假设cache miss，采用扫全库法获取userName对应的userId，放入cache<br>3）userName到userId的映射关系不会变化，映射关系一旦放入缓存，不会更改，无需淘汰，缓存命中率超高<br>4）如果数据量过大，可以通过userName进行cache水平切分</p>
+<p>潜在不足：多一次cache查询</p>
+<p></p><h2>userName生成userId</h2><br>思路：不进行远程查询，由userName直接得到userId<p></p>
+<p>解决方案：<br><br>1）在用户注册时，设计函数userName生成userId，userId=f(userName)，按userId分库插入数据<br>2）用userName来访问时，先通过函数计算出userId，即userId=f(userName)再来一遍，由userId路由到对应库</p>
+<p>潜在不足：该函数设计需要非常讲究技巧，有userId生成冲突风险</p>
+<p></p><h2>userName基因融入userId</h2><br>思路：不能用userName生成userId，可以从userName抽取“基因”，融入userId中<p></p>
+<p>假设分8库，采用userId%8路由，潜台词是，userId的最后3个bit决定这条数据落在哪个库上，这3个bit就是所谓的“基因”。</p>
+<p>解决方案：<br><br>1）在用户注册时，设计函数userName生成3bit基因，userName_gene=f(userName)<br>2）同时，生成61bit的全局唯一id，作为用户的标识<br>3）接着把3bit的userName_gene也作为userId的一部分<br>4）生成64bit的userId，由id和userName_gene拼装而成，并按照userId库插入数据<br>5）用userName来访问时，先通过函数由userName再次复原3bit基因，userName_gene=f(userName)，通过userName_gene%8直接定位到库</p>
+
       
     </div>
     
@@ -362,13 +388,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/02/18/Logger级别/">Logger级别</a></p>
+        <p><span>本文标题:</span><a href="/2017/04/18/userId分库，怎么通过其他字段查询/">userId分库，怎么通过其他字段查询</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
-        <p><span>发布时间:</span>2017-02-18, 21:22:28</p>
-        <p><span>最后更新:</span>2017-02-18, 21:24:21</p>
+        <p><span>发布时间:</span>2017-04-18, 10:12:40</p>
+        <p><span>最后更新:</span>2017-04-18, 10:13:56</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/02/18/Logger级别/" title="Logger级别">http://justdoitlee.github.io/2017/02/18/Logger级别/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/Logger级别/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/04/18/userId分库，怎么通过其他字段查询/" title="userId分库，怎么通过其他字段查询">http://justdoitlee.github.io/2017/04/18/userId分库，怎么通过其他字段查询/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/04/18/userId分库，怎么通过其他字段查询/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -381,16 +407,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/02/18/Java-8-最佳技巧/">
-                    Java 8 最佳技巧
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/02/18/Java接口是常量存放的最佳地点吗？/">
-                    Java接口是常量存放的最佳地点吗？
+                <a href="/2017/03/23/Java基于zxing生成二维码demo/">
+                    Java基于zxing生成二维码demo
                 </a>
             </div>
         
@@ -402,7 +422,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">索引表法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">缓存映射法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">userName生成userId</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">userName基因融入userId</span></a></li></ol>
         
     </div>
     <style>
@@ -438,7 +458,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Logger级别　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"userId分库，怎么通过其他字段查询　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -454,7 +474,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/18/Logger级别/" data-title="Logger级别" data-url="http://justdoitlee.github.io/2017/02/18/Logger级别/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/04/18/userId分库，怎么通过其他字段查询/" data-title="userId分库，怎么通过其他字段查询" data-url="http://justdoitlee.github.io/2017/04/18/userId分库，怎么通过其他字段查询/"></div>
     <script>
         var duoshuoQuery = {short_name:"undefined"};
         var loadComment = function(){
@@ -477,15 +497,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/02/18/Java-8-最佳技巧/" title="上一篇: Java 8 最佳技巧">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/02/18/Java接口是常量存放的最佳地点吗？/" title="下一篇: Java接口是常量存放的最佳地点吗？">
+            <a href="/2017/03/23/Java基于zxing生成二维码demo/" title="下一篇: Java基于zxing生成二维码demo">
                 <i class="fa fa-angle-right"></i>
             </a>
         
