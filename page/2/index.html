@@ -312,6 +312,83 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-58到家数据库30条军规解读" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/18/58到家数据库30条军规解读/" class="article-date">
+      <time datetime="2017-02-18T14:09:57.000Z" itemprop="datePublished">2017-02-18</time>
+</a>
+
+ 
+    <a href="/2017/02/18/58到家数据库30条军规解读/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2017/02/18/58到家数据库30条军规解读/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/18/58到家数据库30条军规解读/">数据库30条军规解读</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>军规适用场景：并发量大、数据量大的互联网业务<br><br>军规：介绍内容<br><br>解读：讲解原因，解读比军规更重要<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/数据库那点事/">数据库那点事</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/军规/">军规</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/02/18/58到家数据库30条军规解读/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-apache-poi操作-适用于word-2007" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1011,85 +1088,6 @@
       
         <p class="article-more-link">
           <a href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java泛型总结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/18/Java泛型总结/" class="article-date">
-      <time datetime="2017-02-18T13:26:07.000Z" itemprop="datePublished">2017-02-18</time>
-</a>
-
- 
-    <a href="/2017/02/18/Java泛型总结/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2017/02/18/Java泛型总结/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/18/Java泛型总结/">Java泛型总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><strong>一. 我们为什么需要泛型？</strong></p>
-<p>首先，我们看下下面这段简短的代码:</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</span></div><div class="line"><span class="keyword">public</span> class GenericTest &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        List list = <span class="keyword">new</span> ArrayList();</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"justdoit"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"core"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="number">100</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++) &#123;</div><div class="line">            <span class="keyword">String</span> name = (<span class="keyword">String</span>) list.<span class="built_in">get</span>(i); <span class="comment">// 1</span></div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"name:"</span> + name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java二三事/">Java二三事</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/泛型/">泛型</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/18/Java泛型总结/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
