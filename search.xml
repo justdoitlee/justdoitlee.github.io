@@ -48,6 +48,7 @@
 <p>首先，Ministrel始终是一个POJO，没有任何说明他是用来作为切面的。作为一个切面是通过Spring配置文件实现的。其次，也是最重要的，Ministrel可以应用到BraveKnight而不需要BraveKnight直接调用它，实际上，BraveKnight根本不知道Ministrel的存在。</p>
 <p>需要指出的是，你可以使用Spring的魔法使得Ministrel作为一个切面，但是Ministrel必须首先是一个Spring的Bean，关键的就是你可以使用任何Spring Bean作为切面，而且可以将其注入其他的Bean中。</p>
 <p><strong>这些基础的理论都是从《Spring实战第四版》一书中记录下来的，以后的学习中，将会掺杂以自己视角来写。</strong></p>
+<p><strong>ps:其实之前有写过Spring的一些理解，但是开发过程中还是发现很多细节都不理解不明白，因为之前Spring的学习都是基于开发过程中边做边学，所以决定从头开始系统的学习。</strong></p>
 ]]></content>
       
         <categories>
