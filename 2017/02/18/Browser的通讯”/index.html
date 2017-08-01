@@ -187,7 +187,7 @@
                         
                             <li><a href="/about/">关于我</a></li>
                         
-                            <li><a href="/love/love.html">表白</a></li>
+                            <li><a href="/love/index.html">表白</a></li>
                         
                         </ul>
                     </nav>
@@ -278,7 +278,7 @@
                 
                     <li><a href="/about/">关于我</a></li>
                 
-                    <li><a href="/love/love.html">表白</a></li>
+                    <li><a href="/love/index.html">表白</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -356,7 +356,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。</p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。</p>
 <p>这样一来，问题自然就转换为跨窗口通讯问题了。<br><a id="more"></a><br>窗口间通讯毫无疑问首选是 window.postMessage ，在cordova当中，原生 window.open 是不能用的，官方给的方案是使用 cordova-plugin-inappbrowser 插件所提供的 cordova.InAppBrowser.open(url, target, options) 来取代 window.open ，这两者基本上API差不多一致。</p>
 <p>但是IAB插件所返回的对象并不是真正的 window ，它没有 postMessage 功能，并且在IAB所打开的页面中，也没有 window.opener ，于是只能另辟蹊径，找点不靠谱的挫方法来试试了。</p>
 <p>OAuth基本流程</p>

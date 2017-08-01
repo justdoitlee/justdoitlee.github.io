@@ -184,7 +184,7 @@
                         
                             <li><a href="/about/">关于我</a></li>
                         
-                            <li><a href="/love/love.html">表白</a></li>
+                            <li><a href="/love/index.html">表白</a></li>
                         
                         </ul>
                     </nav>
@@ -275,7 +275,7 @@
                 
                     <li><a href="/about/">关于我</a></li>
                 
-                    <li><a href="/love/love.html">表白</a></li>
+                    <li><a href="/love/index.html">表白</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -353,7 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>任何一个成功的应用都是由多个为了实现某个业务目标而相互协作的组件构成的，这些组件必须相互了解、能够相互协作完成工作。<a id="more"></a><br>例如，在一个在线购物系统中，订单管理组件需要与产品管理组件以及信用卡认证组件协作；这些组件还需要跟数据库组件协作从而进行数据库读写操作。<br>在Spring应用中，对象无需自己负责查找或者创建与其关联的其他对象，由容器负责将创建各个对象，并创建各个对象之间的依赖关系。<br>通俗的来说，Spring就是一个工厂，Bean就是Spring工厂的产品，对于Spring工厂能够生产那些产品，这个取决于领导的决策，也就是配置文件中配置。<br>因此，<strong>对于开发者来说，我们需要关注的只是告诉Spring容器需要创建哪些bean以及如何将各个bean装配到一起</strong>。<strong>对于Spring来说，它要做的就是根据配置文件来创建Bean实例，并调用Bean实例的方法完成“依赖注入”</strong>。</p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>任何一个成功的应用都是由多个为了实现某个业务目标而相互协作的组件构成的，这些组件必须相互了解、能够相互协作完成工作。<a id="more"></a><br>例如，在一个在线购物系统中，订单管理组件需要与产品管理组件以及信用卡认证组件协作；这些组件还需要跟数据库组件协作从而进行数据库读写操作。<br>在Spring应用中，对象无需自己负责查找或者创建与其关联的其他对象，由容器负责将创建各个对象，并创建各个对象之间的依赖关系。<br>通俗的来说，Spring就是一个工厂，Bean就是Spring工厂的产品，对于Spring工厂能够生产那些产品，这个取决于领导的决策，也就是配置文件中配置。<br>因此，<strong>对于开发者来说，我们需要关注的只是告诉Spring容器需要创建哪些bean以及如何将各个bean装配到一起</strong>。<strong>对于Spring来说，它要做的就是根据配置文件来创建Bean实例，并调用Bean实例的方法完成“依赖注入”</strong>。</p>
 <h2>Bean的定义</h2><br><li>   &lt; beans/&gt;是Sring配置文件的根节点<br></li><li> 一个&lt; beans/&gt;节点里面可以有多个<bean>节点<br>在定义Bean的时候，通常要指定两个属性：id和class。其中id用来指明bean的标识符，这个标识符具有唯一性，Spring对bean的管理以及bean之间这种依赖关系都需要这个属性；而class指明该bean的具体实现类，这里不能是接口（可以是接口实现类）全路径包名.类名。<br><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一个Bean的配置</span></div><div class="line">    &lt;bean id=<span class="string">"bean"</span> <span class="keyword">class</span>=<span class="string">"实现类"</span> /&gt;</div></pre></td></tr></table></figure><br><br>或者<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component(<span class="meta-string">"bean"</span>)</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bean</span> </span>&#123;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>当我们用XML配置了这个bean的时候，该bean实现类中必须有一个无参构造器，故Spring底层相当于调用了如下代码：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">bean</span> = new 实现类（）<span class="comment">;</span></div></pre></td></tr></table></figure><br><br>如果在bean的配置文件中，通过构造注入如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=<span class="string">"bean"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"实现类"</span> /&gt;  </div><div class="line">       <span class="xml"><span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"bean"</span>/&gt;</span>  </span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure><br><br>那么Spring相当于调用了<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Bean </span><span class="keyword">bean </span>= new 实现类（<span class="string">"bean"</span>）<span class="comment">;</span></div></pre></td></tr></table></figure><br><br><h2>Spring的配置方法</h2><br>Spring容器负责创建应用中的bean，并通过DI维护这些bean之间的协作关系。作为开发人员，你应该负责告诉Spring容器需要创建哪些bean以及如何将各个bean装配到一起。Spring提供三种装配bean的方式：<br><br><li>基于XML文件的显式装配<br></li><li>基于Java文件的显式装配<br></li><li>隐式bean发现机制和自动装配<br><br>绝大多数情况下，开发人员可以根据个人品味选择这三种装配方式中的一种。Spring也支持在同一个项目中混合使用不同的装配方式。<br><br>《Spring实战》的建议是：尽可能使用自动装配，越少写显式的配置文件越好；当你必须使用显式配置时（例如，你要配置一个bean，但是该bean的源码不是由你维护），尽可能使用类型安全、功能更强大的基于Java文件的装配方式；最后，在某些情况下只有XML文件中才又你需要使用的名字空间时，再选择使用基于XML文件的装配方式。<br><br><h2>自动装配Bean</h2>
 
 <p>Spring通过两个角度来实现自动装配：</p>

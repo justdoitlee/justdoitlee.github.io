@@ -189,7 +189,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
                         
                             <li><a href="/about/">关于我</a></li>
                         
-                            <li><a href="/love/love.html">表白</a></li>
+                            <li><a href="/love/index.html">表白</a></li>
                         
                         </ul>
                     </nav>
@@ -280,7 +280,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
                 
                     <li><a href="/about/">关于我</a></li>
                 
-                    <li><a href="/love/love.html">表白</a></li>
+                    <li><a href="/love/index.html">表白</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -358,7 +358,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>类加载器</strong></p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p><strong>类加载器</strong></p>
 <p>Java在需要使用类的时候，才会将类加载，Java的类加载是由类加载器（Class loader）来完成的。<br>当我们在命令模式下执行java xxx指令后，Java执行程序会尝试找到jre安装的所在目录，然后找到jvm.dll（假设在jre目录下的bin\client下），接着启动jvm并进行初始化操作，接着会产生bootstrap loader，bootstrap loader则会加载 extended loader，并设定 extended loader的parent为bootstrap loader，接着bootstrap loader会加载system loader，并将system loader的parent设为 extended loader。<br><a id="more"></a><br>bootstrap loader通常是由c写的， extended loader是由Java写的，实际这个对应着sun.misc.Launcher\$ExtClassLoader（Launcher 中的内部类）；system loader 是由 Java写的，实际对应sun.misc. Launcher\$AppClassLoader（Launcher 中的内部类）。</p>
 <p><strong>流程如下图：</strong><br><img src="http://img.blog.csdn.net/20161205220032526" alt="这里写图片描述"></p>
 <p>Bootstrap Loader 会查找系统参数 sun.boot.class.path 中指定位置的类，假设是 JRE classes 下之文件，或 lib 目录下 .jar 文件中（例如 rt.jar）的类并加载，我们可以使用 System.getProperty(“sun.boot.class.path”) 来显示 sun.boot.class.path 中指定的路劲，例如在我的终端显示的是以下的路劲：</p>

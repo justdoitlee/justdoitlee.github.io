@@ -190,7 +190,7 @@
                         
                             <li><a href="/about/">关于我</a></li>
                         
-                            <li><a href="/love/love.html">表白</a></li>
+                            <li><a href="/love/index.html">表白</a></li>
                         
                         </ul>
                     </nav>
@@ -281,7 +281,7 @@
                 
                     <li><a href="/about/">关于我</a></li>
                 
-                    <li><a href="/love/love.html">表白</a></li>
+                    <li><a href="/love/index.html">表白</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -359,7 +359,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><blockquote>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><blockquote>
 <p>本文转自<a href="http://www.jianshu.com/p/93ac21161ac6" target="_blank" rel="external">StuQ</a> </p>
 </blockquote>
 <p><br><br>这篇教程简单介绍了 nginx 并且讲解了一些 nginx 可以解决的简单任务。这里，我们假设 nginx 已经安装在读者的机器上。如果没有，可以看一下如何安装 nginx。这篇教程主要讲解的是如果启用和停止 ngixn，和重新加载配置，描述配置文件的基本结构和怎样搭建一个 nginx 静态辅助器，怎样配置 nginx 作为一个代理服务器来。 nginx 有一个主进程和其他子进程。主进程的主要工作是加载和执行配置文件，并且驻留子进程。子进程用来作为实际的请求处理。nginx 采取基于事件的模型和 OS 依赖的机制，在多个子进程之间高效的分配请求。子进程的个数会直接写在配置文件中并且，对于给定的配置可以是固定的，或者根据可用的 CPU 核数自动的进行调整（参考子进程）。 nginx 和它模块的工作方式是在配置文件中写好的。默认情况下，这个配置文件通常命名为 nginx.conf 并且会放置在 /usr/local/nginx/conf，/etc/nginx，或者 /usr/local/etc/nginx。<br><a id="more"></a><br>启用，停止和重载配置</p>
