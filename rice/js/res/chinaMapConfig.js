@@ -1,4 +1,4 @@
-<script src="/assets/js/APlayer.min.js"> </script>var chinaMapConfig = {
+var chinaMapConfig = {
 	width: 565,
 	height: 475,
 	shapes: {

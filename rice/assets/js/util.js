@@ -1,4 +1,4 @@
-<script src="/assets/js/APlayer.min.js"> </script>(function($) {
+(function($) {
 
 	/**
 	 * Generate an indented list of links from a nav. Meant for use with panel().
@@ -18,7 +18,11 @@
 				target = $this.attr('target');
 
 			b.push(
-				'<a '="" +="" 'class="link depth-' + indent + '" (="" (typeof="" target="" !="=" 'undefined'="" &&="" )="" ?="" :="" '')="" href="">' +
+				'<a ' +
+					'class="link depth-' + indent + '"' +
+					( (typeof target !== 'undefined' && target != '') ? ' target="' + target + '"' : '') +
+					( (typeof href !== 'undefined' && href != '') ? ' href="' + href + '"' : '') +
+				'>' +
 					'<span class="indent-' + indent + '"></span>' +
 					$this.text() +
 				'</a>'
@@ -580,4 +584,4 @@
 
 	};
 
-})(jQuery);</div>
+})(jQuery);

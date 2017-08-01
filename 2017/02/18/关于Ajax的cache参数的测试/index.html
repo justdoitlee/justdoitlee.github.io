@@ -189,7 +189,7 @@
                         
                             <li><a href="/about/">关于我</a></li>
                         
-                            <li><a href="/love/index.html">表白</a></li>
+                            <li><a href="/rice/index.html">朋友圈</a></li>
                         
                         </ul>
                     </nav>
@@ -280,7 +280,7 @@
                 
                     <li><a href="/about/">关于我</a></li>
                 
-                    <li><a href="/love/index.html">表白</a></li>
+                    <li><a href="/rice/index.html">朋友圈</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -358,7 +358,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>&nbsp;&nbsp;其实这次做这个测试是因为和同学谈论@requestbody时引发的一个笑话，我之前一直以为ajax中的<code>dataType: &#39;json&#39;</code>是传输去后台的数据格式，后来分分钟被打脸，查了一下百度，才知道原来<code>dataType: &#39;json&#39;</code>是期望返回的数据类型，由此才发现原来ajax并没有平常用的那么简单。<br><a id="more"></a><br>首先我们来看一下什么是Ajax：<br>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。<br>有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。(以上来自w3cschool)</p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>&nbsp;&nbsp;其实这次做这个测试是因为和同学谈论@requestbody时引发的一个笑话，我之前一直以为ajax中的<code>dataType: &#39;json&#39;</code>是传输去后台的数据格式，后来分分钟被打脸，查了一下百度，才知道原来<code>dataType: &#39;json&#39;</code>是期望返回的数据类型，由此才发现原来ajax并没有平常用的那么简单。<br><a id="more"></a><br>首先我们来看一下什么是Ajax：<br>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。<br>有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。(以上来自w3cschool)</p>
 <p>在看这些资料的过程中，一个参数引起了我的注意：<strong>cache</strong> 这个cache有true和false两个方向，<font color="red">显式的要求如果当前请求有缓存的话，直接使用缓存。如果该属性设置为 false，则每次都会向服务器请求</font>。由此我做了下面的测试：</p>
 <p>首先创建一个servlet，用来接收客户端发来的请求</p>
 <p>AjaxServlet.java</p>

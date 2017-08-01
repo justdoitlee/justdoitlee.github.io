@@ -184,7 +184,7 @@
                         
                             <li><a href="/about/">关于我</a></li>
                         
-                            <li><a href="/love/index.html">表白</a></li>
+                            <li><a href="/rice/index.html">朋友圈</a></li>
                         
                         </ul>
                     </nav>
@@ -275,7 +275,7 @@
                 
                     <li><a href="/about/">关于我</a></li>
                 
-                    <li><a href="/love/index.html">表白</a></li>
+                    <li><a href="/rice/index.html">朋友圈</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -353,7 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
 <font color="red">日志记录的级别有继承性，子类会记录父类的所有的日志级别。</font>
       
     </div>
