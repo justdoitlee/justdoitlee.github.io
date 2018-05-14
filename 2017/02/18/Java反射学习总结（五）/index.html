@@ -359,7 +359,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p><strong>使用反射实例对象</strong></p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>使用反射实例对象</strong></p>
 <p>使用反射机制，我们可以在运行时动态加载类并且实例化对象，操作对象的方法、改变类成员的值，甚至还可以改变私有（private）成员的值。</p>
 <p>我们可以用 Class 的 newInstance() 方法来实例化一个对象，实例化的对象是以 Object 传回的，例如：<br><a id="more"></a><br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Class c</span> = Class.forName(className);</div><div class="line"><span class="attribute">Object obj</span> = c.newInstance();</div></pre></td></tr></table></figure></p>
 <p>下面范例动态加载list接口的类：</p>

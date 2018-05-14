@@ -353,7 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>最近，买了本spring入门书：spring In Action 。大致浏览了下感觉还不错。就是入门了点。Manning的书还是不错的，我虽然不像哪些只看Manning书的人那样专注于Manning,但怀着崇敬的心情和激情通览了一遍。又一次接受了IOC 、DI、AOP等Spring核心概念。 先就IOC和DI谈一点我的看法。<br><a id="more"></a><br>IOC（DI）：其实这个Spring架构核心的概念没有这么复杂，更不像有些书上描述的那样晦涩。Java程序员都知道：java程序中的每个业务逻辑至少需要两个或以上的对象来协作完成，通常，每个对象在使用他的合作对象时，自己均要使用像new object（） 这样的语法来完成合作对象的申请工作。你会发现：对象间的耦合度高了。而IOC的思想是：Spring容器来实现这些相互依赖对象的创建、协调工作。对象只需要关系业务逻辑本身就可以了。从这方面来说，对象如何得到他的协作对象的责任被反转了（IOC、DI）。</p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>最近，买了本spring入门书：spring In Action 。大致浏览了下感觉还不错。就是入门了点。Manning的书还是不错的，我虽然不像哪些只看Manning书的人那样专注于Manning,但怀着崇敬的心情和激情通览了一遍。又一次接受了IOC 、DI、AOP等Spring核心概念。 先就IOC和DI谈一点我的看法。<br><a id="more"></a><br>IOC（DI）：其实这个Spring架构核心的概念没有这么复杂，更不像有些书上描述的那样晦涩。Java程序员都知道：java程序中的每个业务逻辑至少需要两个或以上的对象来协作完成，通常，每个对象在使用他的合作对象时，自己均要使用像new object（） 这样的语法来完成合作对象的申请工作。你会发现：对象间的耦合度高了。而IOC的思想是：Spring容器来实现这些相互依赖对象的创建、协调工作。对象只需要关系业务逻辑本身就可以了。从这方面来说，对象如何得到他的协作对象的责任被反转了（IOC、DI）。</p>
 <p>这是我对Spring的IOC的体会。DI其实就是IOC的另外一种说法。DI是由Martin Fowler 在2004年初的一篇论文中首次提出的。<code>他总结：控制的什么被反转了？就是：获得依赖对象的方式反转了。</code></p>
 <p>如果对这一核心概念还不理解：这里引用一个叫Bromon的blog上找到的浅显易懂的答案：</p>
 <blockquote>
