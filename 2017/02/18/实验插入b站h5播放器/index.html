@@ -1,17 +1,81 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no" />
-<meta name="author" content="李智" />
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小插件," />
+
+
+
+
+
+
+
 
 
 
@@ -32,333 +96,236 @@ B 站每个视频都有对应的 aid 和 cid 值，在视频网页的源代码�
 
 B 站每个视频都有对应的 aid 和 cid 值，在视频网页的源代码中可以找到">
 
-<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="李智‘Blog" type="application/atom+xml">
-
-
-
-    <link rel="shortcut icon" href="/favicon.png">
-
-
-
-    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
-
-
-
-    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-
-
-
-    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
-<title>实验插入b站h5播放器 | 李智‘Blog</title>
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-<script>
-    var yiliaConfig = {
-        fancybox: true,
-        animate: true,
-        isHome: false,
-        isPost: true,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: true
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
+  };
 </script>
 
 
-    <script>
-        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
-    </script>
 
-
-
-    <script> yiliaConfig.rootUrl = "\/";</script>
+  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/实验插入b站h5播放器/"/>
 
 
 
 
 
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?b05b150e77dbc9b387880e502eea917e";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+  <title>实验插入b站h5播放器 | 李智‘Blog</title>
+  
+
+
+
+
+
+
 
 
 </head>
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.png" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">李智</a></h1>
-        </hgroup>
 
-        
-        <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
-        
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-        
-            <form id="search-form">
-            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
-            <i class="fa fa-times" onclick="resetSearch()"></i>
-            </form>
-            <div id="local-search-result"></div>
-            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
-        
+  
+  
+    
+  
 
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
 
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">文章</a></li>
-                        
-                            <li><a href="/tags/">标签</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                            <li><a href="/rice/index.html">朋友圈</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" href="https://github.com/JustDoItLee" title="GitHub"></a>
-                            
-                                <a class="fa 知乎" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
-                            
-                                <a class="fa 简书" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
-                            
-                                <a class="fa CSDN" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
-                            
-                                <a class="fa Quora" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
-                            
-                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
-                            
-                                <a class="fa Twitter" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
-                            
-                                <a class="fa LinkedIn" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
-                            
-                                <a class="fa QQ" href="/657994434" title="QQ"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jvm/">Jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logger/">Logger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebRTC/">WebRTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache/">cache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二维码/">二维码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优化/">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/公平/">公平</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军规/">军规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分库/">分库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小插件/">小插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/常量/">常量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/常量池/">常量池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接口/">接口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时间复杂度/">时间复杂度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架/">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/泛型/">泛型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/种子/">种子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空间复杂度/">空间复杂度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自增序号/">自增序号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迁移/">迁移</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态动态绑定/">静态动态绑定</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饥饿/">饥饿</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑车/">黑车</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
-                    
-                    </div>
-                </section>
-                
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">李智‘Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+      
+  </div>
 
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">90后Java程序员</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">李智</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.png" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">李智</a></h1>
-            </hgroup>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            <p class="header-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">文章</a></li>
-                
-                    <li><a href="/tags/">标签</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                    <li><a href="/rice/index.html">朋友圈</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:justdoitleeee@gmail.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/JustDoItLee" title="GitHub"></a>
-                            
-                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/li-zhi-44-22/activities" title="知乎"></a>
-                            
-                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/8bb93b902812/timeline" title="简书"></a>
-                            
-                                <a class="fa CSDN" target="_blank" href="http://blog.csdn.net/melod_bc" title="CSDN"></a>
-                            
-                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/%E6%9D%8E%E6%99%BA" title="Quora"></a>
-                            
-                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004217921453" title="Facebook"></a>
-                            
-                                <a class="fa Twitter" target="_blank" href="https://twitter.com/iLoveChina0791" title="Twitter"></a>
-                            
-                                <a class="fa LinkedIn" target="_blank" href="http://www.linkedin.com/in/%E6%99%BA-%E6%9D%8E-930811121/" title="LinkedIn"></a>
-                            
-                                <a class="fa QQ" target="_blank" href="/657994434" title="QQ"></a>
-                            
-                        </ul>
-            </nav>
-        </header>                
-    </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
-      <div class="body-wrap"><article id="post-实验插入b站h5播放器" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/18/实验插入b站h5播放器/" class="article-date">
-      <time datetime="2017-02-18T08:42:57.000Z" itemprop="datePublished">2017-02-18</time>
-</a>
 
 
-    </div>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
   
-  <div class="article-inner">
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/实验插入b站h5播放器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 class="article-title" itemprop="name">
-      实验插入b站h5播放器
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/博客/">博客</a>
-    </div>
-
-
+          <h1 class="post-title" itemprop="name headline">实验插入b站h5播放器</h1>
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小插件/">小插件</a></li></ul>
-    </div>
 
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T16:42:57+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
         <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>Hexo 插 B 站的播放器很简单，在 md 文档中插个 iframe 标签就行，aid 和 cid 值需要手动填写，播放器大小可以自己调节：</p>
 <blockquote>
 <p>B 站每个视频都有对应的 aid 和 cid 值，在视频网页的源代码中可以找到</p>
@@ -372,280 +339,371 @@ B 站每个视频都有对应的 aid 和 cid 值，在视频网页的源代码�
       
     </div>
     
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小插件/" rel="tag"># 小插件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/" rel="next" title="JVM虚拟机关于“不使用的对象手动赋值为null”的理解">
+                <i class="fa fa-chevron-left"></i> JVM虚拟机关于“不使用的对象手动赋值为null”的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/18/关于多线程的饥饿和公平/" rel="prev" title="关于多线程的饥饿和公平">
+                关于多线程的饥饿和公平 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/02/18/实验插入b站h5播放器/">实验插入b站h5播放器</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">李智</a></p>
-        <p><span>发布时间:</span>2017-02-18, 16:42:57</p>
-        <p><span>最后更新:</span>2017-02-18, 19:19:41</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/02/18/实验插入b站h5播放器/" title="实验插入b站h5播放器">http://justdoitlee.github.io/2017/02/18/实验插入b站h5播放器/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://justdoitlee.github.io/2017/02/18/实验插入b站h5播放器/　　作者: 李智" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
-        <br>
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
     </div>
+  </div>
 
-  <br>
 
-    <nav id="article-nav">
-        
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/02/18/关于多线程的饥饿和公平/">
-                    关于多线程的饥饿和公平
-                </a>
-            </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">
-                    JVM虚拟机关于“不使用的对象手动赋值为null”的理解
-                </a>
-            </div>
-        
-    </nav>
+          </div>
+          
+
+
+          
 
   
-</article>
-
-    <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
-        
-            
-        
-    </div>
-    <style>
-        .left-col .switch-btn,
-        .left-col .switch-area {
-            display: none;
-        }
-        .toc-level-3 i,
-        .toc-level-3 ol {
-            display: none !important;
-        }
-    </style>
-
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-
-    <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
-    </script>
 
 
 
-    
-<div class="share">
-    
-        <div class="bdsharebuttonbox">
-            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
-            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
-        </div>
-        <script>
-            window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"实验插入b站h5播放器　| 李智‘Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-        </script>
-    
-
-    
-</div>
-
-
-
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/18/实验插入b站h5播放器/" data-title="实验插入b站h5播放器" data-url="http://justdoitlee.github.io/2017/02/18/实验插入b站h5播放器/"></div>
-    <script>
-        var duoshuoQuery = {short_name:"undefined"};
-        var loadComment = function(){
-            var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
-            (d.head || d.body).appendChild(s);
-        }
-
-        
-    </script>
-    
-    <script> loadComment(); </script>
-
-</div>
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/2017/02/18/关于多线程的饥饿和公平/" title="上一篇: 关于多线程的饥饿和公平">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
-
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-
-        
-            <a href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/" title="下一篇: JVM虚拟机关于“不使用的对象手动赋值为null”的理解">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/15/系统学习Spring-三-——Bean的高级装配/">系统学习Spring(三)——Bean的高级装配</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/10/系统学习Spring（二）——装配Bean/">系统学习Spring（二）——装配Bean</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/Spring初探（一）/">系统学习Spring（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/18/userId分库，怎么通过其他字段查询/">userId分库，怎么通过其他字段查询</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/23/Java基于zxing生成二维码demo/">Java基于zxing生成二维码demo</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/23/Java网易短信接入demo/">Java网易短信接入demo</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/Java使用websocket和WebRTC实现视频通话/">Java使用websocket和WebRTC实现视频通话</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/spring-ioc原理/">spring ioc原理（自己也可以写个spring）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/03/Volatile小结/">Volatile小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/为什么volatile不能保证原子性而Atomic可以？/">为什么volatile不能保证原子性而Atomic可以？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/数据库系统分层优化/">数据库系统分层优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/20/希尔排序/">希尔排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/58到家数据库30条军规解读/">数据库30条军规解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/apache-poi操作-适用于word-2007/">apache poi操作(适用于word 2007)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/时间复杂度和空间复杂度详解/">时间复杂度和空间复杂度详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/2016年总结/">2016年总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">jdk1.8的HashMap和ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Browser的通讯”/">cordova中与inBrowser的通讯</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/高级for循环使用remove-add-问题/">高级for循环使用remove/add 问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/HashMap面试题总结！/">HashMap面试题总结！</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/浅谈HashMap/">浅谈HashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/">nginx 基本入门(至今为止见过最好的 nginx 入门文章，没有之一。)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java泛型总结/">Java泛型总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java-8-最佳技巧/">Java 8 最佳技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Logger级别/">Logger级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java接口是常量存放的最佳地点吗？/">Java接口是常量存放的最佳地点吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（五）/">Java反射学习总结（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（四）/">Java反射学习总结（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（三）/">Java反射学习总结（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（二）/">Java反射学习总结（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java反射学习总结（一/">Java反射学习总结（一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/我们为什么要用Spring，SpringMVC/">我们为什么要用Spring，SpringMVC</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Java的静态-动态绑定/">Java的静态/动态绑定</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/mysql-如何插入一列自增序号/">mysql 如何插入一列自增序号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/关于Ajax的cache参数的测试/">关于Ajax的cache参数的测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM常量池及字符串-比较分析/">JVM常量池及字符串==比较分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/关于多线程的饥饿和公平/">关于多线程的饥饿和公平</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/实验插入b站h5播放器/">实验插入b站h5播放器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/JVM虚拟机关于“不使用的对象手动赋值为null”的理解/">JVM虚拟机关于“不使用的对象手动赋值为null”的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/黑车司机发车器Java版/">黑车司机发车器Java版</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/Hello-Hexo/">Hello Hexo</a></li></ul>
-
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-               <div id="days"></div>
-                    <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js">
-                    //这里调用了公共库中现成的 js 文件，也可以直接调用站点中的 js 文件
-                    </script>
-                    <script>
-                        var begin = moment([2015,09,15]); //定义博客开始时间
-                        var now = moment(); //使用 moment() 获取当前时间
-                        document.getElementById('days').innerHTML ="博客已运行 "+now.diff(begin,'days')+" 天"
-                    // 使用 now.diff(begin,'days') 函数获取天数，这里天数考虑了闰年
-                    </script>
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/JustDoItLee/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by RicardoLee <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
         </div>
         
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>| </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-</footer>
-
-    </div>
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    // Open in New Window
-    
-        var oOpenInNew = {
-            
-            
-            
-            
-            
-            
-             archives: ".archive-article-title", 
-             miniArchives: "a.post-list-link", 
-            
-             friends: "#js-friends a", 
-             socail: ".social a" 
-        }
-        for (var x in oOpenInNew) {
-            $(oOpenInNew[x]).attr("target", "_blank");
-        }
-    
-</script>
-
-    <script>
-        var originTitle = document.title;
-        var titleTime;
-        document.addEventListener("visibilitychange", function() {
-            if (document.hidden) {
-                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
-                clearTimeout(titleTime);
-            }
-            else {
-                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
-                titleTime = setTimeout(function() {
-                    document.title = originTitle;
-                }, 2000);
-            }
-        })
-    </script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
   </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">李智</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/JustDoItLee" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:mailto:justdoitleeee@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李智</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
