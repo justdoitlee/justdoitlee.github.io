@@ -25,7 +25,7 @@ private Criteria buildCriteria(Coupon coupon) {
 select * from table where company_id = #{company_id} and rank_points <= #{rank_points}
 ```
 
-这是标准的mybatis语句，在进行代码调试和处理时也方便进行查看并处理。那么整个处理逻辑即变成如何处理参数信息，分别处理 **字段名** **运算符** **参数名 字段类型 参数映射**即可。
+这是标准的mybatis语句，在进行代码调试和处理时也方便进行查看并处理。那么整个处理逻辑即变成如何处理参数信息，分别处理 **字段名** **运算符** **参数名 字段类型 参数映射**即可。<!--more-->
 
 **模拟hibernate的Criteria类**
 
