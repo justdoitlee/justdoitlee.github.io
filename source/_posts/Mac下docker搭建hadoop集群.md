@@ -89,7 +89,7 @@ root@17c9e3d85b34:~/soft/apache# wget http://www-us.apache.org/dist/hadoop/commo
 root@17c9e3d85b34:~/soft/apache# tar xvzf hadoop-2.7.6.tar.gz
 ```
 
-这里是在用户目录下，创建一个hadoop文件夹，然后下载hadoop（这里是2.7.6）下来，解压出来。
+这里是在用户目录下，创建一个hadoop文件夹，然后下载hadoop（这里是2.7.6）下来，解压出来。<!--more-->
 
 ### 环境配置
 

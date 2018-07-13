@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  177
+                  1,971
                 </span>
               
 
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  9分钟
                 </span>
               
             </div>
@@ -416,7 +416,109 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull ubuntu</div></pre></td></tr></table></figure>
 <p>然后使用<code>docker images</code>可以查看本地的所有镜像：</p>
 <p><img src="/2018/07/12/Mac下docker搭建hadoop集群/1.png" alt="image-1"></p>
-
+<p>显示的内容如下：</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">REPOSITORY：仓库名</div><div class="line">TAG：标记,例如hadoop</div><div class="line"><span class="built_in">IMAGE</span> ID：镜像ID号，这是唯一的</div><div class="line">CREATED：创建时间</div><div class="line"><span class="built_in">SIZE</span>：镜像大小</div><div class="line">那么，除此之外，还需要了解docker的一些常用操作。</div></pre></td></tr></table></figure>
+<h3 id="启动Docker"><a href="#启动Docker" class="headerlink" title="启动Docker"></a>启动Docker</h3><p>启动docker容器，就可以构建部署hadoop集群了。使用如下命令启动docker容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -ti ubuntu:14.04</div></pre></td></tr></table></figure>
+<p><img src="/2018/07/12/Mac下docker搭建hadoop集群/2.png" alt="image-2"></p>
+<p>其中红色框内的一串字符是容器ID,可以在docker images 的 imageID列查看到，这个很有用处。到这里我们就已经搭建完ubuntu虚拟主机了。</p>
+<p>接下来我们在Ubuntu基础镜像的上，我们需要安装Hadoop需要的jvm环境，执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[1] apt-get update  //记得更新，不更新执行下面可能会出错</div><div class="line">[2] apt-get install software-properties-common python-software-properties</div><div class="line">[3] add-apt-repository ppa:webupd8team/java</div><div class="line">[4] apt-get install oracle-java8-installer</div><div class="line">[5] export JAVA_HOME=/usr/lib/jvm/java-8-oracle</div></pre></td></tr></table></figure>
+<h3 id="安装-amp-配置Hadoop"><a href="#安装-amp-配置Hadoop" class="headerlink" title="安装&amp;配置Hadoop"></a>安装&amp;配置Hadoop</h3><p>设置好jvm环境后，下载Hadoop，输入如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">root@17c9e3d85b34:/usr/lib# cd ~</div><div class="line">root@17c9e3d85b34:~# mkdir soft</div><div class="line">root@17c9e3d85b34:~# ls</div><div class="line">soft</div><div class="line">root@17c9e3d85b34:~# cd soft/</div><div class="line">root@17c9e3d85b34:~/soft# mkdir apache</div><div class="line">root@17c9e3d85b34:~/soft# cd apache/</div><div class="line">root@17c9e3d85b34:~/soft/apache# mkdir hadoop</div><div class="line">root@17c9e3d85b34:~/soft/apache# pwd</div><div class="line">/root/soft/apache</div><div class="line">root@17c9e3d85b34:~/soft/apache# wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz</div><div class="line">root@17c9e3d85b34:~/soft/apache# tar xvzf hadoop-2.7.6.tar.gz</div></pre></td></tr></table></figure>
+<p>这里是在用户目录下，创建一个hadoop文件夹，然后下载hadoop（这里是2.7.6）下来，解压出来。</p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>现在需要配置环境变量，在~/.bashrc添加java和hadoop文件路径：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@17c9e3d85b34:vi ~/.bashrc</div><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/lib/jvm/java-8-oracle</div><div class="line"><span class="built_in">export</span> HADOOP_HOME=/root/soft/apache/hadoop/hadoop-2.7.6</div><div class="line"><span class="built_in">export</span> HADOOP_CONFIG_HOME=<span class="variable">$HADOOP_HOME</span>/etc/hadoop</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</div></pre></td></tr></table></figure>
+<p>最后，记得要<code>source ~/.bashrc</code>使配置生效，不然没用。</p>
+<h3 id="配置Hadoop"><a href="#配置Hadoop" class="headerlink" title="配置Hadoop"></a>配置Hadoop</h3><p>部署分布式的hadoop，主要分为两大角色：Master和Slave。从HDFS的角度，由若干个NameNode和DataNode组成（在分布式文件系统中，NameNode管理文件系统的命名空间，DataNode管理存储的数据）；从MapReduce的角度，将主机划分JobTracker 和TaskTracker(主节点的Job分配多个Task给从节点执行)。HDFS在集群上实现分布式文件系统，MapReduce在集群上实现了分布式计算和任务处理。HDFS在MapReduce任务处理过程中提供了文件操作和存储等支持，MapReduce在HDFS的基础上实现了任务的分发、跟踪、执行等工作，并收集结果，二者相互作用，完成了Hadoop分布式集群的主要任务<a href="http://blog.chinaunix.net/uid-25266990-id-3900239.html" target="_blank" rel="external">[参考]</a>。</p>
+<p>部署hadoop的各个节点，需要修改hadoop的配置文件，包括core-site.xml、hdfs-site.xml、mapred-site.xml这三个文件。在此之前，建议新建如下目录:</p>
+<ul>
+<li><p>tmp：作为Hadoop的临时目录</p>
+</li>
+<li><p>namenode：作为NameNode的存放目录</p>
+</li>
+<li><p>datanode：作为DataNode的存放目录</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root@17c9e3d85b34:~# cd $HADOOP_HOME/</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6# mkdir tmp</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6# cd tmp/</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6/tmp# cd ../</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6# mkdir namenode</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6# cd namenode/</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6/namenode# cd ../</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6# mkdir datanode</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6# cd datanode/</div><div class="line">root@17c9e3d85b34::~/soft/apache/hadoop/hadoop-2.7.6/datanode# cd /etc/hadoop</div><div class="line">root@17c9e3d85b34:~/soft/apache/hadoop/hadoop-2.7.6/etc/hadoop# cp mapred-site.xml.template mapred-site.xml</div></pre></td></tr></table></figure>
+<p>接下来进行配置：</p>
+<p><strong>core-site.xml：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/soft/apache/hadoop/hadoop-2.7.6/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://master:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>hadoop.tmp.dir：配置为/root/soft/apache/hadoop/hadoop-2.7.6/tmp为此前创建的临时目录。</li>
+<li>fs.default.name：配置为hdfs://master:9000，指向Master节点</li>
+</ul>
+<h5 id="hdfs-site-xml"><a href="#hdfs-site-xml" class="headerlink" title="hdfs-site.xml"></a>hdfs-site.xml</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">final</span>&gt;</span>true<span class="tag">&lt;/<span class="name">final</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/soft/apache/hadoop/hadoop-2.7.6/namenode<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/soft/apache/hadoop/hadoop-2.7.6/datanode<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>dfs.replication：配置为2。指集群为一个Master节点和两个Slave节点。</li>
+<li>dfs.namenode.name.dir：配置为此前创建的NameNode目录</li>
+<li>dfs.datanode.data.dir：配置为此前创建的NaDataNode目录</li>
+</ul>
+<h5 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapred.job.tracker<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>master:9001<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>mapred.job.tracker：配置jobTracker在master节点。</li>
+</ul>
+<p>除此之外，还要配置conf/hadoop-env.sh文件,修改为你的jdk的安装位置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-8-oracle</div></pre></td></tr></table></figure>
+<p>最后我们<code>hadoop namenode -format</code>来格式化一下Namenode</p>
+<h3 id="安装SSH-amp-配置机器的访问连接关系"><a href="#安装SSH-amp-配置机器的访问连接关系" class="headerlink" title="安装SSH&amp;配置机器的访问连接关系"></a>安装SSH&amp;配置机器的访问连接关系</h3><p>Hadoop启动以后，Namenode是通过SSH来启动和停止各个Datanode上的守护进程的，要求在节点之间执行指令的时候是不需要输入密码，故我们要配置SSH运用无密码公钥认证的形式。</p>
+<p>首先，安装SSH</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@17c9e3d85b34:~# apt-get install ssh</div><div class="line">root@17c9e3d85b34:~# ssh localhost</div><div class="line">在.bashrc配置：/usr/sbin/sshd</div><div class="line">启动sshd服务：service ssh start</div></pre></td></tr></table></figure>
+<p>利用<code>ssh localhost</code>测试一下是否设置好无口令登陆，如果没有设置好，系统将要求你输入密码，通过下面的设置可以实现无口令登陆：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@17c9e3d85b34:~# ssh-keygen -t rsa -P &apos;&apos; -f ~/.ssh/id_dsa</div><div class="line">root@17c9e3d85b34:~# cd .ssh</div><div class="line">root@17c9e3d85b34:~# cat id_dsa.pub &gt;&gt; authorized_keys</div></pre></td></tr></table></figure>
+<p>最后，保存一份镜像:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker commit -m &quot;java image&quot; 578c3e61a98c  ubuntu:hadoop</div></pre></td></tr></table></figure>
+<p><code>-m</code>后面指定提交说明，578c3e61a98c是容器ID（也可以通过<code>docker ps</code>查询运行的容器），<code>ubuntu:hadoop</code>是仓库，<code>:java</code>是标记。</p>
+<h3 id="启动Hadoop集群"><a href="#启动Hadoop集群" class="headerlink" title="启动Hadoop集群"></a>启动Hadoop集群</h3><p>接下来就是启动hadoop集群了，本次部署的hadoop方案是，一个Master节点，两个Slave节点： 　　</p>
+<p>#部署方案:</p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>IP</th>
+<th>Hadoop任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Master</td>
+<td>172.17.0.2</td>
+<td>Namenode,jobTracker</td>
+</tr>
+<tr>
+<td>Slave1</td>
+<td>172.17.0.3</td>
+<td>Datanode,taskTracker</td>
+</tr>
+<tr>
+<td>Slave2</td>
+<td>172.17.0.4</td>
+<td>Datanode,taskTracker</td>
+</tr>
+</tbody>
+</table>
+<p>启动容器使用如下命令：</p>
+<ul>
+<li><code>docker run -ti -h master justdoitleeee/ubuntu:hadoop</code></li>
+<li><code>docker run -ti -h slave1 justdoitleeee/ubuntu:hadoop</code></li>
+<li><code>docker run -ti -h slave2 justdoitleeee/ubuntu:hadoop</code></li>
+</ul>
+<p>其中，<code>-h</code>指定的是容器的主机名，比如<code>master slave1 slave2</code><br>容器启动成功后，docker会为它们自动分配ip地址，是同一网段相互之间能够ping通，在容器中输入<code>ifconfig</code>查看。</p>
+<h3 id="修改hosts"><a href="#修改hosts" class="headerlink" title="修改hosts"></a>修改hosts</h3><p>接下来修改各节点的hosts文件<code>vi /etc/hosts</code>，添加各节点的hostname和ip：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">172<span class="selector-class">.17</span><span class="selector-class">.0</span><span class="selector-class">.2</span>        <span class="selector-tag">master</span></div><div class="line">172<span class="selector-class">.17</span><span class="selector-class">.0</span><span class="selector-class">.3</span>        <span class="selector-tag">slave1</span></div><div class="line">172<span class="selector-class">.17</span><span class="selector-class">.0</span><span class="selector-class">.4</span>        <span class="selector-tag">slave2</span></div></pre></td></tr></table></figure>
+<h3 id="修改slaves"><a href="#修改slaves" class="headerlink" title="修改slaves"></a>修改slaves</h3><p>除此之外，还要在master节点上，配置slaves文件，该文件需要填写slave节点的hostname:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@master:~# cd ~/soft/apache/hadoop/hadoop-2.7.6/etc/hadoop</div><div class="line">root@master:~/soft/apache/hadoop/hadoop-2.6.0/etc/hadoop# vi slaves</div><div class="line">slave1</div><div class="line">slave2</div></pre></td></tr></table></figure>
+<h3 id="配置ssh-key"><a href="#配置ssh-key" class="headerlink" title="配置ssh key"></a>配置ssh key</h3><p>Master/Slave1/Slave2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa</div><div class="line">cat id_dsa.pub &gt;&gt; authorized_keys</div><div class="line">然后将slave1和slave2的authorized_keys内容拷贝到master authorized_keys.</div><div class="line"></div><div class="line">authorized_keys文件同步到master,slave1,slave2</div><div class="line">scp /root/.ssh/authorized_keys slave1:/root/.ssh/</div><div class="line">scp /root/.ssh/authorized_keys slave2:/root/.ssh/</div></pre></td></tr></table></figure>
+<h3 id="启动Hadoop"><a href="#启动Hadoop" class="headerlink" title="启动Hadoop"></a>启动Hadoop</h3><p>在Master节点的hadoop目录下执行<code>start-all.sh</code>，启动Hadoop集群:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@master:~/soft/apache/hadoop/hadoop-2.7.6/etc/hadoop# start-all.sh </div><div class="line">This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh</div><div class="line">starting secondarynamenode, logging to /root/soft/apache/hadoop/hadoop-2.7.6/logs/hadoop-root-secondarynamenode-master.out</div><div class="line">starting yarn daemons</div><div class="line">...</div><div class="line">0.0.0.0:starting resourcemanager, logging to /root/soft/apache/hadoop/hadoop-2.7.6/logs/yarn--resourcemanager-master.out</div><div class="line">slave2: starting nodemanager, logging to /root/soft/apache/hadoop/hadoop-2.7.6/logs/yarn-root-nodemanager-slave2.out</div><div class="line">slave1: starting nodemanager, logging to /root/soft/apache/hadoop/hadoop-2.7.6/logs/yarn-root-nodemanager-slave1.out</div></pre></td></tr></table></figure>
+<p>打印上述日志，说明集群运行成功，碍于生产环境，运行较慢，可以多等等。使用jps命令可以查看各节点运行的进程。</p>
+<p><strong>master节点：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@master:~/soft/apache/hadoop/hadoop-2.7.6/etc/hadoop# jps</div><div class="line">492 Jps</div><div class="line">429 ResourceManager</div><div class="line">295 SecondaryNameNode</div><div class="line">124 NameNode</div></pre></td></tr></table></figure>
+<p><strong>slave1节点：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@slave1:/# jps</div><div class="line">52 DataNode</div><div class="line">147 NodeManager</div><div class="line">240 Jps</div></pre></td></tr></table></figure>
+<p><strong>slave2节点：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@slave2:/# jps</div><div class="line">50 DataNode</div><div class="line">121 NodeManager</div><div class="line">250 Jps</div></pre></td></tr></table></figure>
           
         
       
@@ -2212,7 +2314,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共71.5k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共73.2k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
