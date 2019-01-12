@@ -414,7 +414,7 @@
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>最近这段时间折腾了一下WebRTC，这两天终于是抽了时间把WebRTC搞定了，去年就想弄的，但是确实没时间。看了网上的<a href="https://apprtc.appspot.com/的例子（可能需要翻墙访问），这个例子是部署在Google" target="_blank" rel="external">https://apprtc.appspot.com/的例子（可能需要翻墙访问），这个例子是部署在Google</a> App Engine上的应用程序，依赖与GAE的环境，后台的语言是python，而且还依赖Google App Engine Channel API，所以无法在本地运行，也无法扩展。费了一番功夫研读了例子的python端的源代码，决定用Java实现，Tomcat7之后开始支持WebSocket，打算用WebSocket代替Google App Engine Channel API实现前后台的通讯，在整个例子中Java+WebSocket起到的作用是负责客户端之间的通信，并不负责视频的传输，视频的传输依赖于WebRTC。<br><a id="more"></a></p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>最近这段时间折腾了一下WebRTC，这两天终于是抽了时间把WebRTC搞定了，去年就想弄的，但是确实没时间。看了网上的<a href="https://apprtc.appspot.com/的例子（可能需要翻墙访问），这个例子是部署在Google" target="_blank" rel="external">https://apprtc.appspot.com/的例子（可能需要翻墙访问），这个例子是部署在Google</a> App Engine上的应用程序，依赖与GAE的环境，后台的语言是python，而且还依赖Google App Engine Channel API，所以无法在本地运行，也无法扩展。费了一番功夫研读了例子的python端的源代码，决定用Java实现，Tomcat7之后开始支持WebSocket，打算用WebSocket代替Google App Engine Channel API实现前后台的通讯，在整个例子中Java+WebSocket起到的作用是负责客户端之间的通信，并不负责视频的传输，视频的传输依赖于WebRTC。<br><a id="more"></a></p>
 <p>首先WebRTC,这个可以百度一下，大概就是一个音频和视频通讯技术，可以跨平台，只要能用浏览器的基本都可以使用，当然要你的浏览器支持。</p>
 <p>这里引用了google的js库：<code>channel.js</code>。不过还是下载下来放到本地服务器吧，因为很多地方访问google.com很吃力啊。最开始就是这个js没有加载完郁闷了很久，还一直以为是代码写错了。</p>
 <p>另外在进入页面的时候，注意初始化页面js中的一个参数：<code>initiator</code>：如果是创建人这个参数设为false；如果是加入的时候这个设置为true。为true的时候，才会发起视频通话的请求。</p>
@@ -599,7 +599,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -610,7 +610,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -621,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -713,7 +713,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴

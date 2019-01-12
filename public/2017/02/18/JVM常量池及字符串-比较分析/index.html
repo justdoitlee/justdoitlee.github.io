@@ -414,7 +414,7 @@
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>java中的常量池技术，是为了方便快捷地创建某些对象而出现的，当需要一个对象时，就可以从池中取一个出来（如果池中没有的话就创建一个），这样在我们需要重复创建相等变量节省了很多时间。<br><br>&nbsp;&nbsp;常量池其实也就是一个内存空间，不同于使用new关键字创建的对象所在的堆空间。String类是java中用的比较多的类，同样为了创建String对象的方便，该类也实现了常量池的技术。<br><br><a id="more"></a><br>在讲述常量池之前，我们有必要先说说<font color="red">JVM运行时数据区的内存模型</font>。<br><br>JVM运行时数据区的内存模型由五部分组成:<br><br>1.方法区<br>2.堆<br>3.JAVA栈<br>4.PC寄存器<br>5.本地方法栈</p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>java中的常量池技术，是为了方便快捷地创建某些对象而出现的，当需要一个对象时，就可以从池中取一个出来（如果池中没有的话就创建一个），这样在我们需要重复创建相等变量节省了很多时间。<br><br>&nbsp;&nbsp;常量池其实也就是一个内存空间，不同于使用new关键字创建的对象所在的堆空间。String类是java中用的比较多的类，同样为了创建String对象的方便，该类也实现了常量池的技术。<br><br><a id="more"></a><br>在讲述常量池之前，我们有必要先说说<font color="red">JVM运行时数据区的内存模型</font>。<br><br>JVM运行时数据区的内存模型由五部分组成:<br><br>1.方法区<br>2.堆<br>3.JAVA栈<br>4.PC寄存器<br>5.本地方法栈</p>
 <p>例如对于<figure class="highlight plain"><figcaption><span>s = "haha"``` ,它的虚拟机指令：</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">0:   ldc     #16; //String haha    </div><div class="line">2:   astore_1 </div><div class="line">3:   return</div></pre></td></tr></table></figure></p>
 <p>从上面的ldc指令的执行过程可以得出：s的值是来自被拘留String对象（由解析该入口的进程产生）的引用，即可以理解为是从被拘留String对象的引用复制而来的，故我个人的理解是s的值是存在栈当中。上面是对于s值得分析，接着是对于”haha”值的分析,我们知道，对于String s = “haha” 其中”haha”值在JAVA程序编译期就确定下来了的。简单一点说，就是haha的值在程序编译成class文件后，就在class文件中生成了。执行JAVA程序的过程中，第一步是class文件生 成，然后被JVM装载到内存执行。那么JVM装载这个class到内存中，其中的haha这个值，在内存中是怎么为其开辟空间并存储在哪个区域中呢？</p>
 <p>&nbsp;&nbsp;首先我们不妨先来了解一下JVM常量池这个结构,这里我查询了一些资料,在资料中这样描述<strong>常量池</strong>:<br><br>虚拟机必须为每个被装载的类型维护一个常量池。常量池就是该类型所用到常量的一个有序集和，包括直接常量（string,integer和 floating point常量）和对其他类型，字段和方法的符号引用。对于String常量，它的值是在常量池中的。而JVM中的常量池在内存当中是以表的形式存在的，对于String类型，有一张固定长度的CONSTANT_String_info表用来存储文字字符串值，注意：该表只存储文字字符串值，不存储符号引用。说到这里，对常量池中的字符串值的存储位置应该有一个比较明了的理解了。</p>
@@ -609,7 +609,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -620,7 +620,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -631,7 +631,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -707,7 +707,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴

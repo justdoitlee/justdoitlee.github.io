@@ -419,7 +419,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p><strong>类加载器</strong></p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>类加载器</strong></p>
 <p>Java在需要使用类的时候，才会将类加载，Java的类加载是由类加载器（Class loader）来完成的。<br>当我们在命令模式下执行java xxx指令后，Java执行程序会尝试找到jre安装的所在目录，然后找到jvm.dll（假设在jre目录下的bin\client下），接着启动jvm并进行初始化操作，接着会产生bootstrap loader，bootstrap loader则会加载 extended loader，并设定 extended loader的parent为bootstrap loader，接着bootstrap loader会加载system loader，并将system loader的parent设为 extended loader。<br><a id="more"></a><br>bootstrap loader通常是由c写的， extended loader是由Java写的，实际这个对应着sun.misc.Launcher\$ExtClassLoader（Launcher 中的内部类）；system loader 是由 Java写的，实际对应sun.misc. Launcher\$AppClassLoader（Launcher 中的内部类）。</p>
 <p><strong>流程如下图：</strong><br><img src="http://img.blog.csdn.net/20161205220032526" alt="这里写图片描述"></p>
 <p>Bootstrap Loader 会查找系统参数 sun.boot.class.path 中指定位置的类，假设是 JRE classes 下之文件，或 lib 目录下 .jar 文件中（例如 rt.jar）的类并加载，我们可以使用 System.getProperty(“sun.boot.class.path”) 来显示 sun.boot.class.path 中指定的路劲，例如在我的终端显示的是以下的路劲：</p>
@@ -607,7 +607,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -618,7 +618,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -629,7 +629,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -705,7 +705,7 @@ Java在需要使用类的时候，才会将类加载，Java的类加载是由类
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴

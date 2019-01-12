@@ -420,7 +420,7 @@ Map用于保存具有key-value映射关系的数据">
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p><strong>什么是Map?</strong></p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>什么是Map?</strong></p>
 <font color="#008080">Map用于保存具有key-value映射关系的数据</font><br><a id="more"></a><br>首先看图！<br><br><img src="http://img.blog.csdn.net/20161224234534698" alt="这里写图片描述"><br><br>可以看出Java 中有四种常见的Map实现——HashMap, TreeMap, Hashtable和LinkedHashMap：<br><br>·HashMap就是一张hash表，键和值都没有排序。<br><br>·TreeMap以红黑树结构为基础，键值可以设置按某种顺序排列。<br><br>·LinkedHashMap保存了插入时的顺序。<br><br>·Hashtable是同步的(而HashMap是不同步的)。所以如果在线程安全的环境下应该多使用HashMap，而不是Hashtable，因为Hashtable对同步有额外的开销。<br><br><br><strong>我们在这里简单的说说HashMap：</strong><br><br>(1)HashMap是基于哈希表实现的，每一个元素是一个key-value对，其内部通过单链表解决冲突问题，容量不足（超过了阀值）时，同样会自动增长。<br><br>(2)HashMap是非线程安全的，只用于单线程环境下，多线程环境下可以采用concurrent并发包下的concurrentHashMap。<br><br>(3)HashMap 实现了Serializable接口，因此它支持序列化。<br><br>(4)HashMap还实现了Cloneable接口，故能被克隆。<br><br><br><br>先从<strong>HashMap的存储结构</strong>说起：<br><br><img src="http://img.blog.csdn.net/20161224235308725" alt="这里写图片描述"><br><br>蓝色部分即代表哈希表本身（其实是一个数组），数组的每个元素都是一个单链表的头节点，链表是用来解决hash地址冲突的，如果不同的key映射到了数组的同一位置处，就将其放入单链表中保存。<br><br><strong>HashMap的构造方法中有两个很重要的参数：</strong><font color="#008080">初始容量和加载因子</font>
 
 <p>这两个参数是影响HashMap性能的重要参数，其中容量表示哈希表中槽的数量（即哈希数组的长度），初始容量是创建哈希表时的容量（默认为16），加载因子是哈希表当前key的数量和容量的比值，当哈希表中的条目数超出了加载因子与当前容量的乘积时，则要对该哈希表提前进行 resize 操作（即扩容）。如果加载因子越大，对空间的利用更充分，但是查找效率会降低（链表长度会越来越长）；如果加载因子太小，那么表中的数据将过于稀疏（很多空间还没用，就开始扩容了），严重浪费。</p>
@@ -616,7 +616,7 @@ Map用于保存具有key-value映射关系的数据">
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -627,7 +627,7 @@ Map用于保存具有key-value映射关系的数据">
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -638,7 +638,7 @@ Map用于保存具有key-value映射关系的数据">
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -714,7 +714,7 @@ Map用于保存具有key-value映射关系的数据">
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴

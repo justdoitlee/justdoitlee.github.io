@@ -419,7 +419,7 @@
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>在软件开发中，常常设置不同的运行环境：开发环境、预发环境、性能测试环境和生产环境等等。</p>
+        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>在软件开发中，常常设置不同的运行环境：开发环境、预发环境、性能测试环境和生产环境等等。</p>
 <p>不同的环境下，应用程序的配置项也不同，例如数据库配置、远程服务地址等。<a id="more"></a>以数据库配置为例子，在开发环境中你可能使用一个嵌入式的内存数据库，并将测试数据放在一个脚本文件中。例如，在一个Spring的配置类中，可能需要定义如下的bean：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">Bean</span>(<span class="keyword">destroyMethod</span> = <span class="string">"shutdown"</span>)</div><div class="line">public DataSource dataSource() &#123;</div><div class="line">    <span class="selector-tag">return</span> <span class="selector-tag">new</span> <span class="selector-tag">EmbeddedDatabaseBuilder</span>()</div><div class="line">            <span class="selector-class">.addScript</span>("<span class="selector-tag">classpath</span><span class="selector-pseudo">:schema.sql")</span></div><div class="line">            <span class="selector-class">.addScript</span>("<span class="selector-tag">classpath</span><span class="selector-pseudo">:test-data.sql")</span></div><div class="line">            <span class="selector-class">.build</span>();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>使用EmbeddedDatabaseBuilder这个构建器可以建立一个内存数据库，通过指定路径下的schema.sql文件中的内容可以建立数据库的表定义，通过test-data.sql可以准备好测试数据。</p>
@@ -716,6 +716,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/12/Github建立分支备份Hexo/" rel="prev" title="Github建立分支备份Hexo">
+                Github建立分支备份Hexo <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -795,7 +799,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -806,7 +810,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -817,7 +821,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -909,7 +913,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
