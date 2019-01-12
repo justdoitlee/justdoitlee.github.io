@@ -11,7 +11,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css" />
 
 
   
@@ -269,735 +271,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/" itemprop="url">jdk1.8的HashMap和ConcurrentHashMap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:55:33+08:00">
-                2017-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4,591
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  16分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文针对jdk1.8的ConcurrentHashMap</p>
-<h1>1.8的HashMap设计</h1>
-
-<h2>1.1 整体概览</h2>
-
-<p>HashMap采用的是<strong>数组+链表+红黑树</strong>的形式。</p>
-<p>数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。</p>
-<p>用户可以设置的参数：初始总容量默认16，默认的加载因子0.75</p>
-<p>初始的数组个数默认是16（用户不能设置的）</p>
-<p>容量X加载因子=阈值</p>
-<p>一旦目前容量超过该阈值，则执行扩容操作。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/Browser的通讯”/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/18/Browser的通讯”/" itemprop="url">cordova中与inBrowser的通讯</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:48:10+08:00">
-                2017-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/移动开发/" itemprop="url" rel="index">
-                    <span itemprop="name">移动开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,079
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。</p>
-<p>这样一来，问题自然就转换为跨窗口通讯问题了。<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/18/Browser的通讯”/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/高级for循环使用remove-add-问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/18/高级for循环使用remove-add-问题/" itemprop="url">高级for循环使用remove/add 问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:43:31+08:00">
-                2017-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  356
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>今天在高级for循环中用了一下remove发现报错，写了个demo测试看：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> List&lt;<span class="keyword">String</span>&gt; a = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">String</span>&gt;();</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"1"</span>);</div><div class="line"> a.<span class="built_in">add</span>(<span class="string">"2"</span>);</div><div class="line"> <span class="keyword">for</span> (<span class="keyword">String</span> temp : a) &#123;</div><div class="line">     <span class="keyword">if</span>(<span class="string">"1"</span>.equals(temp))&#123;</div><div class="line">         a.remove(temp);</div><div class="line">&#125; &#125;</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/18/高级for循环使用remove-add-问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/HashMap面试题总结！/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/18/HashMap面试题总结！/" itemprop="url">HashMap面试题总结！</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:39:13+08:00">
-                2017-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,489
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>HashTable和HashMap的区别有哪些？</strong></p>
-<p>HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。</p>
-<p>理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/18/HashMap面试题总结！/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
     
       
 
@@ -1320,7 +593,7 @@
           <blockquote>
 <p>本文转自<a href="http://www.jianshu.com/p/93ac21161ac6">StuQ</a> </p>
 </blockquote>
-<p><br><br>这篇教程简单介绍了 nginx 并且讲解了一些 nginx 可以解决的简单任务。这里，我们假设 nginx 已经安装在读者的机器上。如果没有，可以看一下如何安装 nginx。这篇教程主要讲解的是如果启用和停止 ngixn，和重新加载配置，描述配置文件的基本结构和怎样搭建一个 nginx 静态辅助器，怎样配置 nginx 作为一个代理服务器来。 nginx 有一个主进程和其他子进程。主进程的主要工作是加载和执行配置文件，并且驻留子进程。子进程用来作为实际的请求处理。nginx 采取基于事件的模型和 OS 依赖的机制，在多个子进程之间高效的分配请求。子进程的个数会直接写在配置文件中并且，对于给定的配置可以是固定的，或者根据可用的 CPU 核数自动的进行调整（参考子进程）。 nginx 和它模块的工作方式是在配置文件中写好的。默认情况下，这个配置文件通常命名为 nginx.conf 并且会放置在 /usr/local/nginx/conf，/etc/nginx，或者 /usr/local/etc/nginx。<br></p>
+<p><br><br>这篇教程简单介绍了 nginx 并且讲解了一些 nginx 可以解决的简单任务。这里，我们假设 nginx 已经安装在读者的机器上。如果没有，可以看一下如何安装 nginx。这篇教程主要讲解的是如果启用和停止 ngixn，和重新加载配置，描述配置文件的基本结构和怎样搭建一个 nginx 静态辅助器，怎样配置 nginx 作为一个代理服务器来。 nginx 有一个主进程和其他子进程。主进程的主要工作是加载和执行配置文件，并且驻留子进程。子进程用来作为实际的请求处理。nginx 采取基于事件的模型和 OS 依赖的机制，在多个子进程之间高效的分配请求。子进程的个数会直接写在配置文件中并且，对于给定的配置可以是固定的，或者根据可用的 CPU 核数自动的进行调整（参考子进程）。 nginx 和它模块的工作方式是在配置文件中写好的。默认情况下，这个配置文件通常命名为 nginx.conf 并且会放置在 /usr/local/nginx/conf，/etc/nginx，或者 /usr/local/etc/nginx。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/18/nginx-基本入门-至今为止见过最好的-nginx-入门文章，没有之一。/#more" rel="contents">
@@ -1501,7 +774,7 @@
         
           <p><strong>一. 我们为什么需要泛型？</strong></p>
 <p>首先，我们看下下面这段简短的代码:</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class GenericTest &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        List list = <span class="keyword">new</span> ArrayList();</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"justdoit"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"core"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="number">100</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++) &#123;</div><div class="line">            <span class="keyword">String</span> name = (<span class="keyword">String</span>) list.<span class="built_in">get</span>(i); <span class="comment">// 1</span></div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"name:"</span> + name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> CoreJava.day_5;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</div><div class="line"> * @author 李智</div><div class="line"> * @date 2016/12/15</div><div class="line"> */</span></div><div class="line"><span class="keyword">public</span> class GenericTest &#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        List list = <span class="keyword">new</span> ArrayList();</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"justdoit"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="string">"core"</span>);</div><div class="line">        list.<span class="built_in">add</span>(<span class="number">100</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++) &#123;</div><div class="line">            <span class="keyword">String</span> name = (<span class="keyword">String</span>) list.<span class="built_in">get</span>(i); <span class="comment">// 1</span></div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"name:"</span> + name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/18/Java泛型总结/#more" rel="contents">
@@ -1683,7 +956,7 @@
           <blockquote>
 <p>翻译文章<br>转自<a href="https://muyinchen.github.io/2016/12/13/Java%208%20%E6%9C%80%E4%BD%B3%E6%8A%80%E5%B7%A7/#more">一叶知秋</a></p>
 </blockquote>
-<p><br><br>在过去的几年中，我一直使用Java 8 进行了很多的编码工作，用于开发 <a href="http://trishagee.github.io/presentation/java8_in_anger/">新应用</a> 和 <a href="http://trishagee.github.io/presentation/refactoring_to_java_8/">迁移遗留应用</a> ，我觉得是时候写一些有用的”最佳实践”。我个人不喜欢”最佳实践”这个术语，因为它意味着“一刀切”的解决方案，当然编码工作是不会这样的–这是因为我们开发人员会想出适合我们的方案。但我发现我对Java8特别的喜欢，它让我的生活更轻松一点，所以我想就此话题展开讨论。<br></p>
+<p><br><br>在过去的几年中，我一直使用Java 8 进行了很多的编码工作，用于开发 <a href="http://trishagee.github.io/presentation/java8_in_anger/">新应用</a> 和 <a href="http://trishagee.github.io/presentation/refactoring_to_java_8/">迁移遗留应用</a> ，我觉得是时候写一些有用的”最佳实践”。我个人不喜欢”最佳实践”这个术语，因为它意味着“一刀切”的解决方案，当然编码工作是不会这样的–这是因为我们开发人员会想出适合我们的方案。但我发现我对Java8特别的喜欢，它让我的生活更轻松一点，所以我想就此话题展开讨论。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/18/Java-8-最佳技巧/#more" rel="contents">
@@ -1862,7 +1135,7 @@
 
       
         
-          <p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)，</p>
+          <p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)，
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/18/Logger级别/#more" rel="contents">
@@ -2041,10 +1314,730 @@
 
       
         
-          <p>今天偶然看到接口中不能包含<strong>实例域</strong>或<strong>静态方法</strong>，但是却可以包含<strong>常量</strong>。<br><br>其实在之前，就知道这么回事，但是一直只是当做知道而已，现在回过头来巩固基础，觉得有必要多想想。<br></p>
+          <p>今天偶然看到接口中不能包含<strong>实例域</strong>或<strong>静态方法</strong>，但是却可以包含<strong>常量</strong>。<br><br>其实在之前，就知道这么回事，但是一直只是当做知道而已，现在回过头来巩固基础，觉得有必要多想想。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/18/Java接口是常量存放的最佳地点吗？/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（五）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/18/Java反射学习总结（五）/" itemprop="url">Java反射学习总结（五）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:16:51+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,460
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>使用反射实例对象</strong></p>
+<p>使用反射机制，我们可以在运行时动态加载类并且实例化对象，操作对象的方法、改变类成员的值，甚至还可以改变私有（private）成员的值。</p>
+<p>我们可以用 Class 的 newInstance() 方法来实例化一个对象，实例化的对象是以 Object 传回的，例如：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/18/Java反射学习总结（五）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（四）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/18/Java反射学习总结（四）/" itemprop="url">Java反射学习总结（四）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:15:55+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,469
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>类加载器</strong></p>
+<p>Java在需要使用类的时候，才会将类加载，Java的类加载是由类加载器（Class loader）来完成的。<br>当我们在命令模式下执行java xxx指令后，Java执行程序会尝试找到jre安装的所在目录，然后找到jvm.dll（假设在jre目录下的bin\client下），接着启动jvm并进行初始化操作，接着会产生bootstrap loader，bootstrap loader则会加载 extended loader，并设定 extended loader的parent为bootstrap loader，接着bootstrap loader会加载system loader，并将system loader的parent设为 extended loader。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/18/Java反射学习总结（四）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/18/Java反射学习总结（三）/" itemprop="url">Java反射学习总结（三）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:14:58+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  930
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Class对象表示所加载的类，取得Class对象后，我们就可以愉快的取得与类相关的信息了，就像包（package,package也是类名的一部分哦~），构造方法，方法，属性等信息，而每一个信息，也会有相应的类别形态，比如包对应的是 java.lang.Package，构造方法对应的是java.lang.reflect.Constructor，成员方法对应的是 java.lang.reflect.Method，属性对应的是 java.lang.reflect.Field等。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/18/Java反射学习总结（三）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/Java反射学习总结（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/18/Java反射学习总结（二）/" itemprop="url">Java反射学习总结（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:14:04+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  762
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>使用 Class.forName() 加载类</strong></p>
+<p>在一些应用中，我们无法事先知道使用者将会加载什么类，而必须让使用者指定类名类加载类，我们就可以用Class的静态forName()方法来实现动态加载类，如下：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/18/Java反射学习总结（二）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2136,7 +2129,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2147,7 +2140,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -2158,7 +2151,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -2211,7 +2204,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -2234,11 +2227,34 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共73.2k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
 </div>
+
+
+  <div class="platelet" style="display: block; margin-left:-22%;">
+    <div class="platelet-tips"></div>
+    <div style="width: 250px;overflow: hidden;">
+      <canvas id="live2d" width="650" height="600" class="live2d" style="width: 325px;height: 300px;"></canvas>
+    </div>
+    <div class="platelet-tool">
+      <i class="fa fa-eye eye"></i>
+      <i class="fa fa-music music"></i>
+      <i class="fa fa-comment comment"></i>
+      <i class="fa fa-camera camera"></i>
+    </div>
+  </div>
+  <div id="main" class="container"></div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="/platelet/assets/js/live2d.js"></script>
+<script src="/platelet/assets/js/platelet.js"></script>
+<script src="/platelet/assets/js/renderer.js"></script>
+<script type="text/javascript">
+  loadlive2d("live2d", "/platelet/assets/kesshouban_v2/model.json");
+</script>
 
 
 
@@ -2725,5 +2741,5 @@
 
   
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/null"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

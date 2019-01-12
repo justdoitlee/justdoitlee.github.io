@@ -11,7 +11,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css" />
 
 
   
@@ -412,7 +414,7 @@
       
 
       
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>今天看到《Java核心技术I》书上的动态绑定，意思就是当子类和父类存在同一个方法，子类重写了父类的方法，程序在运行时调用方法是调用父类的方法还是子类的重写方法呢？程序会在运行的时候自动选择调用某个方法（根据方法表）。<br>看完这里不由自主的想到，有动态肯定也就有静态吧，于是去求助了下google，首先看了下什么是<strong>绑定</strong>:<br>绑定指的是一个方法的调用与方法所在的类(方法主体)关联起来。对java来说，绑定分为静态绑定和动态绑定；或者叫做前期绑定和后期绑定。<br><a id="more"></a><br>然后我们分别看看两者之间含义以及差别<br><br><strong>动态绑定</strong>：在运行时根据具体对象的类型进行绑定。若一种语言实现了后期绑定，同时必须提供一些机制，可在运行期间判断对象的类型，并分别调用适当的方法。也就是说，编译器此时依然不知道对象的类型，但方法调用机制能自己去调查，找到正确的方法主体。不同的语言对后期绑定的实现方法是有所区别的。但我们至少可以这样认为：它们都要在对象中安插某些特殊类型的信息。</p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>今天看到《Java核心技术I》书上的动态绑定，意思就是当子类和父类存在同一个方法，子类重写了父类的方法，程序在运行时调用方法是调用父类的方法还是子类的重写方法呢？程序会在运行的时候自动选择调用某个方法（根据方法表）。<br>看完这里不由自主的想到，有动态肯定也就有静态吧，于是去求助了下google，首先看了下什么是<strong>绑定</strong>:<br>绑定指的是一个方法的调用与方法所在的类(方法主体)关联起来。对java来说，绑定分为静态绑定和动态绑定；或者叫做前期绑定和后期绑定。<br><a id="more"></a><br>然后我们分别看看两者之间含义以及差别<br><br><strong>动态绑定</strong>：在运行时根据具体对象的类型进行绑定。若一种语言实现了后期绑定，同时必须提供一些机制，可在运行期间判断对象的类型，并分别调用适当的方法。也就是说，编译器此时依然不知道对象的类型，但方法调用机制能自己去调查，找到正确的方法主体。不同的语言对后期绑定的实现方法是有所区别的。但我们至少可以这样认为：它们都要在对象中安插某些特殊类型的信息。</p>
 <p><strong>动态绑定的过程</strong>：<br><br>虚拟机提取对象的实际类型的方法表；–&gt;<br>虚拟机搜索方法签名；–&gt;<br>调用方法。</p>
 <p><strong>静态绑定</strong>：在程序执行前方法已经被绑定（也就是说在编译过程中就已经知道这个方法到底是哪个类中的方法），此时由编译器或其它连接程序实现。针对java，可以简单的理解为程序编译期的绑定；这里要特别说明一点，java当中的方法只有final，static，private和构造方法是前期绑定。</p>
 <p><strong>差别</strong>：其实上述解释可以看出很多东西了。<br><br>（1）静态绑定发生在编译时期，动态绑定发生在运行时<br><br>（2）使用private或static或final修饰的变量或者方法，使用静态绑定。而虚方法（可以被子类重写的方法）则会根据运行时的对象进行动态绑定。<br><br>（3）静态绑定使用类信息来完成，而动态绑定则需要使用对象信息来完成。<br><br>（4）重载(Overload)的方法使用静态绑定完成，而重写(Override)的方法则使用动态绑定完成。</p>
@@ -605,7 +607,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -616,7 +618,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -627,7 +629,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -680,7 +682,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -703,11 +705,34 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共73.2k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
 </div>
+
+
+  <div class="platelet" style="display: block; margin-left:-22%;">
+    <div class="platelet-tips"></div>
+    <div style="width: 250px;overflow: hidden;">
+      <canvas id="live2d" width="650" height="600" class="live2d" style="width: 325px;height: 300px;"></canvas>
+    </div>
+    <div class="platelet-tool">
+      <i class="fa fa-eye eye"></i>
+      <i class="fa fa-music music"></i>
+      <i class="fa fa-comment comment"></i>
+      <i class="fa fa-camera camera"></i>
+    </div>
+  </div>
+  <div id="main" class="container"></div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="/platelet/assets/js/live2d.js"></script>
+<script src="/platelet/assets/js/platelet.js"></script>
+<script src="/platelet/assets/js/renderer.js"></script>
+<script type="text/javascript">
+  loadlive2d("live2d", "/platelet/assets/kesshouban_v2/model.json");
+</script>
 
 
 
@@ -1198,5 +1223,5 @@
 
   
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/null"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

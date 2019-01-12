@@ -11,7 +11,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css" />
 
 
   
@@ -412,7 +414,7 @@
       
 
       
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
+        <script src="/assets/js/APlayer.min.js"> </script><script src="/assets/js/DPlayer.min.js"> </script><p>日志记录器(Logger)是日志处理的核心组件。log4j具有5种正常级别(Level)。日志记录器(Logger)的可用级别Level (不包括自定义级别 Level)， <a id="more"></a>以下内容就是摘自log4j API (<a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level DEBUG</strong><br><br>DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。<br><strong>static Level INFO</strong><br><br>INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。<br><strong>static Level WARN</strong><br><br>WARN level表明会出现潜在错误的情形。<br><strong>static Level ERROR</strong><br><br>ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。<br><strong>static Level FATAL</strong><br><br>FATAL level指出每个严重的错误事件将会导致应用程序的退出。<br>另外，还有两个可用的特别的日志记录级别: (以下描述来自log4j API <a href="http://jakarta.apache.org/log4j/docs/api/index.html" target="_blank" rel="external">http://jakarta.apache.org/log4j/docs/api/index.html</a>):<br><br><strong>static Level ALL</strong><br><br>ALL Level是最低等级的，用于打开所有日志记录。<br><strong>static Level OFF</strong><br><br>OFF Level是最高等级的，用于关闭所有日志记录。<br>日志记录器（Logger）的行为是分等级的。如下表所示：<br>分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。<font color="red">Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。</font>通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。<font color="red">比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</font></p>
 <font color="red">日志记录的级别有继承性，子类会记录父类的所有的日志级别。</font>
       
     </div>
@@ -577,7 +579,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -588,7 +590,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -599,7 +601,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -652,7 +654,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -675,11 +677,34 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共73.2k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共68.0k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
 </div>
+
+
+  <div class="platelet" style="display: block; margin-left:-22%;">
+    <div class="platelet-tips"></div>
+    <div style="width: 250px;overflow: hidden;">
+      <canvas id="live2d" width="650" height="600" class="live2d" style="width: 325px;height: 300px;"></canvas>
+    </div>
+    <div class="platelet-tool">
+      <i class="fa fa-eye eye"></i>
+      <i class="fa fa-music music"></i>
+      <i class="fa fa-comment comment"></i>
+      <i class="fa fa-camera camera"></i>
+    </div>
+  </div>
+  <div id="main" class="container"></div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="/platelet/assets/js/live2d.js"></script>
+<script src="/platelet/assets/js/platelet.js"></script>
+<script src="/platelet/assets/js/renderer.js"></script>
+<script type="text/javascript">
+  loadlive2d("live2d", "/platelet/assets/kesshouban_v2/model.json");
+</script>
 
 
 
@@ -1170,5 +1195,5 @@
 
   
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/null"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
