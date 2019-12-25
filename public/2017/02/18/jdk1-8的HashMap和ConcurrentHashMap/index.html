@@ -6,14 +6,13 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css">
 
 
   
@@ -29,8 +28,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -49,7 +48,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -57,9 +56,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -77,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="Java,">
 
 
 
@@ -88,32 +87,14 @@
 
 
 
-<meta name="description" content="本文针对jdk1.8的ConcurrentHashMap
-1.8的HashMap设计
-
-1.1 整体概览
-
-HashMap采用的是数组+链表+红黑树的形式。
-数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。
-用户可以设置的参数：初始总容量默认16，默认的加载因子0.75
-初始的数组个数默认是16（用户不能设置的）
-容量X加载因子=阈值
-一旦目前容量超过该阈值，则执行扩容操">
+<meta name="description" content="本文针对jdk1.8的ConcurrentHashMap 1.8的HashMap设计  1.1 整体概览  HashMap采用的是数组+链表+红黑树的形式。 数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。 用户可以设置的参数：初始总容量默认16，默认的加载因子0.75 初始的数组个数默认是16（用户不能设置的） 容量X加载因子=阈值 一旦目前容量超过该阈值，则执行扩容操">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jdk1.8的HashMap和ConcurrentHashMap">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/index.html">
 <meta property="og:site_name" content="李智‘Blog">
-<meta property="og:description" content="本文针对jdk1.8的ConcurrentHashMap
-1.8的HashMap设计
-
-1.1 整体概览
-
-HashMap采用的是数组+链表+红黑树的形式。
-数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。
-用户可以设置的参数：初始总容量默认16，默认的加载因子0.75
-初始的数组个数默认是16（用户不能设置的）
-容量X加载因子=阈值
-一旦目前容量超过该阈值，则执行扩容操">
+<meta property="og:description" content="本文针对jdk1.8的ConcurrentHashMap 1.8的HashMap设计  1.1 整体概览  HashMap采用的是数组+链表+红黑树的形式。 数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。 用户可以设置的参数：初始总容量默认16，默认的加载因子0.75 初始的数组个数默认是16（用户不能设置的） 容量X加载因子=阈值 一旦目前容量超过该阈值，则执行扩容操">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.blog.csdn.net/20170107004609227">
 <meta property="og:image" content="http://img.blog.csdn.net/20170107004911697">
 <meta property="og:image" content="http://img.blog.csdn.net/20170107005249311">
@@ -132,20 +113,10 @@ HashMap采用的是数组+链表+红黑树的形式。
 <meta property="og:image" content="http://img.blog.csdn.net/20170107010603392">
 <meta property="og:image" content="http://img.blog.csdn.net/20170107010723393">
 <meta property="og:image" content="http://img.blog.csdn.net/20170107010744786">
-<meta property="og:updated_time" content="2017-02-18T13:58:02.000Z">
+<meta property="og:updated_time" content="2019-12-25T12:56:55.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk1.8的HashMap和ConcurrentHashMap">
-<meta name="twitter:description" content="本文针对jdk1.8的ConcurrentHashMap
-1.8的HashMap设计
-
-1.1 整体概览
-
-HashMap采用的是数组+链表+红黑树的形式。
-数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。
-用户可以设置的参数：初始总容量默认16，默认的加载因子0.75
-初始的数组个数默认是16（用户不能设置的）
-容量X加载因子=阈值
-一旦目前容量超过该阈值，则执行扩容操">
+<meta name="twitter:description" content="本文针对jdk1.8的ConcurrentHashMap 1.8的HashMap设计  1.1 整体概览  HashMap采用的是数组+链表+红黑树的形式。 数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。 用户可以设置的参数：初始总容量默认16，默认的加载因子0.75 初始的数组个数默认是16（用户不能设置的） 容量X加载因子=阈值 一旦目前容量超过该阈值，则执行扩容操">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170107004609227">
 
 
@@ -176,7 +147,7 @@ HashMap采用的是数组+链表+红黑树的形式。
 
 
 
-  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/"/>
+  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">
 
 
 
@@ -204,7 +175,7 @@ HashMap采用的是数组+链表+红黑树的形式。
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewBox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"></path><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"></path></svg></a>
+    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"/></svg></a>
 
     <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -214,7 +185,7 @@ HashMap采用的是数组+链表+红黑树的形式。
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">李智‘Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -244,7 +215,7 @@ HashMap采用的是数组+链表+红黑树的形式。
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -254,7 +225,7 @@ HashMap采用的是数组+链表+红黑树的形式。
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -264,7 +235,7 @@ HashMap采用的是数组+链表+红黑树的形式。
         <li class="menu-item menu-item-globe-asia">
           <a href="/rice/index.html" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
             朋友圈
           </a>
@@ -277,7 +248,7 @@ HashMap采用的是数组+链表+红黑树的形式。
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -298,9 +269,7 @@ HashMap采用的是数组+链表+红黑树的形式。
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -341,7 +310,7 @@ HashMap采用的是数组+链表+红黑树的形式。
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
@@ -377,7 +346,7 @@ HashMap采用的是数组+链表+红黑树的形式。
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -406,7 +375,7 @@ HashMap采用的是数组+链表+红黑树的形式。
 
           
             <span>&nbsp; | &nbsp;
-            <span id="busuanzi_value_page_pv" ></span>次阅读
+            <span id="busuanzi_value_page_pv"></span>次阅读
             </span>    
             
 
@@ -463,7 +432,7 @@ HashMap采用的是数组+链表+红黑树的形式。
       
 
       
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>本文针对jdk1.8的ConcurrentHashMap</p>
+        <script src="/assets/js/APlayer.min.js"> </script><p>本文针对jdk1.8的ConcurrentHashMap</p>
 <h1>1.8的HashMap设计</h1>
 
 <h2>1.1 整体概览</h2>
@@ -654,7 +623,7 @@ concurrencyLevel：并发级别，默认16
 <p>这一块之后再详细说明吧。</p>
 <h2>4.3 ConcurrentHashMap曾经的弱一致性</h2>
 
-<p>具体详见这篇针对老版本的ConcurrentHashMap的说明文章<a href="http://ifeve.com/concurrenthashmap-weakly-consistent/" target="_blank" rel="external">为什么ConcurrentHashMap是弱一致的</a></p>
+<p>具体详见这篇针对老版本的ConcurrentHashMap的说明文章<a href="http://ifeve.com/concurrenthashmap-weakly-consistent/" target="_blank" rel="noopener">为什么ConcurrentHashMap是弱一致的</a></p>
 <p>文中已经解释到：对数组的引用是volatile来修饰的，但是数组中的元素并不是。即读取数组的引用总是能读取到最新的值，但是读取数组中某一个元素的时候并不一定能读到最新的值。所以说是弱一致性的。</p>
 <p>我觉得这个只需要稍微改动下就可以实现强一致性：</p>
 <p><li>对于新加的key，通过写入到链表的末尾即可。因为一个元素的next属性是volatile的，可以保证写入后立马看的到，如下1.8的方式</li></p>
@@ -684,7 +653,7 @@ concurrencyLevel：并发级别，默认16
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -712,7 +681,7 @@ concurrencyLevel：并发级别，默认16
   </li>
   <li class="post-copyright-link">
     <strong>更新时间：</strong>
-    <a>2017年02月18日 - 21:02</a>
+    <a>2019年12月25日 - 20:12</a>
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
@@ -822,9 +791,7 @@ concurrencyLevel：并发级别，默认16
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.png"
-                alt="李智" />
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="李智">
             
               <p class="site-author-name" itemprop="name">李智</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -908,7 +875,7 @@ concurrencyLevel：并发级别，默认16
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">1.8的HashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">1.7的ConcurrentHashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">1.8的ConcurrentHashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">问题分析
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">1.8的HashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">1.7的ConcurrentHashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">1.8的ConcurrentHashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">问题分析
 4.1 ConcurrentHashMap读为什么不需要锁？
 
 我们通常使用读写锁来保护对一堆数据的读写操作。读时加读锁，写时加写锁。在什么样的情况下可以不需要读锁呢？
@@ -941,7 +908,7 @@ concurrencyLevel：并发级别，默认16
 1.8的方式就是：直接将新加入的元素写入next属性（含有volatile修饰）中而不是修改桶中的第一个元素。
 
 所以在1.7和1.8版本的ConcurrentHashMap中不再是弱一致性，写入的数据是可以立马本读到的。
-</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">
+</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">
 4.1 ConcurrentHashMap读为什么不需要锁？
 
 我们通常使用读写锁来保护对一堆数据的读写操作。读时加读锁，写时加写锁。在什么样的情况下可以不需要读锁呢？
@@ -974,7 +941,7 @@ concurrencyLevel：并发级别，默认16
 1.8的方式就是：直接将新加入的元素写入next属性（含有volatile修饰）中而不是修改桶中的第一个元素。
 
 所以在1.7和1.8版本的ConcurrentHashMap中不再是弱一致性，写入的数据是可以立马本读到的。
-</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 ConcurrentHashMap读为什么不需要锁？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 ConcurrentHashMap是否可以在无锁的情况下进行迁移？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 ConcurrentHashMap曾经的弱一致性</span></a></li></ol></li></ol></div>
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 ConcurrentHashMap读为什么不需要锁？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 ConcurrentHashMap是否可以在无锁的情况下进行迁移？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 ConcurrentHashMap曾经的弱一致性</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1004,7 +971,7 @@ concurrencyLevel：并发级别，默认16
 </div>
 <div style="margin-left:30%">
 
-  <div class="powered-by" >由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -1012,12 +979,12 @@ concurrencyLevel：并发级别，默认16
 
 
 
-  <div class="theme-info" >主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共72.3k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
@@ -1074,7 +1041,7 @@ concurrencyLevel：并发级别，默认16
   </div>
 
   
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
    <script type="text/javascript" src="/js/src/fireworks.js"></script>
   
@@ -1535,5 +1502,5 @@ concurrencyLevel：并发级别，默认16
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/null"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"platelet"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

@@ -6,14 +6,13 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css">
 
 
   
@@ -29,8 +28,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -49,7 +48,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -57,9 +56,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -77,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Java,集合," />
+  <meta name="keywords" content="Java,集合,">
 
 
 
@@ -88,22 +87,18 @@
 
 
 
-<meta name="description" content="HashTable和HashMap的区别有哪些？
-HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。
-理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：">
+<meta name="description" content="HashTable和HashMap的区别有哪些？ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。 理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：">
+<meta name="keywords" content="Java,集合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap面试题总结！">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/HashMap面试题总结！/index.html">
 <meta property="og:site_name" content="李智‘Blog">
-<meta property="og:description" content="HashTable和HashMap的区别有哪些？
-HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。
-理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：">
-<meta property="og:updated_time" content="2017-02-18T13:44:54.000Z">
+<meta property="og:description" content="HashTable和HashMap的区别有哪些？ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。 理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-25T12:56:55.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap面试题总结！">
-<meta name="twitter:description" content="HashTable和HashMap的区别有哪些？
-HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。
-理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：">
+<meta name="twitter:description" content="HashTable和HashMap的区别有哪些？ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。 理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：">
 
 
 
@@ -133,7 +128,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 
 
 
-  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/HashMap面试题总结！/"/>
+  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/HashMap面试题总结！/">
 
 
 
@@ -161,7 +156,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewBox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"></path><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"></path></svg></a>
+    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"/></svg></a>
 
     <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -171,7 +166,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">李智‘Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -201,7 +196,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -211,7 +206,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -221,7 +216,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
         <li class="menu-item menu-item-globe-asia">
           <a href="/rice/index.html" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
             朋友圈
           </a>
@@ -234,7 +229,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -255,9 +250,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -298,7 +291,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
@@ -334,7 +327,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -363,7 +356,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 
           
             <span>&nbsp; | &nbsp;
-            <span id="busuanzi_value_page_pv" ></span>次阅读
+            <span id="busuanzi_value_page_pv"></span>次阅读
             </span>    
             
 
@@ -383,7 +376,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,489
+                  1,536
                 </span>
               
 
@@ -420,7 +413,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
       
 
       
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p><strong>HashTable和HashMap的区别有哪些？</strong></p>
+        <script src="/assets/js/APlayer.min.js"> </script><p><strong>HashTable和HashMap的区别有哪些？</strong></p>
 <p>HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主要的区别有：线程安全性，同步(synchronization)，以及速度。</p>
 <p>理解HashMap是Hashtable的轻量级实现（非线程安全的实现，hashtable是非轻量级，线程安全的），都实现Map接口，主要区别在于：<br><a id="more"></a><br>1、由于HashMap非线程安全，在只有一个线程访问的情况下，效率要高于HashTable</p>
 <p>2、HashMap允许将null作为一个entry的key或者value，而Hashtable不允许。</p>
@@ -438,15 +431,15 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 <p>假设正好存在两个put的key发生了碰撞(hash值一样)，那么根据HashMap的实现，这两个key会添加到数组的同一个位置，这样最终就会发生其中一个线程的put的数据被覆盖。</p>
 <p>第二，如果多个线程同时检测到元素个数超过数组大小*loadFactor</p>
 <p>这样会发生多个线程同时对hash数组进行扩容，都在重新计算元素位置以及复制数据，但是最终只有一个线程扩容后的数组会赋给table，也就是说其他线程的都会丢失，并且各自线程put的数据也丢失。且会引起死循环的错误。</p>
-<p>具体细节上的原因，可以参考：<a href="http://ifeve.com/hashmap-infinite-loop/" target="_blank" rel="external">不正当使用HashMap导致cpu 100%的问题追究</a></p>
+<p>具体细节上的原因，可以参考：<a href="http://ifeve.com/hashmap-infinite-loop/" target="_blank" rel="noopener">不正当使用HashMap导致cpu 100%的问题追究</a></p>
 <p><br><br><strong>能否让HashMap实现线程安全，如何做？</strong></p>
 <p>1、直接使用Hashtable，但是当一个线程访问HashTable的同步方法时，其他线程如果也要访问同步方法，会被阻塞住。举个例子，当一个线程使用put方法时，另一个线程不但不可以使用put方法，连get方法都不可以，效率很低，现在基本不会选择它了。</p>
 <p>2、HashMap可以通过下面的语句进行同步：</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Collections.synchronizeMap(hashMap)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.synchronizeMap(hashMap)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>3、直接使用JDK 5 之后的 ConcurrentHashMap，如果使用Java 5或以上的话，请使用ConcurrentHashMap。</p>
 <p><br><br><strong>Collections.synchronizeMap(hashMap);又是如何保证了HashMap线程安全？</strong></p>
 <p>直接分析源码吧</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// synchronizedMap方法</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;K,V&gt; Map&lt;K,V&gt; synchronizedMap(Map&lt;K,V&gt; m) &#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> SynchronizedMap&lt;&gt;(m);</div><div class="line">   &#125;</div><div class="line"><span class="comment">// SynchronizedMap类</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> class SynchronizedMap&lt;K,V&gt;</div><div class="line">       implements Map&lt;K,V&gt;, Serializable &#123;</div><div class="line">       <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1978198479659022715</span>L;</div><div class="line"> </div><div class="line">       <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;K,V&gt; m;     <span class="comment">// Backing Map</span></div><div class="line">       <span class="keyword">final</span> <span class="keyword">Object</span>      mutex;        <span class="comment">// Object on which to synchronize</span></div><div class="line"> </div><div class="line">       SynchronizedMap(Map&lt;K,V&gt; m) &#123;</div><div class="line">           <span class="keyword">this</span>.m = Objects.requireNonNull(m);</div><div class="line">           mutex = <span class="keyword">this</span>;</div><div class="line">       &#125;</div><div class="line"> </div><div class="line">       SynchronizedMap(Map&lt;K,V&gt; m, <span class="keyword">Object</span> mutex) &#123;</div><div class="line">           <span class="keyword">this</span>.m = m;</div><div class="line">           <span class="keyword">this</span>.mutex = mutex;</div><div class="line">       &#125;</div><div class="line"> </div><div class="line">       <span class="keyword">public</span> <span class="built_in">int</span> <span class="built_in">size</span>() &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.<span class="built_in">size</span>();&#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">public</span> <span class="built_in">boolean</span> isEmpty() &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.isEmpty();&#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">public</span> <span class="built_in">boolean</span> containsKey(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.containsKey(<span class="built_in">key</span>);&#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">public</span> <span class="built_in">boolean</span> containsValue(<span class="keyword">Object</span> value) &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.containsValue(value);&#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">public</span> V <span class="built_in">get</span>(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.<span class="built_in">get</span>(<span class="built_in">key</span>);&#125;</div><div class="line">       &#125;</div><div class="line"> </div><div class="line">       <span class="keyword">public</span> V put(K <span class="built_in">key</span>, V value) &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.put(<span class="built_in">key</span>, value);&#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">public</span> V remove(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</div><div class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.remove(<span class="built_in">key</span>);&#125;</div><div class="line">       &#125;</div><div class="line">       <span class="comment">// 省略其他方法</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// synchronizedMap方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;K,V&gt; Map&lt;K,V&gt; synchronizedMap(Map&lt;K,V&gt; m) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> SynchronizedMap&lt;&gt;(m);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">// SynchronizedMap类</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> class SynchronizedMap&lt;K,V&gt;</span><br><span class="line">       implements Map&lt;K,V&gt;, Serializable &#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1978198479659022715</span>L;</span><br><span class="line"> </span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;K,V&gt; m;     <span class="comment">// Backing Map</span></span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">Object</span>      mutex;        <span class="comment">// Object on which to synchronize</span></span><br><span class="line"> </span><br><span class="line">       SynchronizedMap(Map&lt;K,V&gt; m) &#123;</span><br><span class="line">           <span class="keyword">this</span>.m = Objects.requireNonNull(m);</span><br><span class="line">           mutex = <span class="keyword">this</span>;</span><br><span class="line">       &#125;</span><br><span class="line"> </span><br><span class="line">       SynchronizedMap(Map&lt;K,V&gt; m, <span class="keyword">Object</span> mutex) &#123;</span><br><span class="line">           <span class="keyword">this</span>.m = m;</span><br><span class="line">           <span class="keyword">this</span>.mutex = mutex;</span><br><span class="line">       &#125;</span><br><span class="line"> </span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">int</span> <span class="built_in">size</span>() &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.<span class="built_in">size</span>();&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">boolean</span> isEmpty() &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.isEmpty();&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">boolean</span> containsKey(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.containsKey(<span class="built_in">key</span>);&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">boolean</span> containsValue(<span class="keyword">Object</span> value) &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.containsValue(value);&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">public</span> V <span class="built_in">get</span>(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.<span class="built_in">get</span>(<span class="built_in">key</span>);&#125;</span><br><span class="line">       &#125;</span><br><span class="line"> </span><br><span class="line">       <span class="keyword">public</span> V put(K <span class="built_in">key</span>, V value) &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.put(<span class="built_in">key</span>, value);&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">public</span> V remove(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.remove(<span class="built_in">key</span>);&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 省略其他方法</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>从源码中看出 synchronizedMap()方法返回一个SynchronizedMap类的对象，而在SynchronizedMap类中使用了synchronized来保证对Map的操作是线程安全的，故效率其实也不高。</p>
 <p><br><br><strong>为什么HashTable的默认大小和HashMap不一样？</strong></p>
 <p>前面分析了，Hashtable 的扩容方法是乘2再+1，不是简单的乘2，故hashtable保证了容量永远是奇数，结合之前分析hashmap的重算hash值的逻辑，就明白了，因为在数据分布在等差数据集合(如偶数)上时，如果公差与桶容量有公约数 n，则至少有(n-1)/n 数量的桶是利用不到的，故之前的hashmap 会在取模（使用位与运算代替）哈希前先做一次哈希运算，调整hash值。这里hashtable比较古老，直接使用了除留余数法，那么就需要设置容量起码不是偶数（除（近似）质数求余的分散效果好）。而JDK开发者选了11。</p>
@@ -470,7 +463,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -498,7 +491,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
   </li>
   <li class="post-copyright-link">
     <strong>更新时间：</strong>
-    <a>2017年02月18日 - 21:02</a>
+    <a>2019年12月25日 - 20:12</a>
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
@@ -601,9 +594,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.png"
-                alt="李智" />
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="李智">
             
               <p class="site-author-name" itemprop="name">李智</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -701,7 +692,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 </div>
 <div style="margin-left:30%">
 
-  <div class="powered-by" >由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -709,12 +700,12 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 
 
 
-  <div class="theme-info" >主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共72.3k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
@@ -771,7 +762,7 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
   </div>
 
   
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
    <script type="text/javascript" src="/js/src/fireworks.js"></script>
   
@@ -1232,5 +1223,5 @@ HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄�
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/null"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"platelet"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

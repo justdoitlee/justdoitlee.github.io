@@ -6,14 +6,13 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css">
 
 
   
@@ -29,8 +28,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -49,7 +48,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -57,9 +56,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -77,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Cordova," />
+  <meta name="keywords" content="Cordova,">
 
 
 
@@ -88,19 +87,18 @@
 
 
 
-<meta name="description" content="为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。
-这样一来，问题自然就转换为跨窗口通讯问题了。">
+<meta name="description" content="为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。 这样一来，问题自然就转换为跨窗口通讯问题了。">
+<meta name="keywords" content="Cordova">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cordova中与inBrowser的通讯">
 <meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/Browser的通讯”/index.html">
 <meta property="og:site_name" content="李智‘Blog">
-<meta property="og:description" content="为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。
-这样一来，问题自然就转换为跨窗口通讯问题了。">
-<meta property="og:updated_time" content="2017-02-18T13:56:41.000Z">
+<meta property="og:description" content="为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。 这样一来，问题自然就转换为跨窗口通讯问题了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-25T12:56:55.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cordova中与inBrowser的通讯">
-<meta name="twitter:description" content="为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。
-这样一来，问题自然就转换为跨窗口通讯问题了。">
+<meta name="twitter:description" content="为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。 这样一来，问题自然就转换为跨窗口通讯问题了。">
 
 
 
@@ -130,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/Browser的通讯”/"/>
+  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/Browser的通讯”/">
 
 
 
@@ -158,7 +156,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewBox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"></path><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"></path></svg></a>
+    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"/></svg></a>
 
     <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -168,7 +166,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">李智‘Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -198,7 +196,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -208,7 +206,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -218,7 +216,7 @@
         <li class="menu-item menu-item-globe-asia">
           <a href="/rice/index.html" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
             朋友圈
           </a>
@@ -231,7 +229,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -252,9 +250,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -295,7 +291,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
@@ -331,7 +327,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -360,7 +356,7 @@
 
           
             <span>&nbsp; | &nbsp;
-            <span id="busuanzi_value_page_pv" ></span>次阅读
+            <span id="busuanzi_value_page_pv"></span>次阅读
             </span>    
             
 
@@ -380,7 +376,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,079
+                  1,195
                 </span>
               
 
@@ -417,22 +413,22 @@
       
 
       
-        <script src="/assets/js/DPlayer.min.js"> </script><script src="/assets/js/APlayer.min.js"> </script><p>为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。</p>
+        <script src="/assets/js/APlayer.min.js"> </script><p>为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。</p>
 <p>这样一来，问题自然就转换为跨窗口通讯问题了。<br><a id="more"></a><br>窗口间通讯毫无疑问首选是 window.postMessage ，在cordova当中，原生 window.open 是不能用的，官方给的方案是使用 cordova-plugin-inappbrowser 插件所提供的 cordova.InAppBrowser.open(url, target, options) 来取代 window.open ，这两者基本上API差不多一致。</p>
 <p>但是IAB插件所返回的对象并不是真正的 window ，它没有 postMessage 功能，并且在IAB所打开的页面中，也没有 window.opener ，于是只能另辟蹊径，找点不靠谱的挫方法来试试了。</p>
 <p>OAuth基本流程</p>
 <p>OAuth的基本流程这里就不赘述了，简单描述一下</p>
 <p>Client需要授权，把自己（由服务商分配的） client_id ——也称 app key 以及在服务商注册的 redirect_url 拼在一起，让用户去访问服务商的 authorize 地址。<br>服务商会询问用户是否对这个 client_id 授权自己的账号，如果是，会跳转到 redirect_url?code=xxxxxx 。<br>应用的服务端接收到 redirect_url 的访问，用URL参数中的 code 和自己的 client_id 以及 app secret （相当于密码）去请求服务商的 access_token 接口，得到 access_token ，这个就是此应用对于这个用户账号的访问凭条。<br>redirect_url 页面根据应用自身需要把获得的 access_token 传回应用，完成授权过程。<br>使用 window.open 时的流程</p>
 <p>客户端 var win = window.open(oauth_url) 。<br>完成OAuth授权，跳转到 redirect_url 。<br>在 redirect_url 上，把 access_token 用 window.opener.postMessage 的方式发给应用。<br>应用监听 win 的 onmessage 事件，一旦收到了 access_token 就完成授权，可以 win.close() 了。<br>然后我先把它写成了一个函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">crossWindowViaBrowser</span>(<span class="params">url, target, opts, key, timeout</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> defer = <span class="built_in">Promise</span>.defer()</div><div class="line">  <span class="keyword">let</span> resolve = defer.resolve.bind(defer)</div><div class="line">  <span class="keyword">let</span> reject = defer.reject.bind(defer)</div><div class="line">  <span class="keyword">let</span> promise = defer.promise</div><div class="line">  <span class="keyword">let</span> timing</div><div class="line"></div><div class="line">  <span class="keyword">let</span> win = <span class="built_in">window</span>.open(url, target, utils.buildOpenWindowOptions(opts))</div><div class="line"></div><div class="line">  <span class="keyword">let</span> onMessage = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">let</span> data = e.data || &#123;&#125;</div><div class="line">    <span class="keyword">if</span> (data.type === <span class="string">'cross-window'</span> &amp;&amp; data.key === key) &#123;</div><div class="line">      parseResult(data.result, resolve, reject)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// close（貌似）没有可用的事件，`win.addEventListener('close')`没用的样子</span></div><div class="line">  <span class="comment">// `win.addEventListener`不好用的问题也可能是因为跨域，真是蛋疼啊</span></div><div class="line">  <span class="comment">// 于是轮询`closed`属性吧</span></div><div class="line">  <span class="keyword">let</span> pollingClosed = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span> (win.closed) &#123;</div><div class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(ErrorType.CANCELED))</div><div class="line">    &#125;</div><div class="line">  &#125;, POLLING_INTERVAL)</div><div class="line"></div><div class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, onMessage, <span class="literal">false</span>)</div><div class="line"></div><div class="line">  <span class="comment">// 超时`reject`</span></div><div class="line">  <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</div><div class="line">    timing = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(ErrorType.TIMEOUT))</div><div class="line">    &#125;, timeout)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  promise.finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// clean up</span></div><div class="line">    clearInterval(pollingClosed)</div><div class="line">    clearTimeout(timing)</div><div class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">'message'</span>, onMessage)</div><div class="line">    win.close()</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="keyword">return</span> promise</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">crossWindowViaBrowser</span>(<span class="params">url, target, opts, key, timeout</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> defer = <span class="built_in">Promise</span>.defer()</span><br><span class="line">  <span class="keyword">let</span> resolve = defer.resolve.bind(defer)</span><br><span class="line">  <span class="keyword">let</span> reject = defer.reject.bind(defer)</span><br><span class="line">  <span class="keyword">let</span> promise = defer.promise</span><br><span class="line">  <span class="keyword">let</span> timing</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> win = <span class="built_in">window</span>.open(url, target, utils.buildOpenWindowOptions(opts))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> onMessage = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> data = e.data || &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> (data.type === <span class="string">'cross-window'</span> &amp;&amp; data.key === key) &#123;</span><br><span class="line">      parseResult(data.result, resolve, reject)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// close（貌似）没有可用的事件，`win.addEventListener('close')`没用的样子</span></span><br><span class="line">  <span class="comment">// `win.addEventListener`不好用的问题也可能是因为跨域，真是蛋疼啊</span></span><br><span class="line">  <span class="comment">// 于是轮询`closed`属性吧</span></span><br><span class="line">  <span class="keyword">let</span> pollingClosed = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (win.closed) &#123;</span><br><span class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(ErrorType.CANCELED))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, POLLING_INTERVAL)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, onMessage, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 超时`reject`</span></span><br><span class="line">  <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    timing = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(ErrorType.TIMEOUT))</span><br><span class="line">    &#125;, timeout)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  promise.finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// clean up</span></span><br><span class="line">    clearInterval(pollingClosed)</span><br><span class="line">    clearTimeout(timing)</span><br><span class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">'message'</span>, onMessage)</span><br><span class="line">    win.close()</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> promise</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用 cordova.InAppBrowser.open 时的流程</p>
 <p>客户端 var win = cordova.InAppBrowser.open(oauth_url) 。<br>客户端开始对 win.executeScript 并进行轮询，其内容是尝试读取 localStorage.getItem(key) 。<br>redirect_url 页面把获取到的 access_token 写到 localStorage.setItem(key, access_token) 。<br>客户端一旦轮询到 localStorage.getItem(key) 有值，就可以得到 access_token ，然后就可以 localStorage.removeItem(key) ，完成授权， win.close() 。<br>然后我也单独写了一个函数</p>
-<figure class="highlight zephir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">crossWindowViaCordovaIAB</span><span class="params">(url, target, opts, key, timeout)</span> </span>&#123;</div><div class="line">  <span class="keyword">let</span> defer = Promise.defer()</div><div class="line">  <span class="keyword">let</span> resolve = defer.resolve.bind(defer)</div><div class="line">  <span class="keyword">let</span> reject = defer.reject.bind(defer)</div><div class="line">  <span class="keyword">let</span> promise = defer.promise</div><div class="line">  <span class="keyword">let</span> timing</div><div class="line"></div><div class="line">  <span class="keyword">let</span> win = cordova.InAppBrowser.open(url, target, utils.buildOpenWindowOptions(opts))</div><div class="line">  <span class="comment">// cordova的InAppBrowser没有window.opener对象，只能使用轮询罢。。</span></div><div class="line">  <span class="keyword">const</span> code = `(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> key = <span class="string">'$&#123;key&#125;'</span></div><div class="line">    <span class="keyword">var</span> data = localStorage.getItem(key)</div><div class="line">    <span class="keyword">if</span> (data !== <span class="keyword">null</span>) &#123;</div><div class="line">      localStorage.removeItem(key)</div><div class="line">      <span class="keyword">return</span> data</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span></div><div class="line">  &#125;)()`</div><div class="line"></div><div class="line">  <span class="keyword">let</span> poll = () =&gt; &#123;</div><div class="line">    win.executeScript(&#123; code: code &#125;, ret =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (ret[<span class="number">0</span>] === <span class="keyword">false</span>) &#123;</div><div class="line">        <span class="comment">// 等待</span></div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        clearInterval(pollingData)</div><div class="line">        parseResult(ret[<span class="number">0</span>], resolve, reject)</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">let</span> pollingData = setInterval(poll, POLLING_INTERVAL)</div><div class="line"></div><div class="line">  <span class="comment">// 窗口关闭时`reject`</span></div><div class="line">  <span class="comment">// 正常流程上面`resolve`后才会`win.close()`，所以这里再`reject`也不会有影响</span></div><div class="line">  win.addEventListener(<span class="string">'exit'</span>, e =&gt; &#123;</div><div class="line">    reject(<span class="keyword">new</span> Error(ErrorType.CANCELED))</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="comment">// 超时`reject`</span></div><div class="line">  <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</div><div class="line">    timing = setTimeout(() =&gt; &#123;</div><div class="line">      reject(<span class="keyword">new</span> Error(ErrorType.TIMEOUT))</div><div class="line">    &#125;, timeout)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  promise.<span class="keyword">finally</span>(() =&gt; &#123;</div><div class="line">    <span class="comment">// clean up</span></div><div class="line">    clearInterval(pollingData)</div><div class="line">    clearTimeout(timing)</div><div class="line">    win.close()</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="keyword">return</span> promise</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">crossWindowViaCordovaIAB</span><span class="params">(url, target, opts, key, timeout)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> defer = Promise.defer()</span><br><span class="line">  <span class="keyword">let</span> resolve = defer.resolve.bind(defer)</span><br><span class="line">  <span class="keyword">let</span> reject = defer.reject.bind(defer)</span><br><span class="line">  <span class="keyword">let</span> promise = defer.promise</span><br><span class="line">  <span class="keyword">let</span> timing</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> win = cordova.InAppBrowser.open(url, target, utils.buildOpenWindowOptions(opts))</span><br><span class="line">  <span class="comment">// cordova的InAppBrowser没有window.opener对象，只能使用轮询罢。。</span></span><br><span class="line">  <span class="keyword">const</span> code = `(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key = <span class="string">'$&#123;key&#125;'</span></span><br><span class="line">    <span class="keyword">var</span> data = localStorage.getItem(key)</span><br><span class="line">    <span class="keyword">if</span> (data !== <span class="keyword">null</span>) &#123;</span><br><span class="line">      localStorage.removeItem(key)</span><br><span class="line">      <span class="keyword">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span></span><br><span class="line">  &#125;)()`</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> poll = () =&gt; &#123;</span><br><span class="line">    win.executeScript(&#123; code: code &#125;, ret =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (ret[<span class="number">0</span>] === <span class="keyword">false</span>) &#123;</span><br><span class="line">        <span class="comment">// 等待</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(pollingData)</span><br><span class="line">        parseResult(ret[<span class="number">0</span>], resolve, reject)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> pollingData = setInterval(poll, POLLING_INTERVAL)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 窗口关闭时`reject`</span></span><br><span class="line">  <span class="comment">// 正常流程上面`resolve`后才会`win.close()`，所以这里再`reject`也不会有影响</span></span><br><span class="line">  win.addEventListener(<span class="string">'exit'</span>, e =&gt; &#123;</span><br><span class="line">    reject(<span class="keyword">new</span> Error(ErrorType.CANCELED))</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 超时`reject`</span></span><br><span class="line">  <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    timing = setTimeout(() =&gt; &#123;</span><br><span class="line">      reject(<span class="keyword">new</span> Error(ErrorType.TIMEOUT))</span><br><span class="line">    &#125;, timeout)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  promise.<span class="keyword">finally</span>(() =&gt; &#123;</span><br><span class="line">    <span class="comment">// clean up</span></span><br><span class="line">    clearInterval(pollingData)</span><br><span class="line">    clearTimeout(timing)</span><br><span class="line">    win.close()</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> promise</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>整合</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">crossWindow</span><span class="params">(<span class="rest_arg">...args</span>)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (window.cordova !== <span class="literal">undefined</span> &amp;&amp; cordova.InAppBrowser !== <span class="literal">undefined</span>) &#123;</div><div class="line">    <span class="keyword">return</span> crossWindowViaCordovaIAB(...args)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> crossWindowViaBrowser(...args)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">crossWindow</span><span class="params">(<span class="rest_arg">...args</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (window.cordova !== <span class="literal">undefined</span> &amp;&amp; cordova.InAppBrowser !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> crossWindowViaCordovaIAB(...args)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> crossWindowViaBrowser(...args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>服务端</p>
 <p>服务端的Redirect Page我是用PHP写的，涉及到上面的 cross-browser 的部分大概是：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> key = <span class="xml"><span class="php"><span class="meta">&lt;?</span>= json_encode($key) <span class="meta">?&gt;</span></span></span></div><div class="line"></div><div class="line">  var result = <span class="php"><span class="meta">&lt;?</span>= json_encode($output) <span class="meta">?&gt;</span></span></div><div class="line"></div><div class="line">  localStorage.setItem(key, result)</div><div class="line">  if (window.opener) &#123;</div><div class="line">    window.opener.postMessage(&#123;</div><div class="line">      type: 'cross-window',</div><div class="line">      key: key,</div><div class="line">      result: result</div><div class="line">    &#125;, '*')</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml">window.onload = function() </span><span class="xquery">&#123;</span></span><br><span class="line"><span class="xquery">  var<span class="built_in"> key</span> = &lt;?= json_encode(<span class="variable">$key</span>) ?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="xquery">  var result = &lt;?= json_encode(<span class="variable">$output</span>) ?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="xquery">  localStorage.setItem<span class="built_in">(key</span>, result)</span></span><br><span class="line"><span class="xquery">  <span class="keyword">if</span> (<span class="keyword">window</span>.opener) &#123;</span></span><br><span class="line"><span class="xquery">    <span class="keyword">window</span>.opener.postMessage(&#123;</span></span><br><span class="line"><span class="xquery">      type: <span class="string">'cross-window'</span>,</span></span><br><span class="line"><span class="xquery">     <span class="built_in"> key</span>:<span class="built_in"> key</span>,</span></span><br><span class="line"><span class="xquery">      result: result</span></span><br><span class="line"><span class="xquery">    &#125;</span><span class="xml">, '*')</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>其中 $output 是对 access_token 接口 curl 得到的返回值，虽然微博给的返回值理论上说都是合法的JSON，但出于通用考虑我还是直接把它当字符串传递，让客户端自己在 parse 的时候进行 try/catch ，而且这样对 localStorage 也比较直接。</p>
 
       
@@ -454,7 +450,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -482,7 +478,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>更新时间：</strong>
-    <a>2017年02月18日 - 21:02</a>
+    <a>2019年12月25日 - 20:12</a>
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
@@ -583,9 +579,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.png"
-                alt="李智" />
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="李智">
             
               <p class="site-author-name" itemprop="name">李智</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -683,7 +677,7 @@
 </div>
 <div style="margin-left:30%">
 
-  <div class="powered-by" >由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -691,12 +685,12 @@
 
 
 
-  <div class="theme-info" >主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共68.7k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共72.3k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
@@ -753,7 +747,7 @@
   </div>
 
   
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
    <script type="text/javascript" src="/js/src/fireworks.js"></script>
   
@@ -1214,5 +1208,5 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/null"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"platelet"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
