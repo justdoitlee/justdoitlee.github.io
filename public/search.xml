@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>单向链表逆序输出</title>
+    <url>/2019/12/25/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h5 id="实现链表逆序输出"><a href="#实现链表逆序输出" class="headerlink" title="实现链表逆序输出"></a>实现链表逆序输出</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(ListNode&lt;T&gt; head)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">    	   <span class="keyword">return</span> ;</span><br><span class="line">       &#125;</span><br><span class="line">       ListNode&lt;T&gt; currentNode = head;</span><br><span class="line">       Stack&lt;ListNode&lt;T&gt;&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">       <span class="keyword">while</span> (currentNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">    	   stack.push(currentNode);</span><br><span class="line">    	   ListNode&lt;T&gt; tempNode = currentNode.next;</span><br><span class="line">           <span class="comment">// 断开连接</span></span><br><span class="line">    	   currentNode.next = <span class="keyword">null</span>; </span><br><span class="line">    	   currentNode = tempNode;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">       head = stack.pop();</span><br><span class="line">       currentNode = head;</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    	   currentNode.next = stack.pop();</span><br><span class="line">    	   currentNode = currentNode.next;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">	T val;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(T val)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.val = val;</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode&lt;T&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java二三事</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Github建立分支备份Hexo</title>
     <url>/2019/01/12/Github%E5%BB%BA%E7%AB%8B%E5%88%86%E6%94%AF%E5%A4%87%E4%BB%BDHexo/</url>
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由于之前忘记备份Hexo博客的markdown文件，在重做系统时候还忘记备份博客了，导致现在不得不重新从网页上扒下来之前的文章重新写一遍，十分耗费精力。因此在网上找了下如何备份Hexo博客，在此记录下。</p>

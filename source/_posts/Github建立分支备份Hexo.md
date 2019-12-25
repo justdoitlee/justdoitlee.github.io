@@ -93,4 +93,21 @@ $ npm install hexo-deployer-git
 
 在此不需要执行`hexo init`这条指令，因为不是从零搭建起新博客。
 
+
+
+## 提交准备
+
+
+
+（1）打开git bash，在用户主目录下运行：ssh-keygen -t rsa -C "youremail@example.com" 把其中的邮件地址换成自己的邮件地址，然后一路回车
+
+（2）最后完成后，会在用户主目录下生成.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH key密钥对，id_rsa是私钥，千万不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+（3）登陆GitHub，打开「Settings」-&gt;「SSH and GPG keys」，然后点击「new SSH key」，填上任意Title，在Key文本框里粘贴公钥id_rsa.pub文件的内容（千万不要粘贴成私钥了！），最后点击「Add SSH Key」，你就应该看到已经添加的Key。注意：不要在git版本库中运行ssh，然后又将它提交，这样就把密码泄露出去了。
+
+
+
 完成～
+
+
+

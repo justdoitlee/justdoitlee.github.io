@@ -94,4 +94,4 @@ deploy:
   type: git
   repo:
           github: git@github.com:JustDoItLee/justdoitlee.github.io.git,master
-          coding: git@git.coding.net:justdoitlee/justdoitlee.git,master
+          # coding: git@git.coding.net:justdoitlee/justdoitlee.git,master
