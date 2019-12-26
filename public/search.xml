@@ -39,6 +39,9 @@
 <h2 id="恢复博客-1"><a href="#恢复博客-1" class="headerlink" title="恢复博客"></a>恢复博客</h2><p>在克隆的那个文件夹下输入如下命令恢复博客：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> hexo-cli</span><br><span class="line">$ npm <span class="keyword">install</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-deployer-git</span><br></pre></td></tr></table></figure>
 <p>在此不需要执行<code>hexo init</code>这条指令，因为不是从零搭建起新博客。</p>
+<h2 id="提交准备"><a href="#提交准备" class="headerlink" title="提交准备"></a>提交准备</h2><p>（1）打开git bash，在用户主目录下运行：ssh-keygen -t rsa -C “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“ 把其中的邮件地址换成自己的邮件地址，然后一路回车</p>
+<p>（2）最后完成后，会在用户主目录下生成.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH key密钥对，id_rsa是私钥，千万不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
+<p>（3）登陆GitHub，打开「Settings」-&gt;「SSH and GPG keys」，然后点击「new SSH key」，填上任意Title，在Key文本框里粘贴公钥id_rsa.pub文件的内容（千万不要粘贴成私钥了！），最后点击「Add SSH Key」，你就应该看到已经添加的Key。注意：不要在git版本库中运行ssh，然后又将它提交，这样就把密码泄露出去了。</p>
 <p>完成～</p>
 ]]></content>
       <categories>
