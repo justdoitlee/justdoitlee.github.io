@@ -147,9 +147,9 @@ LinkedList是采用双向链表实现的。所以它也具有链表的特点，�
 
 最常用的Map实现类有:HashMap，ConcurrentHashMap（jdk1.8），LinkedHashMap，TreeMap,HashTable；
 
-其中最频繁的是HashMap和ConcurrentHashMap，他们的主要区别是HashMap是非线程安全的。ConcurrentHashMap是线程安全的。
+其中最频繁的是HashMap和ConcurrentHashMap，他们的主要区别是HashMap是非线程安全的。ConcurrentHashMap是线程安全的。并发下可以使用ConcurrentHashMap和HashTable
 
-并发下可以使用ConcurrentHashMap和HashTable
+**1.HashMap**
 
 - 存储原理就是散列表
 
@@ -169,6 +169,10 @@ static final int hash(Object key) {
 - 动态扩容
   HashMap的默认阈值是0.75，数组长度默认是16，以2的倍数增长，方便取余，美中不足的是，HashMap的扩容是一步到位的，虽然均摊时间复杂度不高，但是可能扩容的那次put会比较慢，可以考虑高效扩容（装载因子触达阈值时，只申请新空间，不搬运数据，之后每插入一个新数据我们从旧散列表拿一个旧数据放到新散列表，可以在新散列表到达阈值前搬运完毕，利用了扩容后装载因子减半的特性。）；
 
+
+
+**2.ConcurrentHashMap和hashtable的区别**
+
 - ConcurrentHashMap的hash计算公式：(key.hascode()^ (key.hascode()>>> 16)) & 0x7FFFFFFF
 
   HashTable的hash计算公式：key.hascode()& 0x7FFFFFFF
@@ -179,9 +183,9 @@ static final int hash(Object key) {
 
 - 默认容量都是16，负载因子是0.75。就是当hashmap填充了75%的busket是就会扩容，最小的可能性是（16*0.75），一般为原内存的2倍
 
-- 4.线程安全的保证：HashTable是在每个操作方法上面加了synchronized来达到线程安全，ConcurrentHashMap线程是使用CAS(compore and swap)来保证线程安全的
+- 线程安全的保证：HashTable是在每个操作方法上面加了synchronized来达到线程安全，ConcurrentHashMap线程是使用CAS(compore and swap)来保证线程安全的
 
-- 5.ConcurrentHashMap内部原理
+- ConcurrentHashMap内部原理
 
   **1.7：** put 加锁
 
@@ -193,10 +197,12 @@ static final int hash(Object key) {
 
   首先，判断容器是否为空，如果为空则进行初始化，否则重试对 hash(key) 计算得到该 key 存放的桶位置，判断该桶是否为空，为空则利用 CAS 设置新节点，否则使用 synchronized 加锁，遍历桶中数据，替换或新增加节点到桶中，最后判断是否需要转为红黑树，转换之前判断是否需要扩容。
 
-- 6.细节
 
-  构造参数传进的初始化容量是怎么“向上取整”的？
-  通过 n |= n >>> (1,2,4,8,16)的方式，使得低位全部填满1，最后再+1就是我们说的数组长度是2的幂。
+
+**3.HashMap细节**
+
+构造参数传进的初始化容量是怎么“向上取整”的？
+通过 n |= n >>> (1,2,4,8,16)的方式，使得低位全部填满1，最后再+1就是我们说的数组长度是2的幂。
 
 ```java
 /**
@@ -213,9 +219,9 @@ static final int hash(Object key) {
     }
 ```
 
-​	JDK1.8，并发编程不再死循环
-	旧的HashMap扩容的时候链是反过来的，比如说本来是a->b->c，先取a放到新的数组，再取b放过去就成了b->a，加上c就是c->b->a，可以看见引用反过来了，并发编程的时候，容易造成循环引用，也就是老生常谈的死循环。
-	到了1.8就不这么干了，通过`(e.hash & oldCap) == 0`去区分扩容后新节点位置可以说是非常精妙了，我是愣了一下才想明白，然后分两条链，顺序的，比如说原来时a->b->c-d，分开之后可能就变成a->c和a->d，这样依赖就不存在循环引用了，而且还最大程度维护了原来的顺序。
+JDK1.8，并发编程不再死循环
+旧的HashMap扩容的时候链是反过来的，比如说本来是a->b->c，先取a放到新的数组，再取b放过去就成了b->a，加上c就是c->b->a，可以看见引用反过来了，并发编程的时候，容易造成循环引用，也就是老生常谈的死循环。
+到了1.8就不这么干了，通过`(e.hash & oldCap) == 0`去区分扩容后新节点位置可以说是非常精妙了，我是愣了一下才想明白，然后分两条链，顺序的，比如说原来时a->b->c-d，分开之后可能就变成a->c和a->d，这样依赖就不存在循环引用了，而且还最大程度维护了原来的顺序。
 不过这个死循环BUG是因为会强占太多CPU资源被重视，而后又被妖魔化，HashMap本来就不是并发编程的容器，用在并发编程上总会有各种各样的问题，所以在这点上研究价值大于实用价值，毕竟没谁会直接在并发编程下怼一个HashMap上去吧。
 
 ```java
@@ -241,7 +247,7 @@ Node<K,V> loHead = null, loTail = null;
                         } while ((e = next) != null);
 ```
 
-- put()操作的伪代码
+put()操作的伪代码
 
 ```java
 final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
@@ -333,6 +339,106 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
 
 
 #### 1.6 JAVA8的ConcurrentHashMap为什么放弃了分段锁，有什么问题吗，如果你来设计，你如何设计。
+
+##### **弃用原因**
+
+通过  JDK 的源码和官方文档看来， 他们认为的弃用分段锁的原因由以下几点：
+
+1. 加入多个分段锁浪费内存空间。
+2. 生产环境中， map 在放入时竞争同一个锁的概率非常小，分段锁反而会造成更新等操作的长时间等待。
+3. 为了提高 GC 的效率
+
+**PS：关于Segment**
+
+ConcurrentHashMap有3个参数：
+
+1. initialCapacity：初始总容量，默认16
+2. loadFactor：加载因子，默认0.75
+3. concurrencyLevel：并发级别，默认16
+
+其中并发级别控制了Segment的个数，在一个ConcurrentHashMap创建后Segment的个数是不能变的，扩容过程过改变的是每个Segment的大小。
+
+**PS:关于分段锁**
+
+段Segment继承了重入锁ReentrantLock，有了锁的功能，每个锁控制的是一段，当每个Segment越来越大时，锁的粒度就变得有些大了。
+
+- 分段锁的优势在于保证在操作不同段 map 的时候可以并发执行，操作同段 map 的时候，进行锁的竞争和等待。这相对于直接对整个map同步synchronized是有优势的。
+- 缺点在于分成很多段时会比较浪费内存空间(不连续，碎片化); 操作map时竞争同一个分段锁的概率非常小时，分段锁反而会造成更新等操作的长时间等待; 当某个段很大时，分段锁的性能会下降。
+
+##### **新的同步方案**
+
+既然弃用了分段锁， 那么一定由新的线程安全方案， 我们来看看源码是怎么解决线程安全的呢？（源码保留了segment 代码， 但并没有使用，只是为了兼容旧版本）
+
+和hashmap一样,jdk 1.8中ConcurrentHashmap采用的底层数据结构为数组+链表+红黑树的形式。数组可以扩容，链表可以转化为红黑树。
+
+**什么时候扩容？**
+
+- 当前容量超过阈值
+- 当链表中元素个数超过默认设定（8个），当数组的大小还未超过64的时候，此时进行数组的扩容，如果超过则将链表转化成红黑树
+
+**什么时候链表转化为红黑树？**
+
+当数组大小已经超过64并且链表中的元素个数超过默认设定（8个）时，将链表转化为红黑树
+
+**put**
+
+首先通过 hash 找到对应链表过后， 查看是否是第一个object， 如果是， 直接用cas原则插入，无需加锁。
+
+```java
+Node<K,V> f; int n, i, fh; K fk; V fv;
+if (tab == null || (n = tab.length) == 0)
+    tab = initTable(); // 这里在整个map第一次操作时，初始化hash桶， 也就是一个table
+else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
+//如果是第一个object， 则直接cas放入， 不用锁
+    if (casTabAt(tab, i, null, new Node<K,V>(hash, key, value)))
+        break;                   
+}
+```
+
+然后， 如果不是链表第一个object， 则直接用链表第一个object加锁，这里加的锁是synchronized，虽然效率不如 ReentrantLock， 但节约了空间，这里会一直用第一个object为锁， 直到重新计算map大小， 比如扩容或者操作了第一个object为止。
+
+```java
+synchronized (f) {// 这里的f即为第一个链表的object
+    if (tabAt(tab, i) == f) {
+        if (fh >= 0) {
+            binCount = 1;
+            for (Node<K,V> e = f;; ++binCount) {
+                K ek;
+                if (e.hash == hash &&
+                    ((ek = e.key) == key ||
+                     (ek != null && key.equals(ek)))) {
+                    oldVal = e.val;
+                    if (!onlyIfAbsent)
+                        e.val = value;
+                    break;
+                }
+                Node<K,V> pred = e;
+                if ((e = e.next) == null) {
+                    pred.next = new Node<K,V>(hash, key, value);
+                    break;
+                }
+            }
+        }
+        else if (f instanceof TreeBin) { // 太长会用红黑树
+            Node<K,V> p;
+            binCount = 2;
+            if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key,
+                                           value)) != null) {
+                oldVal = p.val;
+                if (!onlyIfAbsent)
+                    p.val = value;
+            }
+        }
+        else if (f instanceof ReservationNode)
+            throw new IllegalStateException("Recursive update");
+    }
+}
+```
+
+**为什么不用ReentrantLock而用synchronized ?**
+
+- 减少内存开销:如果使用ReentrantLock则需要节点继承AQS来获得同步支持，增加内存开销，而1.8中只有头节点需要进行同步。
+- 内部优化:synchronized则是JVM直接支持的，JVM能够在运行时作出相应的优化措施：锁粗化、锁消除、锁自旋等等。
 
 #### 1.7 有没有有顺序的Map实现类，如果有，他们是怎么保证有序的。
 
