@@ -2,6 +2,7 @@ title: cordova中与inBrowser的通讯
 date: 2017-02-18 21:48:10
 categories: 移动开发
 tags: 
+
 	- Cordova
 ---
 为了把我的练琴记录仪改成多用户App，我需要做一个Weibo OAuth功能，因为练琴记录仪是Single Page App，我不愿意直接跳转到OAuth页面，那样会打断我的应用状态，于是我打算打开一个新窗口来完成OAuth。
