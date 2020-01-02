@@ -11,6 +11,8 @@ tags:
 
 我们将在创建一个 Spring Boot 工程来说明。具体工程可以参考github代码 [github](https://github.com/JustDoItLee/demo/tree/master/demo/async)
 
+<!-- more -->
+
 pom 依赖如下：
 
 ```xml

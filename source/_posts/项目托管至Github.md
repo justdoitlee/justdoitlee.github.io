@@ -18,6 +18,8 @@ tags:
 > git remote add origin 仓库地址
 > git push -u origin master
 
+<!-- more -->
+
 ### 命令说明：
 
 #### git init
