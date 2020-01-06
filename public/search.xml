@@ -390,7 +390,85 @@
 <p><a href="http://tomyz0223.iteye.com/blog/1035686" target="_blank" rel="noopener">使用LinkedHashMap构建LRU的</a></p>
 <p><a href="http://woming66.iteye.com/blog/1284326" target="_blank" rel="noopener">基于LinkedHashMap实现LRU</a></p>
 <p>其实LinkedHashMap几乎和HashMap一样，不同的是它定义了一个Entry&lt;K,V&gt; header，这个header不是放在Table里，它是额外独立出来的。LinkedHashMap通过继承hashMap中的Entry&lt;K,V&gt;,并添加两个属性Entry&lt;K,V&gt;  before,after,和header结合起来组成一个双向链表，来实现按插入顺序或访问顺序排序。</p>
-<h4 id="1-8-抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么-类可以实现多个接口么。"><a href="#1-8-抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么-类可以实现多个接口么。" class="headerlink" title="1.8 抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么,类可以实现多个接口么。"></a>1.8 抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么,类可以实现多个接口么。</h4><h4 id="1-9-继承和聚合的区别在哪。"><a href="#1-9-继承和聚合的区别在哪。" class="headerlink" title="1.9 继承和聚合的区别在哪。"></a>1.9 继承和聚合的区别在哪。</h4><h4 id="2-0-IO模型有哪些，讲讲你理解的nio-，他和bio，aio的区别是啥，谈谈reactor模型。"><a href="#2-0-IO模型有哪些，讲讲你理解的nio-，他和bio，aio的区别是啥，谈谈reactor模型。" class="headerlink" title="2.0 IO模型有哪些，讲讲你理解的nio ，他和bio，aio的区别是啥，谈谈reactor模型。"></a>2.0 IO模型有哪些，讲讲你理解的nio ，他和bio，aio的区别是啥，谈谈reactor模型。</h4><h4 id="2-1-反射的原理，反射创建类实例的三种方式是什么。"><a href="#2-1-反射的原理，反射创建类实例的三种方式是什么。" class="headerlink" title="2.1 反射的原理，反射创建类实例的三种方式是什么。"></a>2.1 反射的原理，反射创建类实例的三种方式是什么。</h4><h4 id="2-2-反射中，Class-forName和ClassLoader区别-。"><a href="#2-2-反射中，Class-forName和ClassLoader区别-。" class="headerlink" title="2.2 反射中，Class.forName和ClassLoader区别 。"></a>2.2 反射中，Class.forName和ClassLoader区别 。</h4><h4 id="2-3-描述动态代理的几种实现方式，分别说出相应的优缺点。"><a href="#2-3-描述动态代理的几种实现方式，分别说出相应的优缺点。" class="headerlink" title="2.3 描述动态代理的几种实现方式，分别说出相应的优缺点。"></a>2.3 描述动态代理的几种实现方式，分别说出相应的优缺点。</h4><h4 id="2-4-动态代理与cglib实现的区别。"><a href="#2-4-动态代理与cglib实现的区别。" class="headerlink" title="2.4 动态代理与cglib实现的区别。"></a>2.4 动态代理与cglib实现的区别。</h4><h4 id="2-5-为什么CGlib方式可以对接口实现代理。"><a href="#2-5-为什么CGlib方式可以对接口实现代理。" class="headerlink" title="2.5 为什么CGlib方式可以对接口实现代理。"></a>2.5 为什么CGlib方式可以对接口实现代理。</h4><h4 id="2-6-final的用途。"><a href="#2-6-final的用途。" class="headerlink" title="2.6 final的用途。"></a>2.6 final的用途。</h4><h4 id="2-7-写出三种单例模式实现-。"><a href="#2-7-写出三种单例模式实现-。" class="headerlink" title="2.7 写出三种单例模式实现 。"></a>2.7 写出三种单例模式实现 。</h4><h4 id="2-8-如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。"><a href="#2-8-如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。" class="headerlink" title="2.8 如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。"></a>2.8 如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。</h4><h4 id="2-9-请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。"><a href="#2-9-请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。" class="headerlink" title="2.9 请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。"></a>2.9 请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。</h4><h4 id="3-0-深拷贝和浅拷贝区别。"><a href="#3-0-深拷贝和浅拷贝区别。" class="headerlink" title="3.0 深拷贝和浅拷贝区别。"></a>3.0 深拷贝和浅拷贝区别。</h4><h4 id="3-1-数组和链表数据结构描述，各自的时间复杂度。"><a href="#3-1-数组和链表数据结构描述，各自的时间复杂度。" class="headerlink" title="3.1 数组和链表数据结构描述，各自的时间复杂度。"></a>3.1 数组和链表数据结构描述，各自的时间复杂度。</h4><h4 id="3-2-error和exception的区别，CheckedException，RuntimeException的区别。"><a href="#3-2-error和exception的区别，CheckedException，RuntimeException的区别。" class="headerlink" title="3.2 error和exception的区别，CheckedException，RuntimeException的区别。"></a>3.2 error和exception的区别，CheckedException，RuntimeException的区别。</h4><h4 id="3-3-请列出5个运行时异常。"><a href="#3-3-请列出5个运行时异常。" class="headerlink" title="3.3 请列出5个运行时异常。"></a>3.3 请列出5个运行时异常。</h4><h4 id="3-4-在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。"><a href="#3-4-在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。" class="headerlink" title="3.4 在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。"></a>3.4 在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。</h4><h4 id="3-5-说一说你对java-lang-Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。"><a href="#3-5-说一说你对java-lang-Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。" class="headerlink" title="3.5 说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。"></a>3.5 说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。</h4><h4 id="3-6-在jdk1-5中，引入了泛型，泛型的存在是用来解决什么问题。"><a href="#3-6-在jdk1-5中，引入了泛型，泛型的存在是用来解决什么问题。" class="headerlink" title="3.6 在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。"></a>3.6 在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。</h4><h4 id="3-7-这样的a-hashcode-有什么用，与a-equals-b-有什么关系。"><a href="#3-7-这样的a-hashcode-有什么用，与a-equals-b-有什么关系。" class="headerlink" title="3.7 这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。"></a>3.7 这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。</h4><h4 id="3-8-有没有可能2个不相等的对象有相同的hashcode。"><a href="#3-8-有没有可能2个不相等的对象有相同的hashcode。" class="headerlink" title="3.8 有没有可能2个不相等的对象有相同的hashcode。"></a>3.8 有没有可能2个不相等的对象有相同的hashcode。</h4><h4 id="3-9-Java中的HashSet内部是如何工作的。"><a href="#3-9-Java中的HashSet内部是如何工作的。" class="headerlink" title="3.9 Java中的HashSet内部是如何工作的。"></a>3.9 Java中的HashSet内部是如何工作的。</h4><h4 id="4-0-什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。"><a href="#4-0-什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。" class="headerlink" title="4.0 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。"></a>4.0 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。</h4><h4 id="4-1-java8的新特性。"><a href="#4-1-java8的新特性。" class="headerlink" title="4.1 java8的新特性。"></a>4.1 java8的新特性。</h4>]]></content>
+<h4 id="1-8-抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么-类可以实现多个接口么。"><a href="#1-8-抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么-类可以实现多个接口么。" class="headerlink" title="1.8 抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么,类可以实现多个接口么。"></a>1.8 抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么,类可以实现多个接口么。</h4><p>1、抽象类和接口都不能直接实例化，如果要实例化，抽象类变量必须指向实现所有抽象方法的子类对象，接口变量必须指向实现所有接口方法的类对象。</p>
+<p>2、抽象类要被子类继承，接口要被类实现。</p>
+<p>3、接口只能做方法申明，抽象类中可以做方法申明，也可以做方法实现</p>
+<p>4、接口里定义的变量只能是公共的静态的常量，抽象类中的变量是普通变量。</p>
+<p>5、抽象类里的抽象方法必须全部被子类所实现，如果子类不能全部实现父类抽象方法，那么该子类只能是抽象类。同样，一个实现接口的时候，如不能全部实现接口方法，那么该类也只能为抽象类。</p>
+<p>6、抽象方法只能申明，不能实现。abstract void abc();不能写成abstract void abc(){}。</p>
+<p>7、抽象类里可以没有抽象方法</p>
+<p>8、如果一个类里有抽象方法，那么这个类只能是抽象类</p>
+<p>9、抽象方法要被实现，所以不能是静态的，也不能是私有的。</p>
+<p>10、接口可继承接口，并可多继承接口，但类只能单根继承。</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>抽象类</strong></th>
+<th><strong>接口</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>默认的方法实现</td>
+<td>它可以有默认的方法实现</td>
+<td>接口完全是抽象的。它根本不存在方法的实现</td>
+</tr>
+<tr>
+<td>关键字</td>
+<td>子类使用<strong>extends</strong>关键字来继承抽象类。如果子类不是抽象类的话，它需要提供抽象类中所有声明的方法的实现。</td>
+<td>子类使用关键字<strong>implements</strong>来实现接口。它需要提供接口中所有声明的方法的实现</td>
+</tr>
+<tr>
+<td>构造器</td>
+<td>抽象类可以有构造器</td>
+<td>接口不能有构造器</td>
+</tr>
+<tr>
+<td>与正常Java类的区别</td>
+<td>除了你不能实例化抽象类之外，它和普通Java类没有任何区别</td>
+<td>接口是完全不同的类型</td>
+</tr>
+<tr>
+<td>访问修饰符</td>
+<td>抽象方法可以有<strong>public</strong>、<strong>protected</strong>和<strong>default</strong>这些修饰符</td>
+<td>接口方法默认修饰符是<strong>public</strong>。你不可以使用其它修饰符。</td>
+</tr>
+<tr>
+<td>main方法</td>
+<td>抽象方法可以有main方法并且我们可以运行它</td>
+<td>接口没有main方法，因此我们不能运行它。</td>
+</tr>
+<tr>
+<td>多继承</td>
+<td>抽象类只可以继承一个类和实现多个接口</td>
+<td>接口和接口之间是可以多继承或者单继承多实现的。</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>它比接口速度要快</td>
+<td>接口是稍微有点慢的，因为它需要时间去寻找在类中实现的方法。</td>
+</tr>
+<tr>
+<td>添加新方法</td>
+<td>如果你往抽象类中添加新的方法，你可以给它提供默认的实现。因此你不需要改变你现在的代码。</td>
+<td>如果你往接口中添加方法，那么你必须改变实现该接口的类。</td>
+</tr>
+<tr>
+<td>设计理念</td>
+<td>is-a的关系，体现的是一种关系的延续</td>
+<td>like-a体现的是一种功能的扩展关系</td>
+</tr>
+</tbody>
+</table>
+<p><strong>具体使用的场景</strong></p>
+<ul>
+<li>如果你拥有一些方法并且想让它们中的一些有默认实现，那么使用抽象类吧。</li>
+<li>如果你想实现多重继承，那么你必须使用接口。由于<strong>Java不支持多继承</strong>，子类不能够继承多个类，但可以实现多个接口。因此你就可以使用接口来解决它。</li>
+<li>如果基本功能在不断改变，那么就需要使用抽象类。如果不断改变基本功能并且使用接口，那么就需要改变所有实现了该接口的类。</li>
+<li>多用组合，少用继承。</li>
+</ul>
+<h4 id="1-9-继承和聚合的区别在哪。"><a href="#1-9-继承和聚合的区别在哪。" class="headerlink" title="1.9 继承和聚合的区别在哪。"></a>1.9 继承和聚合的区别在哪。</h4><h4 id="2-0-IO模型有哪些，讲讲你理解的nio-，他和bio，aio的区别是啥，谈谈reactor模型。"><a href="#2-0-IO模型有哪些，讲讲你理解的nio-，他和bio，aio的区别是啥，谈谈reactor模型。" class="headerlink" title="2.0 IO模型有哪些，讲讲你理解的nio ，他和bio，aio的区别是啥，谈谈reactor模型。"></a>2.0 IO模型有哪些，讲讲你理解的nio ，他和bio，aio的区别是啥，谈谈reactor模型。</h4><h4 id="2-1-反射的原理，反射创建类实例的三种方式是什么。"><a href="#2-1-反射的原理，反射创建类实例的三种方式是什么。" class="headerlink" title="2.1 反射的原理，反射创建类实例的三种方式是什么。"></a>2.1 反射的原理，反射创建类实例的三种方式是什么。</h4><h4 id="2-2-反射中，Class-forName和ClassLoader区别-。"><a href="#2-2-反射中，Class-forName和ClassLoader区别-。" class="headerlink" title="2.2 反射中，Class.forName和ClassLoader区别 。"></a>2.2 反射中，Class.forName和ClassLoader区别 。</h4><h4 id="2-3-描述动态代理的几种实现方式，分别说出相应的优缺点。"><a href="#2-3-描述动态代理的几种实现方式，分别说出相应的优缺点。" class="headerlink" title="2.3 描述动态代理的几种实现方式，分别说出相应的优缺点。"></a>2.3 描述动态代理的几种实现方式，分别说出相应的优缺点。</h4><h4 id="2-4-动态代理与cglib实现的区别。"><a href="#2-4-动态代理与cglib实现的区别。" class="headerlink" title="2.4 动态代理与cglib实现的区别。"></a>2.4 动态代理与cglib实现的区别。</h4><h4 id="2-5-为什么CGlib方式可以对接口实现代理。"><a href="#2-5-为什么CGlib方式可以对接口实现代理。" class="headerlink" title="2.5 为什么CGlib方式可以对接口实现代理。"></a>2.5 为什么CGlib方式可以对接口实现代理。</h4><h4 id="2-6-final的用途。"><a href="#2-6-final的用途。" class="headerlink" title="2.6 final的用途。"></a>2.6 final的用途。</h4><h4 id="2-7-写出三种单例模式实现-。"><a href="#2-7-写出三种单例模式实现-。" class="headerlink" title="2.7 写出三种单例模式实现 。"></a>2.7 写出三种单例模式实现 。</h4><h4 id="2-8-如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。"><a href="#2-8-如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。" class="headerlink" title="2.8 如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。"></a>2.8 如何在父类中为子类自动完成所有的hashcode和equals实现？这么做有何优劣。</h4><h4 id="2-9-请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。"><a href="#2-9-请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。" class="headerlink" title="2.9 请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。"></a>2.9 请结合OO设计理念，谈谈访问修饰符public、private、protected、default在应用设计中的作用。</h4><h4 id="3-0-深拷贝和浅拷贝区别。"><a href="#3-0-深拷贝和浅拷贝区别。" class="headerlink" title="3.0 深拷贝和浅拷贝区别。"></a>3.0 深拷贝和浅拷贝区别。</h4><h4 id="3-1-数组和链表数据结构描述，各自的时间复杂度。"><a href="#3-1-数组和链表数据结构描述，各自的时间复杂度。" class="headerlink" title="3.1 数组和链表数据结构描述，各自的时间复杂度。"></a>3.1 数组和链表数据结构描述，各自的时间复杂度。</h4><h4 id="3-2-error和exception的区别，CheckedException，RuntimeException的区别。"><a href="#3-2-error和exception的区别，CheckedException，RuntimeException的区别。" class="headerlink" title="3.2 error和exception的区别，CheckedException，RuntimeException的区别。"></a>3.2 error和exception的区别，CheckedException，RuntimeException的区别。</h4><h4 id="3-3-请列出5个运行时异常。"><a href="#3-3-请列出5个运行时异常。" class="headerlink" title="3.3 请列出5个运行时异常。"></a>3.3 请列出5个运行时异常。</h4><h4 id="3-4-在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。"><a href="#3-4-在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。" class="headerlink" title="3.4 在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。"></a>3.4 在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。</h4><h4 id="3-5-说一说你对java-lang-Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。"><a href="#3-5-说一说你对java-lang-Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。" class="headerlink" title="3.5 说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。"></a>3.5 说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。</h4><h4 id="3-6-在jdk1-5中，引入了泛型，泛型的存在是用来解决什么问题。"><a href="#3-6-在jdk1-5中，引入了泛型，泛型的存在是用来解决什么问题。" class="headerlink" title="3.6 在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。"></a>3.6 在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。</h4><h4 id="3-7-这样的a-hashcode-有什么用，与a-equals-b-有什么关系。"><a href="#3-7-这样的a-hashcode-有什么用，与a-equals-b-有什么关系。" class="headerlink" title="3.7 这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。"></a>3.7 这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。</h4><h4 id="3-8-有没有可能2个不相等的对象有相同的hashcode。"><a href="#3-8-有没有可能2个不相等的对象有相同的hashcode。" class="headerlink" title="3.8 有没有可能2个不相等的对象有相同的hashcode。"></a>3.8 有没有可能2个不相等的对象有相同的hashcode。</h4><h4 id="3-9-Java中的HashSet内部是如何工作的。"><a href="#3-9-Java中的HashSet内部是如何工作的。" class="headerlink" title="3.9 Java中的HashSet内部是如何工作的。"></a>3.9 Java中的HashSet内部是如何工作的。</h4><h4 id="4-0-什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。"><a href="#4-0-什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。" class="headerlink" title="4.0 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。"></a>4.0 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。</h4><h4 id="4-1-java8的新特性。"><a href="#4-1-java8的新特性。" class="headerlink" title="4.1 java8的新特性。"></a>4.1 java8的新特性。</h4>]]></content>
       <categories>
         <category>Java二三事</category>
       </categories>
