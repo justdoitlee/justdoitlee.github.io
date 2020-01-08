@@ -922,12 +922,6 @@ IO是面向流的，NIO是面向缓冲区的
 
 NIO（Non-blocking I/O，在Java领域，也称为New I/O），是一种同步非阻塞的I/O模型，也是I/O多路复用的基础，已经被越来越多地应用到大型应用服务器，成为解决高并发与大量连接、I/O处理问题的有效方式。
 
-那么NIO的本质是什么样的呢？它是怎样与事件模型结合来解放线程、提高系统吞吐的呢？
-
-本文会从传统的阻塞I/O和线程池模型面临的问题讲起，然后对比几种常见I/O模型，一步步分析NIO怎么利用事件模型处理I/O，解决线程池瓶颈处理海量连接，包括利用面向事件的方式编写服务端/客户端程序。最后延展到一些高级主题，如Reactor与Proactor模型的对比、Selector的唤醒、Buffer的选择等。
-
-注：本文的代码都是伪代码，主要是为了示意，不可用于生产环境。
-
 **传统BIO模型分析**
 
 让我们先回忆一下传统的服务器端同步阻塞I/O处理（也就是BIO，Blocking I/O）的经典编程模型：
@@ -1294,6 +1288,456 @@ NIO并没有完全屏蔽平台差异，它仍然是基于各个操作系统的I/
 
 
 #### 2.1 反射的原理，反射创建类实例的三种方式是什么。
+
+### 方法反射实例
+
+```java
+public class ReflectCase {
+
+    public static void main(String[] args) throws Exception {
+        Proxy target = new Proxy();
+        Method method = Proxy.class.getDeclaredMethod("run");
+        method.invoke(target);
+    }
+
+    static class Proxy {
+        public void run() {
+            System.out.println("run");
+        }
+    }
+}
+```
+
+通过Java的反射机制，可以在运行期间调用对象的任何方法，如果大量使用这种方式进行调用，会有性能或内存隐患么？为了彻底了解方法的反射机制，只能从底层代码入手了。
+
+**Method获取**
+
+调用Class类的getDeclaredMethod可以获取指定方法名和参数的方法对象Method。
+
+**getDeclaredMethod** 
+
+ ```java
+   @CallerSensitive
+    public Method getDeclaredMethod(String name, Class<?>... parameterTypes)
+        throws NoSuchMethodException, SecurityException {
+        checkMemberAccess(Member.DECLARED, Reflection.getCallerClass(), true);
+        Method method = searchMethods(privateGetDeclaredMethods(false), name, parameterTypes);
+        if (method == null) {
+            throw new NoSuchMethodException(getName() + "." + name + argumentTypesToString(parameterTypes));
+        }
+        return method;
+    }
+ ```
+
+其中privateGetDeclaredMethods方法从缓存或JVM中获取该Class中申明的方法列表，searchMethods方法将从返回的方法列表里找到一个匹配名称和参数的方法对象。
+
+**searchMethods**
+
+```java
+private static Method searchMethods(Method[] methods,
+                                        String name,
+                                        Class<?>[] parameterTypes)
+    {
+        Method res = null;
+        String internedName = name.intern();
+        for (int i = 0; i < methods.length; i++) {
+            Method m = methods[i];
+            if (m.getName() == internedName
+                && arrayContentsEq(parameterTypes, m.getParameterTypes())
+                && (res == null
+                    || res.getReturnType().isAssignableFrom(m.getReturnType())))
+                res = m;
+        }
+
+        return (res == null ? res : getReflectionFactory().copyMethod(res));
+    }
+```
+
+如果找到一个匹配的Method，则重新copy一份返回，即Method.copy()方法
+
+```java
+ Method copy() {
+        // This routine enables sharing of MethodAccessor objects
+        // among Method objects which refer to the same underlying
+        // method in the VM. (All of this contortion is only necessary
+        // because of the "accessibility" bit in AccessibleObject,
+        // which implicitly requires that new java.lang.reflect
+        // objects be fabricated for each reflective call on Class
+        // objects.)
+        if (this.root != null)
+            throw new IllegalArgumentException("Can not copy a non-root Method");
+
+        Method res = new Method(clazz, name, parameterTypes, returnType,
+                                exceptionTypes, modifiers, slot, signature,
+                                annotations, parameterAnnotations, annotationDefault);
+        res.root = this;
+        // Might as well eagerly propagate this if already present
+        res.methodAccessor = methodAccessor;
+        return res;
+    }
+```
+
+所次每次调用getDeclaredMethod方法返回的Method对象其实都是一个新的对象，且新对象的root属性都指向原来的Method对象，如果需要频繁调用，最好把Method对象缓存起来。
+
+**privateGetDeclaredMethods**
+
+从缓存或JVM中获取该Class中申明的方法列表，实现如下：
+
+```java
+private Method[] privateGetDeclaredMethods(boolean publicOnly) {
+        checkInitted();
+        Method[] res;
+        ReflectionData<T> rd = reflectionData();
+        if (rd != null) {
+            res = publicOnly ? rd.declaredPublicMethods : rd.declaredMethods;
+            if (res != null) return res;
+        }
+        // No cached value available; request value from VM
+        res = Reflection.filterMethods(this, getDeclaredMethods0(publicOnly));
+        if (rd != null) {
+            if (publicOnly) {
+                rd.declaredPublicMethods = res;
+            } else {
+                rd.declaredMethods = res;
+            }
+        }
+        return res;
+    }
+```
+
+其中reflectionData()方法实现如下：
+
+```java
+ private ReflectionData<T> reflectionData() {
+        SoftReference<ReflectionData<T>> reflectionData = this.reflectionData;
+        int classRedefinedCount = this.classRedefinedCount;
+        ReflectionData<T> rd;
+        if (useCaches &&
+            reflectionData != null &&
+            (rd = reflectionData.get()) != null &&
+            rd.redefinedCount == classRedefinedCount) {
+            return rd;
+        }
+        // else no SoftReference or cleared SoftReference or stale ReflectionData
+        // -> create and replace new instance
+        return newReflectionData(reflectionData, classRedefinedCount);
+    }
+```
+
+这里有个比较重要的数据结构ReflectionData，用来缓存从JVM中读取类的如下属性数据：
+
+ ```java
+ // reflection data that might get invalidated when JVM TI RedefineClasses() is called
+    private static class ReflectionData<T> {
+        volatile Field[] declaredFields;
+        volatile Field[] publicFields;
+        volatile Method[] declaredMethods;
+        volatile Method[] publicMethods;
+        volatile Constructor<T>[] declaredConstructors;
+        volatile Constructor<T>[] publicConstructors;
+        // Intermediate results for getFields and getMethods
+        volatile Field[] declaredPublicFields;
+        volatile Method[] declaredPublicMethods;
+        volatile Class<?>[] interfaces;
+
+        // Value of classRedefinedCount when we created this ReflectionData instance
+        final int redefinedCount;
+
+        ReflectionData(int redefinedCount) {
+            this.redefinedCount = redefinedCount;
+        }
+    }
+ ```
+
+从reflectionData()方法实现可以看出：reflectionData对象是SoftReference类型的，说明在内存紧张时可能会被回收，不过也可以通过`-XX:SoftRefLRUPolicyMSPerMB`参数控制回收的时机，只要发生GC就会将其回收，如果reflectionData被回收之后，又执行了反射方法，那只能通过newReflectionData方法重新创建一个这样的对象了，newReflectionData方法实现如下：
+
+```java
+ private ReflectionData<T> newReflectionData(SoftReference<ReflectionData<T>> oldReflectionData,
+                                                int classRedefinedCount) {
+        if (!useCaches) return null;
+
+        while (true) {
+            ReflectionData<T> rd = new ReflectionData<>(classRedefinedCount);
+            // try to CAS it...
+            if (Atomic.casReflectionData(this, oldReflectionData, new SoftReference<>(rd))) {
+                return rd;
+            }
+            // else retry
+            oldReflectionData = this.reflectionData;
+            classRedefinedCount = this.classRedefinedCount;
+            if (oldReflectionData != null &&
+                (rd = oldReflectionData.get()) != null &&
+                rd.redefinedCount == classRedefinedCount) {
+                return rd;
+            }
+        }
+    }
+```
+
+ 通过unsafe.compareAndSwapObject方法重新设置reflectionData字段；
+
+在privateGetDeclaredMethods方法中，如果通过reflectionData()获得的ReflectionData对象不为空，则尝试从ReflectionData对象中获取declaredMethods属性，如果是第一次，或则被GC回收之后，重新初始化后的类属性为空，则需要重新到JVM中获取一次，并赋值给ReflectionData，下次调用就可以使用缓存数据了。
+
+**Method调用**
+
+获取到指定的方法对象Method之后，就可以调用它的invoke方法了，invoke实现如下：
+
+```java
+ @CallerSensitive
+    public Object invoke(Object obj, Object... args)
+        throws IllegalAccessException, IllegalArgumentException,
+           InvocationTargetException
+    {
+        if (!override) {
+            if (!Reflection.quickCheckMemberAccess(clazz, modifiers)) {
+                Class<?> caller = Reflection.getCallerClass();
+                checkAccess(caller, clazz, obj, modifiers);
+            }
+        }
+        MethodAccessor ma = methodAccessor;             // read volatile
+        if (ma == null) {
+            ma = acquireMethodAccessor();
+        }
+        return ma.invoke(obj, args);
+    }
+```
+
+应该注意到：这里的MethodAccessor对象是invoke方法实现的关键，一开始methodAccessor为空，需要调用acquireMethodAccessor生成一个新的MethodAccessor对象，MethodAccessor本身就是一个接口，实现如下：
+
+```java
+public interface MethodAccessor {
+    Object invoke(Object var1, Object[] var2) throws IllegalArgumentException, InvocationTargetException;
+}
+```
+
+ 在acquireMethodAccessor方法中，会通过ReflectionFactory类的newMethodAccessor创建一个实现了MethodAccessor接口的对象，实现如下：
+
+ ```java
+ public MethodAccessor newMethodAccessor(Method var1) {
+        checkInitted();
+        if (noInflation && !ReflectUtil.isVMAnonymousClass(var1.getDeclaringClass())) {
+            return (new MethodAccessorGenerator()).generateMethod(var1.getDeclaringClass(), var1.getName(), var1.getParameterTypes(), var1.getReturnType(), var1.getExceptionTypes(), var1.getModifiers());
+        } else {
+            NativeMethodAccessorImpl var2 = new NativeMethodAccessorImpl(var1);
+            DelegatingMethodAccessorImpl var3 = new DelegatingMethodAccessorImpl(var2);
+            var2.setParent(var3);
+            return var3;
+        }
+    }
+ ```
+
+在ReflectionFactory类中，有2个重要的字段：noInflation(默认false)和inflationThreshold(默认15)，在checkInitted方法中可以通过-Dsun.reflect.inflationThreshold=xxx和-Dsun.reflect.noInflation=true对这两个字段重新设置，而且只会设置一次；
+
+如果noInflation为false，方法newMethodAccessor都会返回DelegatingMethodAccessorImpl对象，DelegatingMethodAccessorImpl的类实现
+
+```java
+class DelegatingMethodAccessorImpl extends MethodAccessorImpl {
+    private MethodAccessorImpl delegate;
+
+    DelegatingMethodAccessorImpl(MethodAccessorImpl var1) {
+        this.setDelegate(var1);
+    }
+
+    public Object invoke(Object var1, Object[] var2) throws IllegalArgumentException, InvocationTargetException {
+        return this.delegate.invoke(var1, var2);
+    }
+
+    void setDelegate(MethodAccessorImpl var1) {
+        this.delegate = var1;
+    }
+}
+```
+
+其实，DelegatingMethodAccessorImpl对象就是一个代理对象，负责调用被代理对象delegate的invoke方法，其中delegate参数目前是NativeMethodAccessorImpl对象，所以最终Method的invoke方法调用的是NativeMethodAccessorImpl对象invoke方法，实现如下：
+
+```java
+ public Object invoke(Object var1, Object[] var2) throws IllegalArgumentException, InvocationTargetException {
+        if (++this.numInvocations > ReflectionFactory.inflationThreshold() && !ReflectUtil.isVMAnonymousClass(this.method.getDeclaringClass())) {
+            MethodAccessorImpl var3 = (MethodAccessorImpl)(new MethodAccessorGenerator()).generateMethod(this.method.getDeclaringClass(), this.method.getName(), this.method.getParameterTypes(), this.method.getReturnType(), this.method.getExceptionTypes(), this.method.getModifiers());
+            this.parent.setDelegate(var3);
+        }
+
+        return invoke0(this.method, var1, var2);
+    }
+```
+
+这里用到了ReflectionFactory类中的inflationThreshold，当delegate调用了15次invoke方法之后，如果继续调用就通过MethodAccessorGenerator类的generateMethod方法生成MethodAccessorImpl对象，并设置为delegate对象，这样下次执行Method.invoke时，就调用新建的MethodAccessor对象的invoke()方法了。
+
+**这里需要注意的是：**
+ generateMethod方法在生成MethodAccessorImpl对象时，会在内存中生成对应的字节码，并调用ClassDefiner.defineClass创建对应的class对象，实现如下：
+
+```java
+return (MagicAccessorImpl)AccessController.doPrivileged(new PrivilegedAction<MagicAccessorImpl>() {
+                public MagicAccessorImpl run() {
+                    try {
+                        return (MagicAccessorImpl)ClassDefiner.defineClass(var13, var17, 0, var17.length, var1.getClassLoader()).newInstance();
+                    } catch (IllegalAccessException | InstantiationException var2) {
+                        throw new InternalError(var2);
+                    }
+                }
+            });
+```
+
+在ClassDefiner.defineClass方法实现中，每被调用一次都会生成一个DelegatingClassLoader类加载器对象
+
+```java
+static Class<?> defineClass(String var0, byte[] var1, int var2, int var3, final ClassLoader var4) {
+        ClassLoader var5 = (ClassLoader)AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
+            public ClassLoader run() {
+                return new DelegatingClassLoader(var4);
+            }
+        });
+        return unsafe.defineClass(var0, var1, var2, var3, var5, (ProtectionDomain)null);
+    }
+```
+
+这里每次都生成新的类加载器，是为了性能考虑，在某些情况下可以卸载这些生成的类，因为类的卸载是只有在类加载器可以被回收的情况下才会被回收的，如果用了原来的类加载器，那可能导致这些新创建的类一直无法被卸载，从其设计来看本身就不希望这些类一直存在内存里的，在需要的时候有就行了。
+
+**获取class**
+
+Class 类的实例表示正在运行的 Java 应用程序中的类和接口。获取类的Class对象有多种方式：
+
+- 调用getClass	
+
+
+```java
+Boolean var1 = true;
+
+Class<?> classType2 = var1.getClass();
+
+System.out.println(classType2);
+
+输出：class java.lang.Boolean
+
+```
+
+
+
+- 运用.class 语法	
+
+
+```java
+Class<?> classType4 = Boolean.class;
+
+System.out.println(classType4);
+
+输出：class java.lang.Boolean
+
+```
+
+
+
+- 运用static method Class.forName()	
+
+
+```java
+Class<?> classType5 = Class.forName("java.lang.Boolean");
+
+System.out.println(classType5);
+
+输出：class java.lang.Boolean
+
+```
+
+
+
+- 运用primitive wrapper classes的TYPE 语法
+
+
+```java
+这里返回的是原生类型，和Boolean.class返回的不同
+
+Class<?> classType3 = Boolean.TYPE;
+
+System.out.println(classType3);        
+
+输出：boolean 
+```
+
+
+
+**实例化类对象**
+
+- 通过 Class 对象的 newInstance() 方法。
+
+```java
+Class clz = Person.class;
+Person person = (Person)clz.newInstance();
+```
+
+- 通过 Constructor 对象的 newInstance() 方法
+
+```java
+Class clz = Person.class;
+Constructor constructor = clz.getConstructor();
+Person person = (Person)constructor.newInstance();
+```
+
+通过 Constructor 对象创建类对象可以选择特定构造方法，而通过 Class 对象则只能使用默认的无参数构造方法。下面的代码就调用了一个有参数的构造方法进行了类对象的初始化。
+
+```java
+Class clz = Person.class;
+Constructor constructor = clz.getConstructor(String.class, int.class);
+Person person = (Person)constructor.newInstance("jack",21);
+```
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
 
 #### 2.2 反射中，Class.forName和ClassLoader区别 。
 
