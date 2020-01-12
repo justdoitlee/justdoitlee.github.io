@@ -1678,68 +1678,61 @@ Person person = (Person)constructor.newInstance();
 ```java
 Class clz = Person.class;
 Constructor constructor = clz.getConstructor(String.class, int.class);
-Person person = (Person)constructor.newInstance("jack",21);
+Person person = (Person)constructor.newInstance("jack",21); 
 ```
 
- 
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-  
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 #### 2.2 反射中，Class.forName和ClassLoader区别 。
+
+**ClassLoader.loadClass()**与**Class.forName()**大家都知道是反射用来构造类的方法，但是他们的用法还是有一定区别的。
+
+在讲区别之前，我觉得很有不要把类的加载过程在此整理一下。
+
+在Java中，类装载器把一个类装入Java虚拟机中，要经过三个步骤来完成：装载、链接和初始化，其中链接又可以分成校验、准备和解析三步，除了解析外，其它步骤是严格按照顺序完成的，各个步骤的主要工作如下：
+
+- **装载**：查找和导入类或接口的二进制数据； 
+
+- **链接**：执行下面的校验、准备和解析步骤，其中解析步骤是可以选择的； 
+
+- **校验**：检查导入类或接口的二进制数据的正确性； 
+
+- **准备**：给类的静态变量分配并初始化存储空间； 
+
+- **解析**：将符号引用转成直接引用； 
+
+- **初始化**：激活类的静态变量的初始化Java代码和静态Java代码块。
+
+ 于是乎我们可以开始看2者的区别了。
+
+Class.forName(className)方法，其实调用的方法是**Class.forName(className,true,classloader)**;注意看第2个boolean参数，它表示的意思，**在loadClass后必须初始化**。比较下jvm加载类的知识，我们可以清晰的看到在执行过此方法后，目标对象的 static块代码已经被执行，static参数也已经被初始化。
+
+再看ClassLoader.loadClass(className)方法，其实他调用的方法是**ClassLoader.loadClass(className,false)**;还是注意看第2个 boolean参数，该参数表示**目标对象被装载后不进行链接**，这就意味这**不会去执行该类静态块中间的内**容。因此2者的区别就显而易见了。
+
+最后还有必要在此提一下new方法和newInstance方法的区别
+
+**newInstance**: 弱类型。**低效率**。**只能调用无参构造**。
+
+**new**: 强类型。相对高效。**能调用任何public构造**。
+
+例如，在JDBC编程中，常看到这样的用法，Class.forName("com.mysql.jdbc.Driver")，如果换成了 getClass().getClassLoader().loadClass("com.mysql.jdbc.Driver")，就不行。
+
+为什么呢？打开com.mysql.jdbc.Driver的源代码看看，
+
+ ```java
+//
+// Register ourselves with the DriverManager
+//
+static {
+    try {
+        java.sql.DriverManager.registerDriver(new Driver());
+    } catch (SQLException E) {
+        throw new RuntimeException("Can't register driver!");
+    }
+}
+ ```
+
+Driver在static块中会注册自己到java.sql.DriverManager。而static块就是在Class的初始化中被执行。所以这个地方就只能用Class.forName(className)。
 
 #### 2.3 描述动态代理的几种实现方式，分别说出相应的优缺点。
 
