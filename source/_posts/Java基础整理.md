@@ -2134,6 +2134,129 @@ default：即不加任何访问修饰符，通常称为“默认访问模式“�
 
 #### 3.0 深拷贝和浅拷贝区别。
 
+**什么是拷贝?**
+
+开始之前，我要先强调一下 Java 中的拷贝是什么。首先，让我们对引用拷贝和对象拷贝进行一下区分。 
+
+**引用拷贝**, 正如它的名称所表述的意思, 就是创建一个指向对象的引用变量的拷贝。如果我们有一个 Car 对象，而且让 *myCar* 变量指向这个变量，这时候当我们做引用拷贝，那么现在就会有两个 myCar 变量，但是对象仍然只存在一个。
+
+![img](http://static.oschina.net/uploads/space/2016/1102/110619_NSfb_2903254.jpg)
+
+**对象拷贝**会创建对象本身的一个副本。因此如果我们再一次服务我们 car 对象，就会创建这个对象本身的一个副本, 同时还会有第二个引用变量指向这个被复制出来的对象。
+
+![img](http://static.oschina.net/uploads/space/2016/1102/110634_VqLp_2903254.jpg)
+
+ 
+
+**什么是对象?** 
+
+深拷贝和浅拷贝都是对象拷贝, 但一个对象实际是什么呢? 当我们谈论到对象时，我们经常会说它就像一粒浑圆的咖啡豆，已经是一个不能够被进一步分解的单位了，但这种说法太过于简化了。
+
+![img](http://static.oschina.net/uploads/space/2016/1102/110649_3o2i_2903254.jpg)
+
+比方说我们有一个 Person 对象。这个 Person 对象实际上是由其它的对象组合而成的。如下图所示， Person 对象包含了一个 Name 对象和一个 Address 对象。*Name 对象又包含了*一个 *FirstName* 对象和一个 *LastName* 对象；Address 对象又是由一个 *Street* 对象以及一个 *City* 对象组合而成的。那么当我们讨论本文中的这个 Person 时，实际上我是在讨论这些个对象所组成的整个的对象联系网络。
+
+![img](http://static.oschina.net/uploads/space/2016/1102/110706_c4aV_2903254.jpg)
+
+那么为什么我会要对这个 Person 对象进行拷贝呢? 对象复制，经常也会被称作克隆，它是在我们想要修改或者移除某个对象，但仍然想要保留原来的那个对象时所要进行的操作。
+
+ 
+
+**浅拷贝** 
+
+首先让我们来说说浅拷贝。对象的浅拷贝会对“主”对象进行拷贝，但不会复制主对象里面的对象。"里面的对象“会在原来的对象和它的副本之间共享。例如，我们会为一个 Person对象创建第二个 *Person 对象*, 而两个 *Person* 会共享相同的 Name 和 Address 对象。
+
+让我们来看看代码示例。如中，我们有一个类 Person，类里面包含了一个 Name 和 Address 对象。拷贝构造器会拿到 originalPerson 对象，然后对其应用变量进行复制。
+
+```java
+public class Person {
+    private Name name;
+    private Address address;
+
+    public Person(Person originalPerson) {
+         this.name = originalPerson.name;
+         this.address = originalPerson.address;
+    }
+[…]
+}
+```
+
+浅拷贝的问题就是两个对象并非独立的。如果你修改了其中一个 Person 对象的 Name 对象，那么这次修改也会影响奥另外一个 Person 对象。
+
+让我们在示例中看看这个问题。假如说我们有一个 Person 对象，然后也会有一个引用变量 monther 来指向它；然后当我们对 mother 进行拷贝时，创建第二个 Person 对象 son。如果在此后的代码中， son 尝试用 *moveOut()* 来修改他的 *Address* 对象, 那么 mother 也会跟着他一起搬走!
+
+```java
+Person mother = new Person(new Name(…), new Address(…));
+[…]
+Person son  = new Person(mother);
+[…]
+son.moveOut(new Street(…), new City(…));
+```
+
+这种现象之所以会发生，是因为 mother 和son 对象共享了相同的 Address 对象，如你在示例 7 中所看到的描述。当我们在一个对象中修改了 Address 对象，那么也就表示两个对象总的 Address 都被修改了。
+
+![img](http://static.oschina.net/uploads/space/2016/1102/110725_sZVi_2903254.jpg)
+
+ 
+
+**深拷贝** 
+
+不同于浅拷贝，深拷贝是一个**整个独立的对象拷贝。**如果我们对整个 Person对象进行深拷贝，我们会对整个对象的结构都进行拷贝。
+
+![img](http://static.oschina.net/uploads/space/2016/1102/110737_JstE_2903254.jpg)
+
+如你在上图中所见，对一个 Person 的Address对象进行了修改并不会对另外一个对象造成影响。当我们观察示下面的代码，会发现我们不单单对 Person 对象使用了拷贝构造器，同时也会对里面的对象使用拷贝构造器。
+
+```java
+public class Person {
+    private Name name;
+    private Address address;
+
+    public Person(Person otherPerson) {
+         this.name    =  new Name(otherPerson.name);
+         this.address =  new Address(otherPerson.address);
+    }
+[…]
+}
+```
+
+
+
+使用这种深拷贝，我们可以重新尝试示上面的 mother-son 这个用例。现在 son 可以成功的搬走了！
+
+不过，故事到这儿并没有结束。要创建一个真正的深拷贝，就需要我们一直这样拷贝下去，一直覆盖到 Person 对象所有的内部元素, 最后只剩下原始的类型以及“不可变对象（**Immutables）**”。让我们观察下如下这个 Street 类以获得更好的理解:
+
+```java
+public class Street {
+    private String name;
+    private int number;
+
+    public Street(Street otherStreet){
+         this.name = otherStreet.name;
+         this.number = otherStreet.number;
+    }
+[…]
+}
+```
+
+Street 对象有两个实体变量组成 – *String 类型的 name* 以及 *int 类型的 number*。*int  类型的 number* 是一个原始类型，并非对象。它只是一个简单的值，不能共享, 因此在创建第二个实体变量时，我们可以自动创建一个独立的拷贝。*String* 是一个不可变对象（Immutable）。简言之，不可变对象也是对象，可一旦创建好了以后就再也不能被修改了。因此，你可以不用为其创建深拷贝就能对其进行共享。
+
+**总结** 
+
+作为总结，我要说说上面在 mother-son 示例中所用到的一些编码技术。只是因为深拷贝可以让你修改一个对象里面的详细信息，比如 Address 对象，这并不意味着你就该这样做。这样做**会提高代码的质量**, 因为它可以使得 Person 更容易修改 – 不管 *Address 类什么时候被修改了，你也都会要*修改应用到 Person 类。例如，如果 Address 类型不再包含 Street 对象了，我们就得根据已经对 Address 类做出的修改来对Person 类中的 *moveOut()*  方法进行修改。
+
+在本文中，我只选择使用了一个新的 Street 和 City 对象，这样可以更好的对浅拷贝和深拷贝的不同之处进行描述。不过，我会建议你给方法分配一个新的 Address 对象，这样能有效的将其转换成一个浅拷贝和深拷贝的**混合体**:
+
+```java
+Person mother = new Person(new Name(…), new Address(…));
+[…]
+Person son  = new Person(mother);
+[…]
+son.moveOut(new Address(...));
+```
+
+在面向对象领域，这样做违背了封装的原则，因此应该被避免。封装**是面向对象编程中一个最重要的方面。**在这里，我已经违背封装的原则，对 Person 类中 Address 对象的内部细节进行了访问。这样做对我们的代码造成了伤害，因为我们现在跟 Person 类中的 Address 类纠缠在一起，如果对 Address 类进行了修改，就会如我上面所解释的对代码造成伤害。不过是你显然是会需要将你定义的各种类互相联系在一起以构成代码工程的，但在你要将两个类联系在一起时，需要好好分析一下成本和收益。
+
 #### 3.1 数组和链表数据结构描述，各自的时间复杂度。
 
 #### 3.2 error和exception的区别，CheckedException，RuntimeException的区别。
