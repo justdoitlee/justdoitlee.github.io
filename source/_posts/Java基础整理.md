@@ -2385,8 +2385,27 @@ Java.lang.NullPointerException
 
 因为JDK已经在loadClass方法中帮我们实现了ClassLoader搜索类的算法，当在loadClass方法中搜索不到类时，loadClass方法就会调用findClass方法来搜索类，所以我们只需重写该方法即可。如没有特殊的要求，一般不建议重写loadClass搜索类的算法。
 
-
 #### 3.5 说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。
+
+**hashcode**
+
+hashcode（）方法提供了对象的hashCode值，是一个native方法，返回的默认值与System.identityHashCode(obj)一致。
+
+通常这个值是对象头部的一部分二进制位组成的数字，具有一定的标识对象的意义存在，但绝不定于地址。
+
+作用是：用一个数字来标识对象。比如在HashMap、HashSet等类似的集合类中，如果用某个对象本身作为Key，即要基于这个对象实现Hash的写入和查找，那么对象本身如何实现这个呢？就是基于hashcode这样一个数字来完成的，只有数字才能完成计算和对比操作。
+
+**hashcode是否唯一**
+
+hashcode只能说是标识对象，在hash算法中可以将对象相对离散开，这样就可以在查找数据的时候根据这个key快速缩小数据的范围，但**hashcode不一定是唯一的，所以hash算法中定位到具体的链表后，需要循环链表，然后通过equals方法来对比Key是否是一样的**。
+
+**equals与hashcode的关系**
+
+equals相等两个对象，则hashcode一定要相等。但是hashcode相等的两个对象不一定equals相等。
+
+**小结**
+
+hashcode是为了算法快速定位数据而存在的，而equals是为了对比真实值而存在的。
 
 #### 3.6 在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。
 
