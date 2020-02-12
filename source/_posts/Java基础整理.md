@@ -2421,7 +2421,11 @@ hashcode是为了算法快速定位数据而存在的，而equals是为了对比
 
 #### 3.7 这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。
 
+equals相等两个对象，则hashcode一定要相等。但是hashcode相等的两个对象不一定equals相等。
+
 #### 3.8 有没有可能2个不相等的对象有相同的hashcode。
+
+有
 
 #### 3.9 Java中的HashSet内部是如何工作的。
 
