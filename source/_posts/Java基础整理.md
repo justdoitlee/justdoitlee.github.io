@@ -2429,6 +2429,465 @@ equals相等两个对象，则hashcode一定要相等。但是hashcode相等的�
 
 #### 3.9 Java中的HashSet内部是如何工作的。
 
+对于 HashSet 而言，它是基于 HashMap 实现的，底层采用 HashMap 来保存元素
+
+我们先通过 HashSet 最简单的构造函数和几个成员变量来看一下，证明咱们上边说的，其底层是 HashMap：
+
+```java
+    private transient HashMap<E,Object> map;
+
+    // Dummy value to associate with an Object in the backing Map
+    private static final Object PRESENT = new Object();
+
+    /**
+     * Constructs a new, empty set; the backing <tt>HashMap</tt> instance has
+     * default initial capacity (16) and load factor (0.75).
+     */
+    public HashSet() {
+        map = new HashMap<>();
+    }
+```
+
+其实在英文注释中已经说的比较明确了。首先有一个HashMap的成员变量，我们在 HashSet 的构造函数中将其初始化，默认情况下采用的是 initial capacity为16，load factor 为 0.75。
+
+**HashSet 的实现**
+
+对于 HashSet 而言，它是基于 HashMap 实现的，HashSet 底层使用 HashMap 来保存所有元素，因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层 HashMap 的相关方法来完成，我们应该为保存到 HashSet 中的对象覆盖 hashCode() 和 equals()
+
+**构造方法**
+
+```java
+/**
+ * 默认的无参构造器，构造一个空的HashSet。
+ *
+ * 实际底层会初始化一个空的HashMap，并使用默认初始容量为16和加载因子0.75。
+ */
+public HashSet() {
+    map = new HashMap<E,Object>();
+}
+
+/**
+ * 构造一个包含指定collection中的元素的新set。
+ *
+ * 实际底层使用默认的加载因子0.75和足以包含指定collection中所有元素的初始容量来创建一个HashMap。
+ * @param c 其中的元素将存放在此set中的collection。
+ */
+public HashSet(Collection<? extends E> c) {
+    map = new HashMap<E,Object>(Math.max((int) (c.size()/.75f) + 1, 16));
+    addAll(c);
+}
+
+/**
+ * 以指定的initialCapacity和loadFactor构造一个空的HashSet。
+ *
+ * 实际底层以相应的参数构造一个空的HashMap。
+ * @param initialCapacity 初始容量。
+ * @param loadFactor 加载因子。
+ */
+public HashSet(int initialCapacity, float loadFactor) {
+    map = new HashMap<E,Object>(initialCapacity, loadFactor);
+}
+
+/**
+ * 以指定的initialCapacity构造一个空的HashSet。
+ *
+ * 实际底层以相应的参数及加载因子loadFactor为0.75构造一个空的HashMap。
+ * @param initialCapacity 初始容量。
+ */
+public HashSet(int initialCapacity) {
+    map = new HashMap<E,Object>(initialCapacity);
+}
+
+/**
+ * 以指定的initialCapacity和loadFactor构造一个新的空链接哈希集合。此构造函数为包访问权限，不对外公开，
+ * 实际只是是对LinkedHashSet的支持。
+ *
+ * 实际底层会以指定的参数构造一个空LinkedHashMap实例来实现。
+ * @param initialCapacity 初始容量。
+ * @param loadFactor 加载因子。
+ * @param dummy 标记。
+ */
+HashSet(int initialCapacity, float loadFactor, boolean dummy) {
+    map = new LinkedHashMap<E,Object>(initialCapacity, loadFactor);
+}
+```
+
+**add 方法**
+
+```java
+/**
+
+ * @param e 将添加到此set中的元素。
+ * @return 如果此set尚未包含指定元素，则返回true。
+ */
+public boolean add(E e) {
+    return map.put(e, PRESENT)==null;
+}
+```
+
+如果此 set 中尚未包含指定元素，则添加指定元素。更确切地讲，如果此 set 没有包含满足(e==null ? e2==null : e.equals(e2)) 的元素 e2，则向此 set 添加指定的元素 e。如果此 set 已包含该元素，则该调用不更改 set 并返回 false。但底层实际将将该元素作为 key 放入 HashMap。思考一下为什么？
+
+由于 HashMap 的 put() 方法添加 key-value 对时，当新放入 HashMap 的 Entry 中 key 与集合中原有 Entry 的 key 相同（hashCode()返回值相等，通过 equals 比较也返回 true），新添加的 Entry 的 value 会将覆盖原来 Entry 的 value（HashSet 中的 value 都是`PRESENT`），但 key 不会有任何改变，因此如果向 HashSet 中添加一个已经存在的元素时，新添加的集合元素将不会被放入 HashMap中，原来的元素也不会有任何改变，这也就满足了 Set 中元素不重复的特性。
+
+该方法如果添加的是在 HashSet 中不存在的，则返回 true；如果添加的元素已经存在，返回 false。其原因在于我们之前提到的关于 HashMap 的 put 方法。该方法在添加 key 不重复的键值对的时候，会返回 null。
+
+**其余方法**
+
+```java
+    /**
+     * 如果此set包含指定元素，则返回true。
+     * 更确切地讲，当且仅当此set包含一个满足(o==null ? e==null : o.equals(e))的e元素时，返回true。
+     *
+     * 底层实际调用HashMap的containsKey判断是否包含指定key。
+     * @param o 在此set中的存在已得到测试的元素。
+     * @return 如果此set包含指定元素，则返回true。
+     */
+    public boolean contains(Object o) {
+    return map.containsKey(o);
+    }
+    /**
+     * 如果指定元素存在于此set中，则将其移除。更确切地讲，如果此set包含一个满足(o==null ? e==null : o.equals(e))的元素e，
+     * 则将其移除。如果此set已包含该元素，则返回true
+     *
+     * 底层实际调用HashMap的remove方法删除指定Entry。
+     * @param o 如果存在于此set中则需要将其移除的对象。
+     * @return 如果set包含指定元素，则返回true。
+     */
+    public boolean remove(Object o) {
+    return map.remove(o)==PRESENT;
+    }
+    /**
+     * 返回此HashSet实例的浅表副本：并没有复制这些元素本身。
+     *
+     * 底层实际调用HashMap的clone()方法，获取HashMap的浅表副本，并设置到HashSet中。
+     */
+    public Object clone() {
+        try {
+            HashSet<E> newSet = (HashSet<E>) super.clone();
+            newSet.map = (HashMap<E, Object>) map.clone();
+            return newSet;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
+    }
+}
+```
+
+**相关说明**
+
+1. 相关 HashMap 的实现原理，请参考上面的点
+2. 对于 HashSet 中保存的对象，请注意正确重写其 equals 和 hashCode 方法，以保证放入的对象的唯一性。这两个方法是比较重要的，希望大家在以后的开发过程中需要注意一下。
+
 #### 4.0 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。
 
+序列化与反序列化是开发过程中不可或缺的一步，简单来说，序列化是将对象转换成字节流的过程，而反序列化的是将字节流恢复成对象的过程。序列化与反序列化是一个标准（具体参考[XDR:外部数据表示标准 RFC 1014]()），它是编程语言的一种共性，只是有些编程语言是内置的（如Java，PHP等），有些语言是通过第三方库来实现的（如C/C++）。
+
+ 使用场景
+
+- 对象的持久化（将对象内容保存到数据库或文件中）
+- 远程数据传输（将对象发送给其他计算机系统）
+
+**为什么需要序列化与序列化？**
+
+序列化与序列化主要解决的是数据的一致性问题。简单来说，就是输入数据与输出数据是一样的。
+
+对于数据的本地持久化，只需要将数据转换为字符串进行保存即可是实现，但对于远程的数据传输，由于操作系统，硬件等差异，会出现内存大小端，内存对齐等问题，导致接收端无法正确解析数据，为了解决这种问题，Sun Microsystems在20世纪80年代提出了XDR规范，于1995年正式成为IETF标准。
+
+**Java中的序列化与反序列化**
+
+Java语言内置了序列化和反序列化，通过Serializable接口实现。
+
+```java
+public class Account implements Serializable {
+
+	private int age;
+	private long birthday;
+	private String name;
+}
+```
+
+**序列化兼容性**
+
+序列化的兼容性指的是对象的结构变化（如增删字段，修改字段，字段修饰符的改变等）对序列化的影响。为了能够识别对象结构的变化，Serializable使用serialVersionUID字段来标识对象的结构。默认情况下，它会根据对象的数据结构自动生成，结构发生变化后，它的值也会跟随变化。虚拟机在反序列化的时候会检查serialVersionUID的值，如果字节码中的serialVersionUID和要被转换的类型的serialVersionUID不一致，就无法进行正常的反序列化。
+
+示例：将Account对象保存到文件中，然后在Account类中添加address字段，再从文件中读取之前保存的内容。
+
+```java
+// 将Account对象保存到文件中
+FileOutputStream fos = new FileOutputStream(file);
+ObjectOutputStream oos = new ObjectOutputStream(fos);
+oos.writeObject(account);
+oos.flush();
+
+// 修改Account对象的结构
+public class Account implements Serializable {
+
+	private int age;
+	private long birthday;
+	private String name;
+	private String address;
+	
+	public Account(int age, String name) {
+	    this.age = age;
+	    this.name = name;
+	}
+}   
+
+// 读取Account的内容
+FileInputStream fis = new FileInputStream(file);
+ObjectInputStream ois = new ObjectInputStream(fis);
+Account account2 = (Account)ois.readObject();
+```
+
+由于在保存Account对象后修改了Account的结构，会导致serialVersionUID的值发生变化，在读文件（反序列化）的时候就会出错。所以为了更好的兼容性，在序列化的时候，最好将serialVersionUID的值设置为固定的。
+
+```java
+public class Account implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    private int age;
+    private long birthday;
+    private String name;
+}
+```
+
+**序列化的存储规则**
+
+Java中的序列化在将对象持久化（序列化）的时候，为了节省磁盘空间，对于相同的对象会进行优化。当多次保存相同的对象时，其实保存的只是第一个对象的引用。
+
+```java
+// 将account对象保存两次，第二次保存时修改其用户名
+Account account = new Account("Freeman");
+FileOutputStream fos = new FileOutputStream(file);
+ObjectOutputStream oos = new ObjectOutputStream(fos);
+oos.writeObject(account);
+System.out.println("fileSize=" +file.length());
+account.setUserName("Tom");
+oos.writeObject(account);
+System.out.println("fileSize=" +file.length());
+
+// 读取两次保存的account对象
+FileInputStream fis = new FileInputStream(file);
+ObjectInputStream ois = new ObjectInputStream(fis);
+Account account2 = (Account)ois.readObject();
+Account account3 = (Account)ois.readObject();
+System.out.println("account2.name=" + account2.getUserName() + "\n  account3.name=" + account3.getUserName() + "\naccount2==account3 -> " + account2.equals(account3));
+复制代码
+```
+
+输出结果：
+
+```java
+account2.name=Freeman  
+account3.name=Freeman 
+account2==account3 -> true
+```
+
+所以在对同一个对象进行多次序列化的时候，最好通过clone一个新的对象再进行序列化。
+
+**序列化对单例的影响**
+
+反序列化的时候，JVM会根据序列化生成的内容构造新的对象，对于实现了Serializable的单例类来说，这相当于开放了构造方法。为了保证单例类实例的唯一性，我们需要重写resolveObject方法。
+
+```java
+/**
+ * 在反序列化的时候被调用
+ * @return 返回根据字节码创建的新对象
+ * @throws ObjectStreamException
+ */
+private Object readResolve()throws ObjectStreamException {
+    return instance;
+}
+```
+
+**控制序列化过程**
+
+虽然直接使用Serializable很方便，但有时我们并不想序列化所有的字段，如标识选中状态的isSelected字段，涉及安全问题的password字段等。此时可通过通过以下方法实现：
+
+1. 给不想序列化的字段添加static或transient修饰词：
+
+Java中的序列化保存的只是对象的成员变量，既不包括static成员（static成员属于类），也不包括成员方法。同时Java为了让序列化更灵活，提供了transient关键字，用来关闭字段的序列化。
+
+```java
+public class Account implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private String userName;
+    private static String idcard;
+    private transient String password;
+}
+```
+
+1. 直接使用Externalizable接口控制序列化过程：
+
+Externalizable也是Java提供的序列化接口，与Serializable不同的是，默认情况下，它不会序列化任何成员变量，所有的序列化，反序列化工作都需要手动完成。
+
+```java
+public class Account implements Externalizable {
+
+    private static final long serialVersionUID = 1L;
+    
+	private String userName;
+	private String idcard;
+	private String password;
+	
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(userName);
+	}
+	
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		userName = (String) in.readObject();
+	}
+}
+```
+
+1. 自己实现序列化/反序列化过程
+
+   public class Account implements Serializable {
+
+   ```java
+    private static final long serialVersionUID = 1L;
+    
+    private String userName;
+    private transient String idcard;
+    private String password;
+    
+    private void writeObject(ObjectOutputStream oos)throws IOException {
+    	// 调用默认的序列化方法，序列化非transient/static字段
+    	oos.defaultWriteObject();
+    	oos.writeObject(idcard);
+    }
+    
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    	// 调用默认的反序列化方法，发序列化非transient/static字段
+    	ois.defaultReadObject();
+    	idcard = (String)ois.readObject();
+    }
+   ```
+
+   }
+
+关于Java序列化算法的详细介绍可参考：[Java序列化算法透析](https://longdick.iteye.com/blog/458557)
+
+**Java序列化注意事项**
+
+1. 通过Serializable序列化的对象，在反序列化的时候，直接根据字节码构造对象，并不会调用对象的构造方法；
+2. 通过Serializable序列化子类时，如果父类没有实现Serializable接口，那么父类需要提供默认的构造方法，否则在反序列化的时候抛出java.io.NotSerializableException异常；
+3. 通过Externalizale实现序列化时，反序列化的时候需要调用对象的默认构造方法；
+4. 由于Externalizale默认情况下不会对任何成员变量进行序列化，所以transient关键字只能在Serializable序列化方式中使用；
+
+**数据交换协议**
+
+序列化与反序列化为数据交换提供了可能，但是因为传递的是字节码，可读性差。在应用层开发过程中不易调试，为了解决这种问题，最直接的想法就是将对象的内容转换为字符串的形式进行传递。具体的传输格式可自行定义，但自定义格式有一个很大的问题——兼容性，如果引入其他系统的模块，就需要对数据格式进行转换，维护其他的系统时，还要先了解一下它的序列化方式。为了统一数据传输的格式，出现了几种数据交换协议，如：JSON, Protobuf，XML。这些数据交换协议可视为是应用层面的序列化/反序列化。
+
+**JSON**
+
+JSON（JavaScript Object Notation）是一种轻量级，完全独立于语言的数据交换格式。目前被广泛应用在前后端的数据交互中。
+
+##### 语法
+
+JSON中的元素都是键值对——key:value形式，键值对之间以":"分隔，每个键需用双引号引起来，值的类型为String时也需要双引号。其中value的类型包括：对象，数组，值，每种类型具有不同的语法表示。
+
+###### 对象
+
+对象是一个无序的键值对集合。以"{"开始，以"}"结束， 每个成员以","分隔。例如：
+
+```json
+"value" : {
+    "name": "Freeman",
+    "gender": 1
+}
+```
+
+###### 数组
+
+数组是一个有序的集合，以"["开始，以"]"结束，成员之间以","分隔。例如：
+
+```json
+"value" : [
+    {
+        "name": "zhangsan",
+        "gender": 1
+    },
+    {
+        "name": "lisi",
+        "gender": 2
+    }
+]
+```
+
+###### 值
+
+值类型表示JSON中的基本类型，包括String，Number(byte, short, int, long, float, double), boolean。
+
+```json
+"name": "Freeman"
+"gender": 1
+"registered": false
+"article": null
+```
+
+==注意==：对象，数组，值这三种元素可互相嵌套！
+
+```json
+{
+    "code": 1,
+    "msg": "success",
+    "data": [
+        {
+            "name": "zhangsan",
+            "gender": 1
+        },
+        {
+            "name": "lisi",
+            "gender": 2
+        }
+    ]
+}
+```
+
+对于JSON，目前流行的第三方库有[Gson](https://github.com/google/gson), [fastjson](https://github.com/alibaba/fastjson)：关于Gson的详细介绍，参考[Gson使用教程](https://juejin.im/post/5c46fb376fb9a049ca37af33)
+
+**Protobuf**
+
+[Protobuf](https://github.com/protocolbuffers/protobuf)是Google实现的一种与语言无关，与平台无关，可扩展的序列化方式，比XML更小，更快，使用更简单。
+
+Protobuf具有很高的效率，并且几乎为主流的开发语言都提供了支持，具体参考[Protobuf开发文档](https://developers.google.com/protocol-buffers/docs/overview)。
+
+在Android中使用Protobuf，需要[protobuf-gradle-plugin](https://github.com/google/protobuf-gradle-plugin)插件，具体使用查看其项目说明。
+
+**XML**
+
+XML（Extensible Markup Language）可扩展标记语言，通过标签描述数据。示例如下：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <name>Freeman</name>
+    <gender>1</gender>
+</person>
+```
+
+使用这种方式传输数据时，只需要将对象转换成这种标签形式，在接收到数据后，将其转换成相应的对象。
+
+关于JAVA开发中对XML的解析可参考[四种生成和解析XML文档的方法详解](http://www.cnblogs.com/lanxuezaipiao/archive/2013/05/17/3082949.html)
+
+**数据交换协议如何选择**
+
+从性能，数据大小，可读性三方面进行比较，结果如下：
+
+| 协议     | 性能 | 数据大小 | 可读性 |
+| -------- | ---- | -------- | ------ |
+| JSON     | 良   | 良       | 优     |
+| Protobuf | 优   | 优       | 差     |
+| XML      | 中   | 中       | 中     |
+
+对于数据量不是很大，实时性不是特别高的交互，JSON完全可以满足要求，毕竟它的可读性高，出现问题容易定位（注：它是目前前端，app和后端交换数据使用的主流协议）。而对于实时性要求很高，或数据量大的场景，可使用Protobuf协议。具体数据交换协议的比较可参考[github.com/eishay/jvm-…](https://note.youdao.com/)
+
 #### 4.1 java8的新特性。
+
+{% post_link 2019/Java-8-最佳技巧 点击这里查看这篇文章 %}
