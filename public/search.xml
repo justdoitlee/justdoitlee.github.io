@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>日语学习笔记</title>
+    <url>/2020/03/02/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>​                动词            形容词1            形容词2                名词</p>
+<p>一般现在时        ます            い                です                です</p>
+<p>过去时            ました            かった            でした                でした</p>
+<p>否定            ません            くないです        くありません            では　ありません</p>
+<p>过去否定            ませんでした        くなかったです    くありませんでした    では　ありませんでした</p>
+<a id="more"></a>
+<p>ます　是基本，过去就变ました　否定就变ません　过去否定就合起来ませんでした</p>
+<p>い　是基本，过去就把い变成かったです　　否定就变ないです　过去否定就合起来，なかったです</p>
+<p>です是基本，过去就把です变でした、 否定就变では　ありません　过去否定就合起来では　ありませんでした</p>
+<p>现在        た型        ない型        なかった型</p>
+<p>字典型        いく</p>
+<p>过去        いった</p>
+<p>否定        いかない</p>
+<p>过去否定        いかなかった</p>
+<p>形容词和名词的简体变型，有です的去掉です，ありません变成ない ました变た型</p>
+]]></content>
+      <categories>
+        <category>杂七杂八</category>
+      </categories>
+      <tags>
+        <tag>语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微服务通讯</title>
     <url>/2020/01/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%80%9A%E8%AE%AF/</url>
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h4 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a><strong>什么是微服务</strong></h4><ul>
