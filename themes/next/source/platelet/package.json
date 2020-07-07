@@ -86,7 +86,7 @@
   },
   "description": "platelet",
   "devDependencies": {
-    "electron": "^3.0.2",
+    "electron": "^9.1.0",
     "electron-builder": "^20.28.4"
   },
   "homepage": "https://github.com/amorist/platelet",
