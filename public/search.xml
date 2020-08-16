@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo g 生成空白文件问题</title>
+    <url>/2020/08/16/hexo-g-%E7%94%9F%E6%88%90%E7%A9%BA%E7%99%BD%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>最近换了新电脑，重新整环境的时候图快，下载<code>node</code>的时候下载的是最新版：node当前版14.0.0。然后安装<code>hexo</code>，从github拉取hexo博客项目，然后跑<code>npm install</code>，都没啥问题。但是在项目下面执行任何<code>hexo</code>的命令的时候，就会出现一个错误：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(Use `<span class="keyword">node</span> <span class="title">--trace-warnings</span> ...` to show where the warning was created)</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br></pre></td></tr></table></figure>
+<p>继续跑<code>hexo s</code>、<code>hexo clean</code>、<code>hexo g</code>都是可以的，也没报错。</p>
+<p>当我跑<code>hexo s</code>的时候是可以正常预览的。</p>
+<p>但是当我跑<code>hexo g</code>的时候，命令可以跑而且没报错，但是生成的文件是<code>0kb</code>的，<code>/public/index.html</code>里面没有任何内容。</p>
+<p>找了好久原因，发现是node版本的问题。</p>
+<p>下<code>n</code>来管理node的版本。</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ sudo <span class="built_in">npm</span> i -g n</span><br></pre></td></tr></table></figure>
+<p>然后将node替换为稳定版：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo n stable</span><br></pre></td></tr></table></figure>
+<p>然后查看node的版本：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">$ <span class="keyword">node</span> <span class="title">-v</span></span><br><span class="line">v12.<span class="number">18.3</span></span><br></pre></td></tr></table></figure>
+<p>先清理，然后再生成：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo clean</span><br><span class="line"><span class="variable">$ </span>hexo g</span><br></pre></td></tr></table></figure>
+<p>然后产看生成的<code>public</code>文件夹中<code>index.html</code>的大小，是有内容的。正常生成了 -。-</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>踩坑</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vuex页面刷新数据丢失的解决办法</title>
+    <url>/2020/08/15/vuex%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>在vue项目中用vuex来做全局的状态管理， 发现当刷新网页后，保存在vuex实例store里的数据会丢失。</p>
+<p><strong>原因：</strong></p>
+<p>因为store里的数据是保存在运行内存中的,当页面刷新时，页面会重新加载vue实例，store里面的数据就会被重新赋值初始化</p>
+<a id="more"></a>
+<p><strong>解决思路：</strong></p>
+<p>将state的数据保存在localstorage、sessionstorage或cookie中，这样即可保证页面刷新数据不丢失且易于读取。</p>
+<ol>
+<li>localStorage: localStorage的生命周期是永久的，关闭页面或浏览器之后localStorage中的数据也不会消失。localStorage除非主动删除数据，否则数据永远不会消失。</li>
+<li>sessionStorage:sessionStorage的生命周期是在仅在当前会话下有效。sessionStorage引入了一个“浏览器窗口”的概念，sessionStorage是在同源的窗口中始终存在的数据。只要这个浏览器窗口没有关闭，即使刷新页面或者进入同源另一个页面，数据依然存在。但是sessionStorage在关闭了浏览器窗口后就会被销毁。同时独立的打开同一个窗口同一个页面，sessionStorage也是不一样的。</li>
+<li>cookie:cookie生命期为只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。 存放数据大小为4K左右,有个数限制（各浏览器不同），一般不能超过20个。缺点是不能储存大数据且不易读取。</li>
+</ol>
+<p>由于vue是单页面应用，操作都是在一个页面跳转路由，因此sessionStorage较为合适,原因如下：</p>
+<ol>
+<li>sessionStorage可以保证打开页面时sessionStorage的数据为空；</li>
+<li>每次打开页面localStorage存储着上一次打开页面的数据，因此需要清空之前的数据。</li>
+</ol>
+<p>vuex中state数据的修改必须通过mutation方法进行修改，因此mutation修改state的同时需要修改sessionstorage,问题倒是可以解决但是感觉很麻烦，state中有很多数据，很多mutation修改state就要很多次sessionstorage进行修改，既然如此直接用sessionstorage解决不就行了，为何还要用vuex多此一举呢？ vuex的数据在每次页面刷新时丢失，是否可以在页面刷新前再将数据存储到sessionstorage中呢，是可以的，<a href="https://www.w3cschool.cn/fetch_api/fetch_api-9vhu2oq0.html" target="_blank" rel="noopener">beforeunload</a>事件可以在页面刷新前触发，但是在每个页面中监听beforeunload事件感觉也不太合适，那么最好的监听该事件的地方就在app.vue中。</p>
+<ol>
+<li>在app.vue的created方法中读取sessionstorage中的数据存储在store中，此时用vuex.store的<a href="https://vuex.vuejs.org/zh/api/#replacestate" target="_blank" rel="noopener">replaceState</a>方法，替换store的根状态</li>
+<li>在beforeunload方法中将store.state存储到sessionstorage中。</li>
+</ol>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'App'</span>,</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="comment">//在页面加载时读取sessionStorage里的状态信息</span></span><br><span class="line">    <span class="keyword">if</span> (sessionStorage.getItem(<span class="string">"store"</span>) ) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$store.replaceState(<span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.$store.state,<span class="built_in">JSON</span>.parse(sessionStorage.getItem(<span class="string">"store"</span>))))</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">//在页面刷新时将vuex里的信息保存到sessionStorage里</span></span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">"beforeunload"</span>,()=&gt;&#123;</span><br><span class="line">        sessionStorage.setItem(<span class="string">"store"</span>,<span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.$store.state))</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vuex防抖节流</title>
+    <url>/2020/08/15/vuex%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>在一个电影项目中，我想在电影的列表中，保存下拉的当前位置，防止你切换页面后，再切换回当前的电影列表页，他就又回到电影的第一条数据。<br>这时候，我不想每次只要滑动一点，就保存当前位置，我想隔一段时间，保存一次，这时候，就可以使用防抖和节流。</p>
+<a id="more"></a>
+<p>说白了，<strong>防抖节流就是使用定时器</strong>来实现我们的目的。</p>
+<p><strong>防抖(debounce)：</strong></p>
+<p>在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。</p>
+<blockquote>
+<p>典型的案例就是输入框搜索：输入结束后n秒才进行搜索请求，n秒内又输入的内容，则重新计时。</p>
+</blockquote>
+<p><strong>节流(throttle)：</strong></p>
+<p>规定在一个单位时间内，只能触发一次函数，如果这个单位时间内触发多次函数，只有一次生效。</p>
+<blockquote>
+<p>典型的案例就是鼠标不断点击触发，规定在n秒内多次点击只生效一次。</p>
+</blockquote>
+<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p><strong>下拉列表，隔一段时间保存当前下拉位置。</strong></p>
+<p>我们可以在<code>mounted</code>钩子中实现我们的防抖：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 防抖  定时器</span></span><br><span class="line"><span class="keyword">let</span> timer;</span><br><span class="line"></span><br><span class="line"><span class="comment">//list就是电影列表	ref="list"	$el获取DOM元素</span></span><br><span class="line"><span class="keyword">this</span>.$refs.list.$el.addEventListener(<span class="string">"scroll"</span>, e =&gt; &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"----&gt;"</span>,e.target.scrollTop)	<span class="comment">//不使用防抖</span></span><br><span class="line">	<span class="keyword">if</span> (timer) &#123;</span><br><span class="line">		<span class="comment">//清空timer</span></span><br><span class="line">		clearTimeout(timer);</span><br><span class="line">	&#125;</span><br><span class="line">	timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(e.target.scrollTop)	<span class="comment">//使用防抖</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//在sessionStorage中保存当前下拉位置</span></span><br><span class="line">		<span class="comment">// sessionStorage.setItem("position", e.target.scrollTop);</span></span><br><span class="line">	&#125;, <span class="number">75</span>);		<span class="comment">//75ms为最佳</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>输入框搜索隔段时间进行搜索请求：</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> @<span class="attr">keyup</span>=<span class="string">"debounce"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript"><span class="comment">//定义 timer</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">let</span> timer;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  methods: &#123;</span><br><span class="line"><span class="actionscript">    debounce: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line">      if (timer) &#123;</span><br><span class="line">        clearTimeout(timer);</span><br><span class="line">      &#125;</span><br><span class="line"><span class="javascript">      timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"防抖..."</span>);</span></span><br><span class="line"><span class="actionscript">        timer = <span class="literal">undefined</span>;</span></span><br><span class="line">      &#125;, 2000);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流(throttle)"></a>节流(throttle)</h2><p><strong>在n秒内点击多次，只有一次生效。</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;button @click=<span class="string">"throttle"</span>&gt;按钮&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/定义</span></span><br><span class="line"><span class="regexp">let timer, lastTime;</span></span><br><span class="line"><span class="regexp">let now = +new Date();</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    throttle: () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      if (lastTime &amp;&amp; now - lastTime &lt; 200) &#123;</span></span><br><span class="line"><span class="regexp">        clearTimeout(timer);</span></span><br><span class="line"><span class="regexp">        console.log("....");</span></span><br><span class="line"><span class="regexp">        timer = setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          console.log("点击...");</span></span><br><span class="line"><span class="regexp">          lastTime = +new Date();</span></span><br><span class="line"><span class="regexp">        &#125;, 2000);</span></span><br><span class="line"><span class="regexp">      &#125; else &#123;</span></span><br><span class="line"><span class="regexp">        lastTime = now;</span></span><br><span class="line"><span class="regexp">        timer = setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          console.log("点击...");</span></span><br><span class="line"><span class="regexp">          lastTime = +new Date();</span></span><br><span class="line"><span class="regexp">        &#125;, 200);</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>当然，也可以对这两个方法进行封装，以便在多处使用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 函数防抖 (只执行最后一次点击)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> Debounce = <span class="function">(<span class="params">fn, t</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> delay = t || <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">let</span> timer;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="keyword">if</span>(timer)&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            timer = <span class="literal">null</span>;</span><br><span class="line">            fn.apply(<span class="keyword">this</span>, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 函数节流</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> Throttle = <span class="function">(<span class="params">fn, t</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> last;</span><br><span class="line">    <span class="keyword">let</span> timer;</span><br><span class="line">    <span class="keyword">let</span> interval = t || <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="keyword">let</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">        <span class="keyword">if</span> (last &amp;&amp; now - last &lt; interval) &#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">            timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                last = now;</span><br><span class="line">                fn.apply(<span class="keyword">this</span>, args);</span><br><span class="line">            &#125;, interval);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            last = now;</span><br><span class="line">            fn.apply(<span class="keyword">this</span>, args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日语学习笔记</title>
+    <url>/2020/03/02/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>​                动词            形容词1            形容词2                名词</p>
+<p>一般现在时        ます            い                です                です</p>
+<p>过去时            ました            かった            でした                でした</p>
+<p>否定            ません            くないです        くありません            では　ありません</p>
+<p>过去否定            ませんでした        くなかったです    くありませんでした    では　ありませんでした</p>
+<a id="more"></a>
+<p>ます　是基本，过去就变ました　否定就变ません　过去否定就合起来ませんでした</p>
+<p>い　是基本，过去就把い变成かったです　　否定就变ないです　过去否定就合起来，なかったです</p>
+<p>です是基本，过去就把です变でした、 否定就变では　ありません　过去否定就合起来では　ありませんでした</p>
+<p>现在        た型        ない型        なかった型</p>
+<p>字典型        いく</p>
+<p>过去        いった</p>
+<p>否定        いかない</p>
+<p>过去否定        いかなかった</p>
+<p>形容词和名词的简体变型，有です的去掉です，ありません变成ない ました变た型</p>
+]]></content>
+      <categories>
+        <category>杂七杂八</category>
+      </categories>
+      <tags>
+        <tag>语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微服务通讯</title>
     <url>/2020/01/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%80%9A%E8%AE%AF/</url>
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h4 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a><strong>什么是微服务</strong></h4><ul>
