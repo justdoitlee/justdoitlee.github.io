@@ -1,7 +1,7 @@
 ---
 title: leetcode双指针总结
 date: 2019-12-26 14:54:22
-categories: Java二三事
+categories: 算法
 tags: 
 	- leetcode
 ---
