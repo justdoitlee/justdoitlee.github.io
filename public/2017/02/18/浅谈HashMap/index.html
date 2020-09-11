@@ -459,7 +459,7 @@
 <blockquote>
 <p>由hash值找到对应索引的方法如下：</p>
 </blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">indexFor</span><span class="params">(<span class="keyword">int</span> h, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> h &amp; (length<span class="number">-1</span>);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">indexFor</span><span class="params">(<span class="keyword">int</span> h, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> h &amp; (length-<span class="number">1</span>);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
 <p>因为容量初始还是设定都会转化为2的幂次。故可以使用高效的位与运算替代模运算。</p>
 <blockquote>
 <p>计算hash值的方法如下:</p>
