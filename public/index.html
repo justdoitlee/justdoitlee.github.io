@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/03/Integer用-还是equals/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/完全背包问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -322,7 +322,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/09/03/Integer用-还是equals/" itemprop="url">Integer用==还是equals</a></h1>
+                <a class="post-title-link" href="/2020/09/14/完全背包问题/" itemprop="url">完全背包问题</a></h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-03T17:20:49+08:00">
-                2020-09-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:44:39+08:00">
+                2020-09-14
               </time>
             
 
@@ -357,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  264
+                  306
                 </span>
               
 
@@ -429,11 +429,15 @@
       
         
           
-            <script src="/assets/js/APlayer.min.js"> </script><p>今天刷minimum-window-substring问题时，写的代码跑通了267/268的测试用例，最后一个没跑通，最后发现是</p>
-<p><code>window.get(d) == need.get(d)</code>出的问题，两个值都是371但是结果是false，然后才想起来Interger底部是有缓存的，关系如下：</p>
-<p>Integer与int类型的关系，可以简单的回答，Integer是int的包装类，int的默认值是0，而Integer的默认值是null（jdk1.5的新特性 自动装箱和拆箱，Integer.valueOf（） 和xx.intValue（） ）,需要注意的是Integer里面默认的缓存数字是<code>-128-127</code>。</p>
-<p>1、Integer与Integer相互比较，数据在<code>-128-127</code>范围内，就会从缓存中拿去数据，比较就相等；如果不在这个范围，就会直接新创建一个Integer对象，使用 == 判断的是两个内存的应用地址，所以自然不相等，应该用equals来判断值是否想等</p>
-<p>2、Integer和int类型相比，在jdk1.5,会自动拆箱，然后比较栈内存中的数据，所以没有不想等的情况</p>
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/coin-change-2/" target="_blank" rel="noopener">518.零钱兑换II</a></p>
+<p><strong>这个问题转化为背包问题的描述形式</strong>：</p>
+<blockquote>
+<p>有一个背包，最大容量为 <code>amount</code>，有一系列物品 <code>coins</code>，每个物品的重量为 <code>coins[i]</code>，<strong>每个物品的数量无限</strong>。请问有多少种方法，能够把背包恰好装满？</p>
+<p><strong>若只使用</strong> <strong><code>coins</code></strong> <strong>中的前</strong> <strong><code>i</code></strong> <strong>个硬币的面值，若想凑出金额</strong> <strong><code>j</code></strong>，有 <strong><code>dp[i][j]</code></strong> <strong>种凑法</strong>。</p>
+<p><strong>如果你不把这第</strong> <strong><code>i</code></strong> <strong>个物品装入背包</strong>，也就是说你不使用 <code>coins[i]</code> 这个面值的硬币，那么凑出面额 <code>j</code> 的方法数 <code>dp[i][j]</code> 应该等于 <code>dp[i-1][j]</code>，继承之前的结果。</p>
+<p><strong>如果你把这第</strong> <strong><code>i</code></strong> <strong>个物品装入了背包</strong>，也就是说你使用 <code>coins[i]</code> 这个面值的硬币，那么 <code>dp[i][j]</code> 应该等于 <code>dp[i][j-coins[i-1]]</code>。</p>
+</blockquote>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public int change(int amount, int<span class="comment">[]</span> coins) &#123;</span><br><span class="line">       int n = coins.length;</span><br><span class="line">       int<span class="comment">[]</span><span class="comment">[]</span> dp = new int<span class="comment">[n + 1]</span><span class="comment">[amount + 1]</span>;</span><br><span class="line">       // base case</span><br><span class="line">       for (int i = 0; i &lt;= n; i++)</span><br><span class="line">           dp<span class="comment">[i]</span><span class="comment">[0]</span> = 1;</span><br><span class="line"></span><br><span class="line">       for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">           for (int j = 1; j &lt;= amount; j++)</span><br><span class="line">               if (j - coins<span class="comment">[i - 1]</span> &gt;= 0)</span><br><span class="line">                   dp<span class="comment">[i]</span><span class="comment">[j]</span> = dp<span class="comment">[i - 1]</span><span class="comment">[j]</span></span><br><span class="line">                           + dp<span class="comment">[i]</span><span class="comment">[j - coins<span class="comment">[i - 1]</span>]</span>;</span><br><span class="line">               else</span><br><span class="line">                   dp<span class="comment">[i]</span><span class="comment">[j]</span> = dp<span class="comment">[i - 1]</span><span class="comment">[j]</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       return dp<span class="comment">[n]</span><span class="comment">[amount]</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -482,7 +486,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/31/算法框架/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/子集背包问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -501,7 +505,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/08/31/算法框架/" itemprop="url">算法框架</a></h1>
+                <a class="post-title-link" href="/2020/09/14/子集背包问题/" itemprop="url">子集背包问题</a></h1>
         
 
         <div class="post-meta">
@@ -513,8 +517,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-31T14:48:49+08:00">
-                2020-08-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:43:46+08:00">
+                2020-09-14
               </time>
             
 
@@ -569,367 +573,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,866
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  14分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-动态规划解题套路框架"><a href="#1-动态规划解题套路框架" class="headerlink" title="1.动态规划解题套路框架"></a>1.动态规划解题套路框架</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 初始化 base case</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>][...] = base</span><br><span class="line"># 进行状态转移</span><br><span class="line"><span class="keyword">for</span> 状态<span class="number">1</span> in 状态<span class="number">1</span>的所有取值：</span><br><span class="line">    <span class="keyword">for</span> 状态<span class="number">2</span> in 状态<span class="number">2</span>的所有取值：</span><br><span class="line">        <span class="keyword">for</span> ...</span><br><span class="line">            dp[状态<span class="number">1</span>][状态<span class="number">2</span>][...] = 求最值(选择<span class="number">1</span>，选择<span class="number">2</span>...)</span><br></pre></td></tr></table></figure>
-<p>tips:</p>
-<p>通过「备忘录」或者「dp table」的方法来优化递归树</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/31/算法框架/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/24/二叉树遍历/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/08/24/二叉树遍历/" itemprop="url">二叉树遍历</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-24T20:31:08+08:00">
-                2020-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,219
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>二叉树的先序、中序、后序遍历</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/24/二叉树遍历/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/16/hexo-g-生成空白文件问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/08/16/hexo-g-生成空白文件问题/" itemprop="url">hexo g 生成空白文件问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-16T13:31:30+08:00">
-                2020-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  450
+                  342
                 </span>
               
 
@@ -968,22 +612,14 @@
       
         
           
-            <script src="/assets/js/APlayer.min.js"> </script><p>最近换了新电脑，重新整环境的时候图快，下载<code>node</code>的时候下载的是最新版：node当前版14.0.0。然后安装<code>hexo</code>，从github拉取hexo博客项目，然后跑<code>npm install</code>，都没啥问题。但是在项目下面执行任何<code>hexo</code>的命令的时候，就会出现一个错误：</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(Use `<span class="keyword">node</span> <span class="title">--trace-warnings</span> ...` to show where the warning was created)</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br></pre></td></tr></table></figure>
-<p>继续跑<code>hexo s</code>、<code>hexo clean</code>、<code>hexo g</code>都是可以的，也没报错。</p>
-<p>当我跑<code>hexo s</code>的时候是可以正常预览的。</p>
-<p>但是当我跑<code>hexo g</code>的时候，命令可以跑而且没报错，但是生成的文件是<code>0kb</code>的，<code>/public/index.html</code>里面没有任何内容。</p>
-<p>找了好久原因，发现是node版本的问题。</p>
-<p>下<code>n</code>来管理node的版本。</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">npm</span> i -g n</span><br></pre></td></tr></table></figure>
-<p>然后将node替换为稳定版：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo n stable</span><br></pre></td></tr></table></figure>
-<p>然后查看node的版本：</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">node</span> <span class="title">-v</span></span><br><span class="line">v12.<span class="number">18.3</span></span><br></pre></td></tr></table></figure>
-<p>先清理，然后再生成：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo clean</span><br><span class="line"><span class="variable">$ </span>hexo g</span><br></pre></td></tr></table></figure>
-<p>然后产看生成的<code>public</code>文件夹中<code>index.html</code>的大小，是有内容的。正常生成了 -。-</p>
-
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/partition-equal-subset-sum" target="_blank" rel="noopener">416.分割等和子集</a></p>
+<blockquote>
+<p>背包问题大致的描述是什么：</p>
+<p>给你一个可装载重量为 <code>W</code> 的背包和 <code>N</code> 个物品，每个物品有重量和价值两个属性。其中第 <code>i</code> 个物品的重量为 <code>wt[i]</code>，价值为 <code>val[i]</code>，现在让你用这个背包装物品，最多能装的价值是多少？</p>
+<p>那么对于这个问题，我们可以先对集合求和，得出 <code>sum</code>，把问题转化为背包问题：</p>
+<p>给一个可装载重量为 <code>sum / 2</code> 的背包和 <code>N</code> 个物品，每个物品的重量为** <code>nums[i]</code>。现在让你装物品，是否存在一种装法，能够恰好将背包装满？</p>
+</blockquote>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">boolean</span> canPartition(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="keyword">sum</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) <span class="keyword">sum</span> += num;</span><br><span class="line">        <span class="comment">// 和为奇数时，不可能划分成两个和相等的集合</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">sum</span> % <span class="number">2</span> != <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">sum</span> = <span class="keyword">sum</span> / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[n + <span class="number">1</span>][<span class="keyword">sum</span> + <span class="number">1</span>];</span><br><span class="line">        Arrays.fill(dp, <span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">// base case</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="keyword">sum</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j - nums[i - <span class="number">1</span>] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">// 背包容量不足，不能装入第 i 个物品</span></span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 装入或不装入背包</span></span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] || dp[i - <span class="number">1</span>][j - nums[i - <span class="number">1</span>]];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n][<span class="keyword">sum</span>];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1031,7 +667,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/15/vuex页面刷新数据丢失的解决办法/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/高楼扔鸡蛋问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1050,7 +686,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/08/15/vuex页面刷新数据丢失的解决办法/" itemprop="url">vuex页面刷新数据丢失的解决办法</a></h1>
+                <a class="post-title-link" href="/2020/09/14/高楼扔鸡蛋问题/" itemprop="url">高楼扔鸡蛋问题</a></h1>
         
 
         <div class="post-meta">
@@ -1062,8 +698,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-15T23:38:23+08:00">
-                2020-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:43:05+08:00">
+                2020-09-14
               </time>
             
 
@@ -1085,8 +721,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1118,7 +754,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  763
+                  465
                 </span>
               
 
@@ -1134,7 +770,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3分钟
+                  2分钟
                 </span>
               
             </div>
@@ -1156,16 +792,17 @@
 
       
         
-          <p>在vue项目中用vuex来做全局的状态管理， 发现当刷新网页后，保存在vuex实例store里的数据会丢失。</p>
-<p><strong>原因：</strong></p>
-<p>因为store里的数据是保存在运行内存中的,当页面刷新时，页面会重新加载vue实例，store里面的数据就会被重新赋值初始化</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/15/vuex页面刷新数据丢失的解决办法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/super-egg-drop/" target="_blank" rel="noopener">887.鸡蛋掉落</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 当前状态为 (K 个鸡蛋，<span class="keyword">N</span> 层楼)</span><br><span class="line">// 返回这个状态下的最优结果</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">dp</span>(K, <span class="keyword">N</span>):</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">res</span></span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= <span class="keyword">N</span>:</span><br><span class="line">        <span class="keyword">res</span> = <span class="built_in">min</span>(<span class="keyword">res</span>, 这次在第 i 层楼扔鸡蛋)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">res</span></span><br><span class="line">    </span><br><span class="line">base case:</span><br><span class="line">    <span class="keyword">if</span> K == <span class="number">1</span>: <span class="keyword">return</span> <span class="keyword">N</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">N</span> == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>如果鸡蛋碎了，那么鸡蛋的个数K应该减一，搜索的楼层区间应该从[1..N]变为[1..i-1]共i-1层楼</p>
+<p>如果鸡蛋没碎，那么鸡蛋的个数K不变，搜索的楼层区间应该从 [1..N]变为[i+1..N]共N-i层楼</p>
+<p>最坏情况下扔鸡蛋的次数，所以鸡蛋在第i层楼碎没碎，取决于哪种情况的结果更大</p>
+<p>🔽🔽🔽</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;<span class="keyword">String</span>, Integer&gt; <span class="built_in">map</span> = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dp</span><span class="params">(<span class="keyword">int</span> K, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">if</span> (K == <span class="number">1</span>) <span class="keyword">return</span> N;</span><br><span class="line">        <span class="keyword">if</span> (N == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">map</span>.containsKey(K + <span class="string">"*"</span> + N)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">map</span>.<span class="built_in">get</span>(K + <span class="string">"*"</span> + N);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 最坏情况下的最少扔鸡蛋次数</span></span><br><span class="line">            res = Math.<span class="built_in">min</span>(res,</span><br><span class="line">                    <span class="comment">//最坏情况下</span></span><br><span class="line">                    Math.<span class="built_in">max</span>(dp(K, N - i), <span class="comment">// 没碎</span></span><br><span class="line">                            dp(K - <span class="number">1</span>, i - <span class="number">1</span>)) <span class="comment">//碎</span></span><br><span class="line">                            + <span class="number">1</span> <span class="comment">//在第 i 楼扔了一次</span></span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">map</span>.<span class="built_in">put</span>(K + <span class="string">"*"</span> + N, res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>结果超时了，可以将for循环改成二分搜索</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;<span class="keyword">String</span>, Integer&gt; <span class="built_in">map</span> = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dp2</span><span class="params">(<span class="keyword">int</span> K, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">map</span>.containsKey(K+<span class="string">"*"</span>+N)) &#123;</span><br><span class="line">            <span class="keyword">int</span> ans;</span><br><span class="line">            <span class="keyword">if</span> (N == <span class="number">0</span>)</span><br><span class="line">                ans = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (K == <span class="number">1</span>)</span><br><span class="line">                ans = N;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> lo = <span class="number">1</span>, hi = N;</span><br><span class="line">                <span class="keyword">while</span> (lo + <span class="number">1</span> &lt; hi) &#123;</span><br><span class="line">                    <span class="keyword">int</span> x = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">                    <span class="keyword">int</span> t1 = dp(K - <span class="number">1</span>, x - <span class="number">1</span>);</span><br><span class="line">                    <span class="keyword">int</span> t2 = dp(K, N - x);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (t1 &lt; t2)</span><br><span class="line">                        lo = x;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (t1 &gt; t2)</span><br><span class="line">                        hi = x;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        lo = hi = x;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                ans = <span class="number">1</span> + Math.<span class="built_in">min</span>(Math.<span class="built_in">max</span>(dp(K - <span class="number">1</span>, lo - <span class="number">1</span>), dp(K, N - lo)),</span><br><span class="line">                        Math.<span class="built_in">max</span>(dp(K - <span class="number">1</span>, hi - <span class="number">1</span>), dp(K, N - hi)));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">map</span>.<span class="built_in">put</span>(K+<span class="string">"*"</span>+N, ans);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">map</span>.<span class="built_in">get</span>(K+<span class="string">"*"</span>+N);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -1212,7 +849,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/15/vuex防抖节流/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/nSum-问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1231,7 +868,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/08/15/vuex防抖节流/" itemprop="url">vuex防抖节流</a></h1>
+                <a class="post-title-link" href="/2020/09/14/nSum-问题/" itemprop="url">nSum 问题</a></h1>
         
 
         <div class="post-meta">
@@ -1243,8 +880,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-15T22:58:26+08:00">
-                2020-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:42:24+08:00">
+                2020-09-14
               </time>
             
 
@@ -1266,8 +903,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1299,7 +936,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  733
+                  295
                 </span>
               
 
@@ -1315,7 +952,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3分钟
+                  2分钟
                 </span>
               
             </div>
@@ -1337,14 +974,16 @@
 
       
         
-          <p>在一个电影项目中，我想在电影的列表中，保存下拉的当前位置，防止你切换页面后，再切换回当前的电影列表页，他就又回到电影的第一条数据。<br>这时候，我不想每次只要滑动一点，就保存当前位置，我想隔一段时间，保存一次，这时候，就可以使用防抖和节流。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/15/vuex防抖节流/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">1.两数之和</a></p>
+<p><a href="https://leetcode.com/problems/3sum/" target="_blank" rel="noopener">15.三数之和</a></p>
+<p><a href="https://leetcode.com/problems/4sum/" target="_blank" rel="noopener">18.四数之和</a></p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * <span class="number">100</span><span class="built_in">sum</span></span><br><span class="line">     * 调用前 先给数组排序  Arrays.sort(nums);</span><br><span class="line">     */</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; nSumTarget(<span class="built_in">int</span>[] nums, <span class="built_in">int</span> <span class="built_in">n</span>, <span class="built_in">int</span> start, <span class="built_in">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        <span class="built_in">int</span> sz = nums.length;</span><br><span class="line">        //至少<span class="number">2</span><span class="built_in">sum</span></span><br><span class="line">        <span class="built_in">if</span> (<span class="built_in">n</span> &lt; <span class="number">2</span> || sz &lt; <span class="built_in">n</span>) &#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        //从<span class="number">2</span><span class="built_in">sum</span>开始</span><br><span class="line">        <span class="built_in">if</span> (<span class="built_in">n</span> == <span class="number">2</span>) &#123;</span><br><span class="line">            //双指针</span><br><span class="line">            <span class="built_in">int</span> <span class="built_in">left</span> = start;</span><br><span class="line">            <span class="built_in">int</span> <span class="built_in">right</span> = sz - <span class="number">1</span>;</span><br><span class="line">            while (<span class="built_in">left</span> &lt; <span class="built_in">right</span>) &#123;</span><br><span class="line">                <span class="built_in">int</span> <span class="built_in">sum</span> = nums[<span class="built_in">left</span>] + nums[<span class="built_in">right</span>];</span><br><span class="line">                <span class="built_in">int</span> lv = nums[<span class="built_in">left</span>];</span><br><span class="line">                <span class="built_in">int</span> rv = nums[<span class="built_in">right</span>];</span><br><span class="line">                <span class="built_in">if</span> (<span class="built_in">sum</span> &lt; target) &#123;</span><br><span class="line">                    while (<span class="built_in">left</span> &lt; <span class="built_in">right</span> &amp;&amp; nums[<span class="built_in">left</span>] == lv) &#123;</span><br><span class="line">                        <span class="built_in">left</span>++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else <span class="built_in">if</span> (<span class="built_in">sum</span> &gt; target) &#123;</span><br><span class="line">                    while (<span class="built_in">left</span> &lt; <span class="built_in">right</span> &amp;&amp; nums[<span class="built_in">right</span>] == rv) &#123;</span><br><span class="line">                        <span class="built_in">right</span>--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    List&lt;Integer&gt; l = new ArrayList&lt;&gt;();</span><br><span class="line">                    l.add(lv);</span><br><span class="line">                    l.add(rv);</span><br><span class="line">                    res.add(l);</span><br><span class="line">                    while (<span class="built_in">left</span> &lt; <span class="built_in">right</span> &amp;&amp; nums[<span class="built_in">left</span>] == lv) &#123;</span><br><span class="line">                        <span class="built_in">left</span>++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    while (<span class="built_in">left</span> &lt; <span class="built_in">right</span> &amp;&amp; nums[<span class="built_in">right</span>] == rv) &#123;</span><br><span class="line">                        <span class="built_in">right</span>--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // <span class="built_in">n</span> &gt; <span class="number">2</span>时 递归计算（<span class="built_in">n</span> - <span class="number">1</span>）<span class="built_in">sum</span> 的结果</span><br><span class="line">            for (<span class="built_in">int</span> i = start; i &lt; sz; i++) &#123;</span><br><span class="line">                List&lt;List&lt;Integer&gt;&gt; sub = nSumTarget(nums, <span class="built_in">n</span> - <span class="number">1</span>, i + <span class="number">1</span>, target - nums[i]);</span><br><span class="line">                for (List&lt;Integer&gt; arr <span class="symbol">:</span> sub) &#123;</span><br><span class="line">                    //（<span class="built_in">n</span> - <span class="number">1</span>）<span class="built_in">sum</span> + num[i] = nsum</span><br><span class="line">                    arr.add(nums[i]);</span><br><span class="line">                    res.add(arr);</span><br><span class="line">                &#125;</span><br><span class="line">                while (i &lt; sz - <span class="number">1</span> &amp;&amp; nums[i] == nums[i + <span class="number">1</span>]) &#123;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<p>调用前先给数组排序</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nsum调用</span><br><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;&#125;;</span><br><span class="line">Arrays.sort(arr);</span><br><span class="line">nSumTarget(arr, n, <span class="number">0</span>, <span class="keyword">target</span>)</span><br></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1391,7 +1030,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/03/02/日语学习笔记/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/打家劫舍问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1410,7 +1049,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/02/日语学习笔记/" itemprop="url">日语学习笔记</a></h1>
+                <a class="post-title-link" href="/2020/09/14/打家劫舍问题/" itemprop="url">打家劫舍问题</a></h1>
         
 
         <div class="post-meta">
@@ -1422,8 +1061,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-02T20:25:38+08:00">
-                2020-03-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:41:43+08:00">
+                2020-09-14
               </time>
             
 
@@ -1445,8 +1084,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂七杂八/" itemprop="url" rel="index">
-                    <span itemprop="name">杂七杂八</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1478,7 +1117,586 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  163
+                  462
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/house-robber" target="_blank" rel="noopener">198.打家劫舍</a></p>
+<p><a href="https://leetcode.com/problems/house-robber-ii" target="_blank" rel="noopener">213.打家劫舍II</a></p>
+<p><a href="https://leetcode.com/problems/house-robber-iii" target="_blank" rel="noopener">337.打家劫舍III</a></p>
+<p>还是动态规划</p>
+<p>假想你就是这个专业强盗，从左到右走过这一排房子，在每间房子前都有两种<strong>选择</strong>：抢或者不抢。</p>
+<p>如果你抢了这间房子，那么你肯定不能抢相邻的下一间房子了，只能从<strong>下下间</strong>房子开始做选择。</p>
+<p>如果你不抢这间房子，那么你可以走到<strong>下一间</strong>房子前，继续做选择。</p>
+<p>当你走过了最后一间房子后，你就没得抢了，能抢到的钱显然是 0（<strong>base case</strong>）。</p>
+<p>以上的逻辑很简单吧，其实已经明确了「状态」和「选择」：<strong>你面前房子的索引就是状态，抢和不抢就是选择</strong>。</p>
+<p>「状态」：面前房子的索引</p>
+<p>「选择」：抢或不抢</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">//自顶向下</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dp</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> res = Math.<span class="built_in">max</span>(dp(nums, start + <span class="number">1</span>), nums[start] + dp(nums, start + <span class="number">2</span>));</span><br><span class="line">		<span class="keyword">return</span> res;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//自底向上</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> n = nums.length;</span><br><span class="line">      <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">2</span>];</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">          dp[i] = Math.<span class="built_in">max</span>(dp[i + <span class="number">1</span>], nums[i] + dp[i + <span class="number">2</span>]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//当前状态转移只和dp[i]后两间相关 优化空间O(1)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob2</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> n = nums.length;</span><br><span class="line">      <span class="keyword">int</span> dp_i_1 = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">int</span> dp_i_2 = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">int</span> dp_i = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">          dp_i = Math.<span class="built_in">max</span>(dp_i_1, nums[i] + dp_i_2);</span><br><span class="line">          dp_i_2 = dp_i_1;</span><br><span class="line">          dp_i_1 = dp_i;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> dp_i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//二叉树题</span></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * [0]:不抢root</span></span><br><span class="line"><span class="comment">   * [1]:抢root</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">int</span>[] dp(TreeNode root) &#123;</span><br><span class="line">      <span class="keyword">if</span> (root == null) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">int</span>[] left = dp(root.left);</span><br><span class="line">      <span class="keyword">int</span>[] right = dp(root.right);</span><br><span class="line">      <span class="comment">//抢root 下家就不能抢</span></span><br><span class="line">      <span class="keyword">int</span> rob = root.val + left[<span class="number">0</span>] + right[<span class="number">0</span>];</span><br><span class="line">      <span class="comment">//不抢root 下家可以抢</span></span><br><span class="line">      <span class="keyword">int</span> not_rob = Math.<span class="built_in">max</span>(left[<span class="number">0</span>], left[<span class="number">1</span>]) + Math.<span class="built_in">max</span>(right[<span class="number">0</span>], right[<span class="number">1</span>]);</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;not_rob, rob&#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/股票买卖/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/14/股票买卖/" itemprop="url">股票买卖</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:41:06+08:00">
+                2020-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  898
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solution/" target="_blank" rel="noopener">121.买卖股票的最佳时机</a></p>
+<p>一、穷举框架</p>
+<blockquote>
+<p>具体到每一天，看看总共有几种可能的「状态」，再找出每个「状态」对应的「选择」。我们要穷举所有「状态」，穷举的目的是根据对应的「选择」更新状态</p>
+</blockquote>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 状态<span class="number">1</span> in 状态<span class="number">1</span>的所有取值：</span><br><span class="line">    for 状态<span class="number">2</span> in 状态<span class="number">2</span>的所有取值：</span><br><span class="line">        for ...</span><br><span class="line">            dp[状态<span class="number">1</span>][状态<span class="number">2</span>][...] = 择优(选择<span class="number">1</span>，选择<span class="number">2.</span>..)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>「选择」：买入、卖出、无操作<br>「状态」：天数、允许交易的最大次数、当前的持有状态(1持有，0未持有)</p>
+<p><code>dp[3][2][1]</code> ：今天是第三天，我现在手上持有着股票，至今最多进行 2 次交易</p>
+<p>求<code>dp[n - 1][K][0]</code></p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">0 or 1</span>]</span><br><span class="line">0 <span class="xml"><span class="tag">&lt;<span class="name">=</span> <span class="attr">i</span> &lt;= <span class="string">n-1,</span> <span class="attr">1</span> &lt;= <span class="string">k</span> &lt;= <span class="string">K</span></span></span></span><br><span class="line"><span class="xml">n 为天数，大 K 为最多交易数</span></span><br><span class="line"><span class="xml">此问题共 n × K × 2 种状态，全部穷举就能搞定。</span></span><br><span class="line"></span><br><span class="line"><span class="xml">for 0 <span class="tag">&lt;<span class="name">=</span> <span class="attr">i</span> &lt; <span class="attr">n:</span></span></span></span><br><span class="line"><span class="xml">    for 1 <span class="tag">&lt;<span class="name">=</span> <span class="attr">k</span> &lt;= <span class="string">K:</span></span></span></span><br><span class="line"><span class="xml">        for s in &#123;0, 1&#125;:</span></span><br><span class="line"><span class="xml">            dp[i][k][s] = max(buy, sell, rest)</span></span><br></pre></td></tr></table></figure>
+<p>二、状态转移框架</p>
+<p><img src="/img/gupiaowenti.png"></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">0</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">0</span>], dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] + prices[i])</span><br><span class="line"><span class="code">             	max(选择 rest,      选择 sell)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>今天我没有持有股票，有两种可能：<br>要么是我昨天就没有持有，然后今天选择 rest，所以我今天还是没有持有；<br>要么是我昨天持有股票，但是今天我 sell 了，所以我今天没有持有股票了。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">1</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>], dp[<span class="string">i-1</span>][<span class="symbol">k-1</span>][<span class="string">0</span>] - prices[i])</span><br><span class="line"><span class="code">              max(选择 rest,      选择 buy)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>今天我持有着股票，有两种可能：<br>要么我昨天就持有着股票，然后今天选择 rest，所以我今天还持有着股票；<br>要么我昨天本没有持有，但今天我选择 buy，所以今天我就持有股票了。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">0</span>] = 0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为 i 是从 0 开始的，所以 i = -1 意味着还没有开始，这时候的利润当然是 0 。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] = -infinity</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>还没开始的时候，是不可能持有股票的，用负无穷表示这种不可能。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">0</span>] = 0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为 k 是从 1 开始的，所以 k = 0 意味着根本不允许交易，这时候利润当然是 0 。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">1</span>] = -infinity</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不允许交易的情况下，是不可能持有股票的，用负无穷表示这种不可能。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">base case：</span><br><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">0</span>] = dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">0</span>] = 0</span><br><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] = dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">1</span>] = -infinity</span><br><span class="line"></span><br><span class="line">状态转移方程：</span><br><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">0</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">0</span>], dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] + prices[i])</span><br><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">1</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>], dp[<span class="string">i-1</span>][<span class="symbol">k-1</span>][<span class="string">0</span>] - prices[i])</span><br></pre></td></tr></table></figure>
+<p>⏬⏬⏬<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public int maxProfit(int<span class="comment">[]</span> prices) &#123;</span><br><span class="line">       if (prices == null || prices.length == 0) &#123;</span><br><span class="line">           return 0;</span><br><span class="line">       &#125;</span><br><span class="line">       int n = prices.length;</span><br><span class="line">       int<span class="comment">[]</span><span class="comment">[]</span> dp = new int<span class="comment">[n]</span><span class="comment">[2]</span>;</span><br><span class="line">       for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">           if (i - 1 == -1) &#123;</span><br><span class="line">               dp<span class="comment">[i]</span><span class="comment">[0]</span> = 0;</span><br><span class="line">               //   dp<span class="comment">[i]</span><span class="comment">[0]</span></span><br><span class="line">               // = max(dp<span class="comment">[-1]</span><span class="comment">[0]</span>, dp<span class="comment">[-1]</span><span class="comment">[1]</span> + prices<span class="comment">[i]</span>)</span><br><span class="line">               // = max(0, -infinity + prices<span class="comment">[i]</span>) = 0</span><br><span class="line">               dp<span class="comment">[i]</span><span class="comment">[1]</span> = -prices<span class="comment">[i]</span>;</span><br><span class="line">               //   dp<span class="comment">[i]</span><span class="comment">[1]</span></span><br><span class="line">               // = max(dp<span class="comment">[-1]</span><span class="comment">[1]</span>, dp<span class="comment">[-1]</span><span class="comment">[0]</span> - prices<span class="comment">[i]</span>)</span><br><span class="line">               // = max(-infinity, 0 - prices<span class="comment">[i]</span>)</span><br><span class="line">               // = -prices<span class="comment">[i]</span></span><br><span class="line">               continue;</span><br><span class="line">           &#125;</span><br><span class="line">           dp<span class="comment">[i]</span><span class="comment">[0]</span> = Math.max(dp<span class="comment">[i - 1]</span><span class="comment">[0]</span>, dp<span class="comment">[i - 1]</span><span class="comment">[1]</span> + prices<span class="comment">[i]</span>);</span><br><span class="line">           dp<span class="comment">[i]</span><span class="comment">[1]</span> = Math.max(dp<span class="comment">[i - 1]</span><span class="comment">[1]</span>, -prices<span class="comment">[i]</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       return dp<span class="comment">[n - 1]</span><span class="comment">[0]</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>tips:</p>
+<p>如果 buy，就要从利润中减去 prices[i]，如果 sell，就要给利润增加 prices[i]。今天的最大利润就是这两种可能选择中较大的那个。而且注意 k 的限制，我们在选择 buy 的时候，把 k 减小了 1，当然你也可以在 sell 的时候减 1，一样的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/滑动窗口算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/14/滑动窗口算法/" itemprop="url">滑动窗口算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:40:33+08:00">
+                2020-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  453
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/minimum-window-substring" target="_blank" rel="noopener">76.最小覆盖子串</a></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 滑动窗口算法框架 */</span></span><br><span class="line">  void slidingWindow(<span class="type">String</span> s, <span class="type">String</span> t) &#123;</span><br><span class="line">      <span class="type">HashMap</span>&lt;<span class="type">Character</span>, <span class="type">Integer</span>&gt; need, window;</span><br><span class="line">      <span class="keyword">for</span> (char <span class="built_in">c</span> : t.toCharArray()) &#123;</span><br><span class="line">          need.put(<span class="built_in">c</span>, need.getOrDefault(<span class="built_in">c</span>, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      int <span class="keyword">left</span> = <span class="number">0</span>, <span class="keyword">right</span> = <span class="number">0</span>;</span><br><span class="line">      int valid = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">while</span> (<span class="keyword">right</span> &lt; s.length()) &#123;</span><br><span class="line">          <span class="comment">// c 是将移入窗口的字符</span></span><br><span class="line">          char <span class="built_in">c</span> = s.charAt(<span class="keyword">right</span>);</span><br><span class="line">          <span class="comment">// 右移窗口</span></span><br><span class="line">          <span class="keyword">right</span>++;</span><br><span class="line">          <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">      		...</span><br><span class="line"></span><br><span class="line">          <span class="comment">/*** debug 输出的位置 ***/</span></span><br><span class="line">          <span class="type">System</span>.out.printf(<span class="string">"window: [%d, %d)\n"</span>, <span class="keyword">left</span>, <span class="keyword">right</span>);</span><br><span class="line">          <span class="comment">/********************/</span></span><br><span class="line"></span><br><span class="line">          <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">          <span class="keyword">while</span> (window needs shrink)&#123;</span><br><span class="line">              <span class="comment">// d 是将移出窗口的字符</span></span><br><span class="line">              char d = s.charAt(<span class="keyword">left</span>);</span><br><span class="line">              <span class="comment">// 左移窗口</span></span><br><span class="line">              <span class="keyword">left</span>++;</span><br><span class="line">              <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        		  ...</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<p>⏬⏬⏬</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">String</span> minWindow(<span class="type">String</span> s, <span class="type">String</span> t) &#123;</span><br><span class="line">       <span class="type">HashMap</span>&lt;<span class="type">Character</span>, <span class="type">Integer</span>&gt; need = new <span class="type">HashMap</span>&lt;&gt;();</span><br><span class="line">       <span class="type">HashMap</span>&lt;<span class="type">Character</span>, <span class="type">Integer</span>&gt; window = new <span class="type">HashMap</span>&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">Character</span> <span class="built_in">c</span> : t.toCharArray()) &#123;</span><br><span class="line">           need.put(<span class="built_in">c</span>, need.getOrDefault(<span class="built_in">c</span>, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       int <span class="keyword">left</span> = <span class="number">0</span>;</span><br><span class="line">       int <span class="keyword">right</span> = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">//满足need条件的字符个数</span></span><br><span class="line">       int vaild = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">//记录最小覆盖子串的其实索引和长度</span></span><br><span class="line">       int start = <span class="number">0</span>;</span><br><span class="line">       int len = <span class="type">Integer</span>.<span class="type">MAX_VALUE</span>;</span><br><span class="line">       <span class="keyword">while</span> (<span class="keyword">right</span> &lt; s.length()) &#123;</span><br><span class="line">           <span class="comment">//c是即将移入窗口的字符</span></span><br><span class="line">           char <span class="built_in">c</span> = s.charAt(<span class="keyword">right</span>);</span><br><span class="line">           <span class="comment">//右移窗口</span></span><br><span class="line">           <span class="keyword">right</span>++;</span><br><span class="line">           <span class="comment">//进行窗口内数据更新</span></span><br><span class="line">           <span class="keyword">if</span> (need.containsKey(<span class="built_in">c</span>)) &#123;</span><br><span class="line">               window.put(<span class="built_in">c</span>, window.getOrDefault(<span class="built_in">c</span>, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">               <span class="keyword">if</span> (window.<span class="keyword">get</span>(<span class="built_in">c</span>).equals(need.<span class="keyword">get</span>(<span class="built_in">c</span>))) &#123;</span><br><span class="line">                   vaild++;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//判断左侧窗口是否需要收缩</span></span><br><span class="line">           <span class="keyword">while</span> (vaild == need.size()) &#123;</span><br><span class="line">               <span class="comment">//更新最小覆盖子串</span></span><br><span class="line">               <span class="keyword">if</span> (<span class="keyword">right</span> - <span class="keyword">left</span> &lt; len) &#123;</span><br><span class="line">                   start = <span class="keyword">left</span>;</span><br><span class="line">                   len = <span class="keyword">right</span> - <span class="keyword">left</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="comment">//d是即将移除的字符</span></span><br><span class="line">               char d = s.charAt(<span class="keyword">left</span>);</span><br><span class="line">               <span class="comment">//左移窗口</span></span><br><span class="line">               <span class="keyword">left</span>++;</span><br><span class="line">               <span class="comment">//进行窗口内数据更新</span></span><br><span class="line">               <span class="keyword">if</span> (need.containsKey(d)) &#123;</span><br><span class="line">                   <span class="keyword">if</span> (window.<span class="keyword">get</span>(d).equals(need.<span class="keyword">get</span>(d))) &#123;</span><br><span class="line">                       vaild--;</span><br><span class="line">                   &#125;</span><br><span class="line">                   window.put(d, window.<span class="keyword">get</span>(d) - <span class="number">1</span>);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//返回最小覆盖子串</span></span><br><span class="line">       <span class="keyword">return</span> len == <span class="type">Integer</span>.<span class="type">MAX_VALUE</span> ? <span class="string">""</span> : s.substring(start, start + len);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/二分搜索套路框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/14/二分搜索套路框架/" itemprop="url">二分搜索套路框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:39:49+08:00">
+                2020-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  208
                 </span>
               
 
@@ -1516,18 +1734,13 @@
 
       
         
-          <p>​                动词            形容词1            形容词2                名词</p>
-<p>一般现在时        ます            い                です                です</p>
-<p>过去时            ました            かった            でした                でした</p>
-<p>否定            ません            くないです        くありません            では　ありません</p>
-<p>过去否定            ませんでした        くなかったです    くありませんでした    では　ありませんでした</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/02/日语学习笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <script src="/assets/js/APlayer.min.js"> </script><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> binarySearch(<span class="built_in">int</span>[] nums, <span class="built_in">int</span> target) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">left</span> = <span class="number">0</span>, <span class="built_in">right</span> = ...;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(...) &#123;</span><br><span class="line">        <span class="built_in">int</span> <span class="built_in">mid</span> = <span class="built_in">left</span> + (<span class="built_in">right</span> - <span class="built_in">left</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[<span class="built_in">mid</span>] == target) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[<span class="built_in">mid</span>] &lt; target) &#123;</span><br><span class="line">            <span class="built_in">left</span> = ...</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[<span class="built_in">mid</span>] &gt; target) &#123;</span><br><span class="line">            <span class="built_in">right</span> = ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>⏬⏬⏬<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> binarySearch(<span class="built_in">int</span>[] nums, <span class="built_in">int</span> target) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">left</span> = <span class="number">0</span>; </span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">right</span> = nums.length - <span class="number">1</span>; // 注意</span><br><span class="line"></span><br><span class="line">    while(<span class="built_in">left</span> &lt;= <span class="built_in">right</span>) &#123;</span><br><span class="line">        <span class="built_in">int</span> <span class="built_in">mid</span> = <span class="built_in">left</span> + (<span class="built_in">right</span> - <span class="built_in">left</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">if</span>(nums[<span class="built_in">mid</span>] == target)</span><br><span class="line">            return <span class="built_in">mid</span>; </span><br><span class="line">        else <span class="built_in">if</span> (nums[<span class="built_in">mid</span>] &lt; target)</span><br><span class="line">            <span class="built_in">left</span> = <span class="built_in">mid</span> + <span class="number">1</span>; // 注意</span><br><span class="line">        else <span class="built_in">if</span> (nums[<span class="built_in">mid</span>] &gt; target)</span><br><span class="line">            <span class="built_in">right</span> = <span class="built_in">mid</span> - <span class="number">1</span>; // 注意</span><br><span class="line">    &#125;</span><br><span class="line">    return -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>tips:</p>
+<p>分析二分查找的一个技巧是：不要出现 else，而是把所有情况用 else if 写清楚，这样可以清楚地展现所有细节。计算 mid 时需要防止溢出，代码中 <code>left + (right - left) / 2</code> 就和 <code>(left + right) / 2</code> 的结果相同，但是有效防止了 <code>left</code> 和 <code>right</code> 太大直接相加导致溢出。</p>
+
+          
         
       
     </div>
@@ -1574,7 +1787,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/01/13/微服务通讯/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/BFS-算法解题套路框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1593,7 +1806,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/13/微服务通讯/" itemprop="url">微服务通讯</a></h1>
+                <a class="post-title-link" href="/2020/09/14/BFS-算法解题套路框架/" itemprop="url">BFS算法解题套路框架</a></h1>
         
 
         <div class="post-meta">
@@ -1605,8 +1818,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-13T14:07:27+08:00">
-                2020-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:38:36+08:00">
+                2020-09-14
               </time>
             
 
@@ -1628,8 +1841,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1661,7 +1874,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,431
+                  388
                 </span>
               
 
@@ -1677,7 +1890,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7分钟
+                  2分钟
                 </span>
               
             </div>
@@ -1699,17 +1912,15 @@
 
       
         
-          <h4 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a><strong>什么是微服务</strong></h4><ul>
-<li>微服务架构是一个分布式系统, 按照业务进行划分成为不同的服务单元, 解决单体系统性能等不足。</li>
-<li>微服务是一种架构风格，一个大型软件应用由多个服务单元组成。系统中的服务单元可以单独部署，各个服务单元之间是松耦合的。</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/01/13/微服务通讯/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree" target="_blank" rel="noopener">111.二叉树的最小深度</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算从起点 start 到终点 target 的最近距离</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(Node start, Node target)</span> </span>&#123;</span><br><span class="line">    Queue&lt;Node&gt; q; <span class="comment">// 核心数据结构</span></span><br><span class="line">    Set&lt;Node&gt; visited; <span class="comment">// 避免走回头路</span></span><br><span class="line"></span><br><span class="line">    q.offer(start); <span class="comment">// 将起点加入队列</span></span><br><span class="line">    visited.add(start);</span><br><span class="line">    <span class="keyword">int</span> step = <span class="number">0</span>; <span class="comment">// 记录扩散的步数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (q not empty) &#123;</span><br><span class="line">        <span class="keyword">int</span> sz = q.size();</span><br><span class="line">        <span class="comment">/* 将当前队列中的所有节点向四周扩散 */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">            Node cur = q.poll();</span><br><span class="line">            <span class="comment">/* 划重点：这里判断是否到达终点 */</span></span><br><span class="line">            <span class="keyword">if</span> (cur is target)</span><br><span class="line">                <span class="keyword">return</span> step;</span><br><span class="line">            <span class="comment">/* 将 cur 的相邻节点加入队列 */</span></span><br><span class="line">            <span class="keyword">for</span> (Node x : cur.adj())</span><br><span class="line">                <span class="keyword">if</span> (x not in visited) &#123;</span><br><span class="line">                    q.offer(x);</span><br><span class="line">                    visited.add(x);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* 划重点：更新步数在这里 */</span></span><br><span class="line">        step++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<p>BFS 的核心思想就是把一些问题抽象成图，从一个点开始，向四周开始扩散。<strong>问题的本质就是让你在一幅「图」中找到从起点</strong> <strong><code>start</code></strong> <strong>到终点</strong> <strong><code>target</code></strong> <strong>的最近距离</strong>。一般来说，我们写 BFS 算法都是用「队列」这种数据结构，每次将一个节点周围的所有节点加入队列。</p>
+<p>BFS 相对 DFS 的最主要的区别是：<strong>BFS 找到的路径一定是最短的，但代价就是空间复杂度比 DFS 大很多</strong></p>
+<p>双向 BFS 优化，传统的 BFS 框架就是从起点开始向四周扩散，遇到终点时停止；而双向 BFS 则是从起点和终点同时开始扩散，当两边有交集的时候停止。</p>
+
+          
         
       
     </div>
@@ -1756,7 +1967,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/01/02/Async异步调用实践/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/回溯算法解题套路框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1775,7 +1986,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/02/Async异步调用实践/" itemprop="url">@Async异步调用实践</a></h1>
+                <a class="post-title-link" href="/2020/09/14/回溯算法解题套路框架/" itemprop="url">回溯算法解题套路框架</a></h1>
         
 
         <div class="post-meta">
@@ -1787,8 +1998,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-02T15:06:15+08:00">
-                2020-01-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:36:50+08:00">
+                2020-09-14
               </time>
             
 
@@ -1810,8 +2021,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1843,7 +2054,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,993
+                  173
                 </span>
               
 
@@ -1859,7 +2070,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10分钟
+                  1分钟
                 </span>
               
             </div>
@@ -1881,220 +2092,17 @@
 
       
         
-          <p>异步调用对应的是同步调用，同步调用可以理解为按照定义的顺序依次执行，有序性；异步调用在执行的时候不需要等待上一个指令调用结束就可以继续执行。</p>
-<p>我们将在创建一个 Spring Boot 工程来说明。具体工程可以参考github代码 <a href="https://github.com/JustDoItLee/demo/tree/master/demo/async" target="_blank" rel="noopener">github</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/01/02/Async异步调用实践/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/12/29/PostgreSQL集群及读写分离方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/29/PostgreSQL集群及读写分离方案/" itemprop="url">PostgreSQL集群及读写分离实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-29T17:26:58+08:00">
-                2019-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
+          
+            <script src="/assets/js/APlayer.min.js"> </script><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">result = []</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(路径, 选择列表)</span>:</span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> 满足结束条件:</span></span><br><span class="line"><span class="function">        result.<span class="title">add</span><span class="params">(路径)</span></span></span><br><span class="line"><span class="function">        return</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    <span class="keyword">for</span> 选择 in 选择列表:</span></span><br><span class="line"><span class="function">        做选择</span></span><br><span class="line"><span class="function">        <span class="title">backtrack</span><span class="params">(路径, 选择列表)</span></span></span><br><span class="line"><span class="function">        撤销选择</span></span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<p>解决一个回溯问题，实际上就是一个决策树的遍历过程</p>
+<p>需要思考 3 个问题：</p>
+<p>1、路径：也就是已经做出的选择。</p>
+<p>2、选择列表：也就是你当前可以做的选择。</p>
+<p>3、结束条件：也就是到达决策树底层，无法再做选择的条件。</p>
+<p><strong>其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」</strong></p>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,922
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  11分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>为了方便，只搭建一主一从。首先准备两台服务器，信息如下：</p>
-<table>
-<thead>
-<tr>
-<th>IP</th>
-<th>角色</th>
-<th>端口</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>192.168.0.31</td>
-<td>master</td>
-<td>5432</td>
-</tr>
-<tr>
-<td></td>
-<td>pgpool-II</td>
-<td>9999</td>
-</tr>
-<tr>
-<td>192.168.0.32</td>
-<td>slave</td>
-<td>5432</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/29/PostgreSQL集群及读写分离方案/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -2132,7 +2140,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2180,7 +2188,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2278,7 +2286,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共119.5k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共120.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴

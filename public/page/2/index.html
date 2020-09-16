@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/12/26/leetcode双指针总结/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/03/Integer用-还是equals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -322,7 +322,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/26/leetcode双指针总结/" itemprop="url">leetcode双指针总结</a></h1>
+                <a class="post-title-link" href="/2020/09/03/Integer用-还是equals/" itemprop="url">Integer用==还是equals</a></h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,187 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-26T14:54:22+08:00">
-                2019-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-03T17:20:49+08:00">
+                2020-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  264
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p>今天刷minimum-window-substring问题时，写的代码跑通了267/268的测试用例，最后一个没跑通，最后发现是</p>
+<p><code>window.get(d) == need.get(d)</code>出的问题，两个值都是371但是结果是false，然后才想起来Interger底部是有缓存的，关系如下：</p>
+<p>Integer与int类型的关系，可以简单的回答，Integer是int的包装类，int的默认值是0，而Integer的默认值是null（jdk1.5的新特性 自动装箱和拆箱，Integer.valueOf（） 和xx.intValue（） ）,需要注意的是Integer里面默认的缓存数字是<code>-128-127</code>。</p>
+<p>1、Integer与Integer相互比较，数据在<code>-128-127</code>范围内，就会从缓存中拿去数据，比较就相等；如果不在这个范围，就会直接新创建一个Integer对象，使用 == 判断的是两个内存的应用地址，所以自然不相等，应该用equals来判断值是否想等</p>
+<p>2、Integer和int类型相比，在jdk1.5,会自动拆箱，然后比较栈内存中的数据，所以没有不想等的情况</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/31/算法框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/31/算法框架/" itemprop="url">动态规划解题套路框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-31T14:48:49+08:00">
+                2020-08-31
               </time>
             
 
@@ -390,7 +569,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,917
+                  106
                 </span>
               
 
@@ -406,7 +585,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9分钟
+                  1分钟
                 </span>
               
             </div>
@@ -428,37 +607,188 @@
 
       
         
-          <ul>
-<li><p><a href="#1-有序数组的-two-sum">1. 有序数组的 Two Sum</a></p>
-</li>
-<li><p><a href="#2-两数平方和">2. 两数平方和</a></p>
-</li>
-<li><p><a href="#3-反转字符串中的元音字符">3. 反转字符串中的元音字符</a></p>
-</li>
-<li><p><a href="#4-回文字符串">4. 回文字符串</a></p>
-</li>
-<li><p><a href="#5-归并两个有序数组">5. 归并两个有序数组</a></p>
-</li>
-<li><p><a href="#6-判断链表是否存在环">6. 判断链表是否存在环</a></p>
-</li>
-<li><p><a href="#7-最长子序列">7. 最长子序列</a></p>
-</li>
-</ul>
-<p>双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。</p>
-<h1 id="1-有序数组的-Two-Sum"><a href="#1-有序数组的-Two-Sum" class="headerlink" title="1. 有序数组的 Two Sum"></a>1. 有序数组的 Two Sum</h1><p>167. Two Sum II - Input array is sorted (Easy)</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: numbers=&#123;2, 7, 11, 15&#125;, target=9</span><br><span class="line">Output: index1=1, index2=2</span><br></pre></td></tr></table></figure>
-<p>题目描述：在有序数组中找出两个数，使它们的和为 target。</p>
-<p>使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。</p>
-<ul>
-<li>如果两个指针指向元素的和 sum == target，那么得到要求的结果；</li>
-<li>如果 sum &gt; target，移动较大的元素，使 sum 变小一些；</li>
-<li>如果 sum &lt; target，移动较小的元素，使 sum 变大一些。</li>
-</ul>
-<p>数组中的元素最多遍历一次，时间复杂度为 O(N)。只使用了两个额外变量，空间复杂度为  O(1)。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] numbers, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">if</span> (numbers == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = numbers.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">int</span> sum = numbers[i] + numbers[j];</span><br><span class="line">        <span class="keyword">if</span> (sum == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i + <span class="number">1</span>, j + <span class="number">1</span>&#125;;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+            <script src="/assets/js/APlayer.min.js"> </script><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 初始化 base case</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>][...] = base</span><br><span class="line"># 进行状态转移</span><br><span class="line"><span class="keyword">for</span> 状态<span class="number">1</span> in 状态<span class="number">1</span>的所有取值：</span><br><span class="line">    <span class="keyword">for</span> 状态<span class="number">2</span> in 状态<span class="number">2</span>的所有取值：</span><br><span class="line">        <span class="keyword">for</span> ...</span><br><span class="line">            dp[状态<span class="number">1</span>][状态<span class="number">2</span>][...] = 求最值(选择<span class="number">1</span>，选择<span class="number">2</span>...)</span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<p>明确 base case -&gt; 明确「状态」-&gt; 明确「选择」 -&gt; 定义 dp 数组/函数的含义</p>
+<p>通过「备忘录」或者「dp table」的方法来优化递归树</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/24/二叉树遍历/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/24/二叉树遍历/" itemprop="url">二叉树遍历</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-24T20:31:08+08:00">
+                2020-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,219
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>二叉树的先序、中序、后序遍历</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/12/26/leetcode双指针总结/#more" rel="contents">
+            <a class="btn" href="/2020/08/24/二叉树遍历/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -509,7 +839,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/12/26/Java基础整理/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/16/hexo-g-生成空白文件问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -528,7 +858,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/26/Java基础整理/" itemprop="url">Java基础整理</a></h1>
+                <a class="post-title-link" href="/2020/08/16/hexo-g-生成空白文件问题/" itemprop="url">hexo g 生成空白文件问题</a></h1>
         
 
         <div class="post-meta">
@@ -540,8 +870,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-26T14:19:33+08:00">
-                2019-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-16T13:31:30+08:00">
+                2020-08-16
               </time>
             
 
@@ -563,8 +893,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
                   </a>
                 </span>
 
@@ -596,7 +926,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  32,431
+                  450
                 </span>
               
 
@@ -612,7 +942,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  128分钟
+                  2分钟
                 </span>
               
             </div>
@@ -634,18 +964,201 @@
 
       
         
-          <h4 id="1-0-JAVA中的几种基本数据类型是什么，各自占用多少字节。"><a href="#1-0-JAVA中的几种基本数据类型是什么，各自占用多少字节。" class="headerlink" title="1.0 JAVA中的几种基本数据类型是什么，各自占用多少字节。"></a>1.0 JAVA中的几种基本数据类型是什么，各自占用多少字节。</h4><p>Java语言提供了八种基本类型。六种数字类型（四个整数型，两个浮点型），一种字符类型，还有一种布尔型。</p>
-<h5 id="byte："><a href="#byte：" class="headerlink" title="byte："></a><strong>byte：</strong></h5><p>byte 数据类型是8位、有符号的，以二进制补码表示的整数；最小值是 -128（-2^7）；最大值是 127（2^7-1）；默认值是 0；byte 类型用在大型数组中节约空间，主要代替整数，因为 byte 变量占用的空间只有 int 类型的四分之一；例子：<code>byte a = 100，byte b = -50</code>。</p>
-<h5 id="short："><a href="#short：" class="headerlink" title="short："></a><strong>short：</strong></h5><p>short 数据类型是 16 位、有符号的以二进制补码表示的整数最小值是 -32768（-2^15）；最大值是 32767（2^15 - 1）；Short 数据类型也可以像 byte 那样节省空间。一个short变量是int型变量所占空间的二分之一；默认值是 0；例子：<code>short s = 1000，short r = -20000</code>。</p>
-<h5 id="int："><a href="#int：" class="headerlink" title="int："></a><strong>int：</strong></h5><p>int 数据类型是32位、有符号的以二进制补码表示的整数；最小值是 -2,147,483,648（-2^31）；最大值是 2,147,483,647（2^31 - 1）；一般地整型变量默认为 int 类型；默认值是 0 ；例子：<code>int a = 100000, int b = -200000</code>。</p>
-<h5 id="long："><a href="#long：" class="headerlink" title="long："></a><strong>long：</strong></h5><p>long 数据类型是 64 位、有符号的以二进制补码表示的整数；最小值是 -9,223,372,036,854,775,808（-2^63）；最大值是 9,223,372,036,854,775,807（2^63 -1）；这种类型主要使用在需要比较大整数的系统上；默认值是 0L；例子：<code>long a = 100000L，Long b = -200000L</code>。”L”理论上不分大小写，但是若写成”l”容易与数字”1”混淆，不容易分辩。所以最好大写。</p>
-<h5 id="float："><a href="#float：" class="headerlink" title="float："></a><strong>float：</strong></h5><p>float 数据类型是单精度、32位、符合IEEE 754标准的浮点数；float 在储存大型浮点数组的时候可节省内存空间；默认值是 0.0f；浮点数不能用来表示精确的值，如货币；例子：<code>float f1 = 234.5f</code>。</p>
-<h5 id="double："><a href="#double：" class="headerlink" title="double："></a><strong>double：</strong></h5><p>double 数据类型是双精度、64 位、符合IEEE 754标准的浮点数；浮点数的默认类型为double类型；double类型同样不能表示精确的值，如货币；默认值是 0.0d；例子：<code>double d1 = 123.4</code>。</p>
-<h5 id="boolean："><a href="#boolean：" class="headerlink" title="boolean："></a><strong>boolean：</strong></h5><p>boolean数据类型表示一位的信息；只有两个取值：true 和 false；这种类型只作为一种标志来记录 true/false 情况；默认值是 false；例子：<code>boolean one = true</code>。</p>
-<h5 id="char："><a href="#char：" class="headerlink" title="char："></a><strong>char：</strong></h5><p>char类型是一个单一的 16 位 Unicode 字符；最小值是 \u0000（即为0）；最大值是 \uffff（即为65,535）；char 数据类型可以储存任何字符；例子：<code>char letter = &#39;A&#39;;</code>。</p>
+          
+            <script src="/assets/js/APlayer.min.js"> </script><p>最近换了新电脑，重新整环境的时候图快，下载<code>node</code>的时候下载的是最新版：node当前版14.0.0。然后安装<code>hexo</code>，从github拉取hexo博客项目，然后跑<code>npm install</code>，都没啥问题。但是在项目下面执行任何<code>hexo</code>的命令的时候，就会出现一个错误：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(Use `<span class="keyword">node</span> <span class="title">--trace-warnings</span> ...` to show where the warning was created)</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'lineno' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'column' of module exports inside circular dependency</span><br><span class="line">(<span class="keyword">node</span><span class="title">:62227</span>) Warning: Accessing non-existent <span class="keyword">property</span><span class="title"> </span>'filename' of module exports inside circular dependency</span><br></pre></td></tr></table></figure>
+<p>继续跑<code>hexo s</code>、<code>hexo clean</code>、<code>hexo g</code>都是可以的，也没报错。</p>
+<p>当我跑<code>hexo s</code>的时候是可以正常预览的。</p>
+<p>但是当我跑<code>hexo g</code>的时候，命令可以跑而且没报错，但是生成的文件是<code>0kb</code>的，<code>/public/index.html</code>里面没有任何内容。</p>
+<p>找了好久原因，发现是node版本的问题。</p>
+<p>下<code>n</code>来管理node的版本。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">npm</span> i -g n</span><br></pre></td></tr></table></figure>
+<p>然后将node替换为稳定版：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo n stable</span><br></pre></td></tr></table></figure>
+<p>然后查看node的版本：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">node</span> <span class="title">-v</span></span><br><span class="line">v12.<span class="number">18.3</span></span><br></pre></td></tr></table></figure>
+<p>先清理，然后再生成：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo clean</span><br><span class="line"><span class="variable">$ </span>hexo g</span><br></pre></td></tr></table></figure>
+<p>然后产看生成的<code>public</code>文件夹中<code>index.html</code>的大小，是有内容的。正常生成了 -。-</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/15/vuex页面刷新数据丢失的解决办法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/15/vuex页面刷新数据丢失的解决办法/" itemprop="url">vuex页面刷新数据丢失的解决办法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-15T23:38:23+08:00">
+                2020-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  763
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在vue项目中用vuex来做全局的状态管理， 发现当刷新网页后，保存在vuex实例store里的数据会丢失。</p>
+<p><strong>原因：</strong></p>
+<p>因为store里的数据是保存在运行内存中的,当页面刷新时，页面会重新加载vue实例，store里面的数据就会被重新赋值初始化</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/12/26/Java基础整理/#more" rel="contents">
+            <a class="btn" href="/2020/08/15/vuex页面刷新数据丢失的解决办法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -696,7 +1209,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/12/26/二分法求sqrt-2-精确到小数点后-10-位/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/08/15/vuex防抖节流/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -715,7 +1228,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/26/二分法求sqrt-2-精确到小数点后-10-位/" itemprop="url">二分法求sqrt (2)精确到小数点后 10 位</a></h1>
+                <a class="post-title-link" href="/2020/08/15/vuex防抖节流/" itemprop="url">vuex防抖节流</a></h1>
         
 
         <div class="post-meta">
@@ -727,8 +1240,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-26T14:15:08+08:00">
-                2019-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-15T22:58:26+08:00">
+                2020-08-15
               </time>
             
 
@@ -750,8 +1263,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -783,7 +1296,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  82
+                  733
                 </span>
               
 
@@ -799,7 +1312,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  3分钟
                 </span>
               
             </div>
@@ -821,10 +1334,14 @@
 
       
         
-          
-            <script src="/assets/js/APlayer.min.js"> </script><h5 id="因为-sqrt-2-约等于-1-4，所以可以在-1-4-1-5-区间做二分"><a href="#因为-sqrt-2-约等于-1-4，所以可以在-1-4-1-5-区间做二分" class="headerlink" title="因为 sqrt(2)约等于 1.4，所以可以在(1.4, 1.5)区间做二分"></a>因为 sqrt(2)约等于 1.4，所以可以在(1.4, 1.5)区间做二分</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> TEN = <span class="number">0.0000000001</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">sqrt2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> low = <span class="number">1.4</span>;</span><br><span class="line">        <span class="keyword">double</span> high = <span class="number">1.5</span>;</span><br><span class="line">        <span class="keyword">double</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span> ((high - low) &gt; TEN) &#123;</span><br><span class="line">            <span class="keyword">if</span> (high * high &gt; <span class="number">2</span>) &#123;</span><br><span class="line">                high = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                low = mid;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
+          <p>在一个电影项目中，我想在电影的列表中，保存下拉的当前位置，防止你切换页面后，再切换回当前的电影列表页，他就又回到电影的第一条数据。<br>这时候，我不想每次只要滑动一点，就保存当前位置，我想隔一段时间，保存一次，这时候，就可以使用防抖和节流。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/08/15/vuex防抖节流/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -871,7 +1388,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/12/25/单向链表逆序输出/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/03/02/日语学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -890,7 +1407,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/单向链表逆序输出/" itemprop="url">单向链表逆序输出</a></h1>
+                <a class="post-title-link" href="/2020/03/02/日语学习笔记/" itemprop="url">日语学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -902,183 +1419,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T21:09:13+08:00">
-                2019-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  117
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <script src="/assets/js/APlayer.min.js"> </script><h5 id="实现链表逆序输出"><a href="#实现链表逆序输出" class="headerlink" title="实现链表逆序输出"></a>实现链表逆序输出</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(ListNode&lt;T&gt; head)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">    	   <span class="keyword">return</span> ;</span><br><span class="line">       &#125;</span><br><span class="line">       ListNode&lt;T&gt; currentNode = head;</span><br><span class="line">       Stack&lt;ListNode&lt;T&gt;&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">       <span class="keyword">while</span> (currentNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">    	   stack.push(currentNode);</span><br><span class="line">    	   ListNode&lt;T&gt; tempNode = currentNode.next;</span><br><span class="line">           <span class="comment">// 断开连接</span></span><br><span class="line">    	   currentNode.next = <span class="keyword">null</span>; </span><br><span class="line">    	   currentNode = tempNode;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">       head = stack.pop();</span><br><span class="line">       currentNode = head;</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    	   currentNode.next = stack.pop();</span><br><span class="line">    	   currentNode = currentNode.next;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">	T val;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(T val)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.val = val;</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode&lt;T&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/01/12/Github建立分支备份Hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/12/Github建立分支备份Hexo/" itemprop="url">Github建立分支备份Hexo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-12T11:23:35+08:00">
-                2019-01-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-02T20:25:38+08:00">
+                2020-03-02
               </time>
             
 
@@ -1133,7 +1475,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  860
+                  163
                 </span>
               
 
@@ -1149,7 +1491,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3分钟
+                  1分钟
                 </span>
               
             </div>
@@ -1171,17 +1513,14 @@
 
       
         
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由于之前忘记备份Hexo博客的markdown文件，在重做系统时候还忘记备份博客了，导致现在不得不重新从网页上扒下来之前的文章重新写一遍，十分耗费精力。因此在网上找了下如何备份Hexo博客，在此记录下。</p>
-<h1 id="备份博客"><a href="#备份博客" class="headerlink" title="备份博客"></a>备份博客</h1><p>先将本地Hexo博客已经初始化</p>
-<h2 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h2><p>在Github.io上建立博客时已经开了一个新仓库了，如果再开另一个仓库存放源代码有点浪费，因此采用建立新分支的方法备份博客。</p>
-<p>虽然理论上什么时候创建新分支来备份都可以，但是还是建议在建立博客的时候就创建备份分支。（然而我中途才想起来-.-）</p>
-<p>不过在建立新分支前请确保仓库内已有<code>master</code>分支（Hexo本地建站后第一次上传时会自动生成），否则后期再添加<code>master</code>分支比较麻烦（请自行搜索<code>git</code>命令）。</p>
-<p>本地Git建立新分支命令如下：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -<span class="keyword">b </span><span class="keyword">BRANCHNAME</span></span><br></pre></td></tr></table></figure>
-<p><code>BRANCHNAME</code>是自定义的新分支的名字，建议起为<code>hexo</code>。</p>
+          <p>​                动词            形容词1            形容词2                名词</p>
+<p>一般现在时        ます            い                です                です</p>
+<p>过去时            ました            かった            でした                でした</p>
+<p>否定            ません            くないです        くありません            では　ありません</p>
+<p>过去否定            ませんでした        くなかったです    くありませんでした    では　ありませんでした</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/12/Github建立分支备份Hexo/#more" rel="contents">
+            <a class="btn" href="/2020/03/02/日语学习笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1232,7 +1571,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2018/01/02/项目托管至Github/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/01/13/微服务通讯/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1251,7 +1590,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/02/项目托管至Github/" itemprop="url">项目托管至Github</a></h1>
+                <a class="post-title-link" href="/2020/01/13/微服务通讯/" itemprop="url">微服务通讯</a></h1>
         
 
         <div class="post-meta">
@@ -1263,8 +1602,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-02T15:45:42+08:00">
-                2018-01-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-13T14:07:27+08:00">
+                2020-01-13
               </time>
             
 
@@ -1286,8 +1625,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/项目管理/" itemprop="url" rel="index">
-                    <span itemprop="name">项目管理</span>
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
                   </a>
                 </span>
 
@@ -1319,7 +1658,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  629
+                  1,431
                 </span>
               
 
@@ -1335,7 +1674,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3分钟
+                  7分钟
                 </span>
               
             </div>
@@ -1357,17 +1696,13 @@
 
       
         
-          <p>本地新建项目后，如何同步到 github 上呢？</p>
-<ol>
-<li>在GitHub上新建项目</li>
-<li>进入本地项目目录，依次执行</li>
-</ol>
-<blockquote>
-<p>git init<br>git add .<br>git commit -m “备注”<br>git remote add origin 仓库地址<br>git push -u origin master</p>
-</blockquote>
+          <h4 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a><strong>什么是微服务</strong></h4><ul>
+<li>微服务架构是一个分布式系统, 按照业务进行划分成为不同的服务单元, 解决单体系统性能等不足。</li>
+<li>微服务是一种架构风格，一个大型软件应用由多个服务单元组成。系统中的服务单元可以单独部署，各个服务单元之间是松耦合的。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/02/项目托管至Github/#more" rel="contents">
+            <a class="btn" href="/2020/01/13/微服务通讯/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1418,7 +1753,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/05/15/系统学习Spring-三-——Bean的高级装配/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/01/02/Async异步调用实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1437,7 +1772,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/15/系统学习Spring-三-——Bean的高级装配/" itemprop="url">系统学习Spring(三)——Bean的高级装配</a></h1>
+                <a class="post-title-link" href="/2020/01/02/Async异步调用实践/" itemprop="url">@Async异步调用实践</a></h1>
         
 
         <div class="post-meta">
@@ -1449,8 +1784,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T16:50:55+08:00">
-                2017-05-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-02T15:06:15+08:00">
+                2020-01-02
               </time>
             
 
@@ -1505,7 +1840,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8,446
+                  1,993
                 </span>
               
 
@@ -1521,7 +1856,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  35分钟
+                  10分钟
                 </span>
               
             </div>
@@ -1543,18 +1878,18 @@
 
       
         
-          <p>在软件开发中，常常设置不同的运行环境：开发环境、预发环境、性能测试环境和生产环境等等。</p>
-<p>不同的环境下，应用程序的配置项也不同，例如数据库配置、远程服务地址等。
+          <p>异步调用对应的是同步调用，同步调用可以理解为按照定义的顺序依次执行，有序性；异步调用在执行的时候不需要等待上一个指令调用结束就可以继续执行。</p>
+<p>我们将在创建一个 Spring Boot 工程来说明。具体工程可以参考github代码 <a href="https://github.com/JustDoItLee/demo/tree/master/demo/async" target="_blank" rel="noopener">github</a></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/15/系统学习Spring-三-——Bean的高级装配/#more" rel="contents">
+            <a class="btn" href="/2020/01/02/Async异步调用实践/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </p></div>
+    </div>
     
     
     
@@ -1598,7 +1933,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/05/10/系统学习Spring（二）——装配Bean/">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2019/12/29/PostgreSQL集群及读写分离方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李智">
@@ -1617,7 +1952,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/10/系统学习Spring（二）——装配Bean/" itemprop="url">系统学习Spring（二）——装配Bean</a></h1>
+                <a class="post-title-link" href="/2019/12/29/PostgreSQL集群及读写分离方案/" itemprop="url">PostgreSQL集群及读写分离实践</a></h1>
         
 
         <div class="post-meta">
@@ -1629,8 +1964,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-10T12:42:32+08:00">
-                2017-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-29T17:26:58+08:00">
+                2019-12-29
               </time>
             
 
@@ -1652,8 +1987,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
                   </a>
                 </span>
 
@@ -1685,7 +2020,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,374
+                  1,922
                 </span>
               
 
@@ -1701,7 +2036,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14分钟
+                  11分钟
                 </span>
               
             </div>
@@ -1723,376 +2058,43 @@
 
       
         
-          <p>任何一个成功的应用都是由多个为了实现某个业务目标而相互协作的组件构成的，这些组件必须相互了解、能够相互协作完成工作。
+          <p>为了方便，只搭建一主一从。首先准备两台服务器，信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>角色</th>
+<th>端口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.0.31</td>
+<td>master</td>
+<td>5432</td>
+</tr>
+<tr>
+<td></td>
+<td>pgpool-II</td>
+<td>9999</td>
+</tr>
+<tr>
+<td>192.168.0.32</td>
+<td>slave</td>
+<td>5432</td>
+</tr>
+</tbody>
+</table>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/10/系统学习Spring（二）——装配Bean/#more" rel="contents">
+            <a class="btn" href="/2019/12/29/PostgreSQL集群及读写分离方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/05/09/Spring初探（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/09/Spring初探（一）/" itemprop="url">系统学习Spring（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-09T16:57:59+08:00">
-                2017-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
-                    <span itemprop="name">Java二三事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,098
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  12分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>对于Java开发者来说，这是一个好的时代。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/09/Spring初探（一）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/04/18/userId分库，怎么通过其他字段查询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/18/userId分库，怎么通过其他字段查询/" itemprop="url">userId分库，怎么通过其他字段查询</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T10:12:40+08:00">
-                2017-04-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库那点事/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库那点事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  815
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>用户中心是几乎每一个公司必备的基础服务，用户注册、登录、信息查询与修改都离不开用户中心。</p>
-<p>当数据量越来越大时，需要多用户中心进行水平切分。最常见的水平切分方式，<strong>按照userId取模分库</strong>：
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/18/userId分库，怎么通过其他字段查询/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
+    </div>
     
     
     
@@ -2127,7 +2129,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2175,7 +2177,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2273,7 +2275,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共119.5k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共120.7k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
