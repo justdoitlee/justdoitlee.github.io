@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="/platelet/assets/css/platelet.css" rel="stylesheet" type="text/css">
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文针对jdk1.8的ConcurrentHashMap 1.8的HashMap设计  1.1 整体概览  HashMap采用的是数组+链表+红黑树的形式。 数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。 用户可以设置的参数：初始总容量默认16，默认的加载因子0.75 初始的数组个数默认是16（用户不能设置的） 容量X加载因子=阈值 一旦目前容量超过该阈值，则执行扩容操">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdk1.8的HashMap和ConcurrentHashMap">
+<meta property="og:url" content="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/index.html">
+<meta property="og:site_name" content="李智‘Blog">
+<meta property="og:description" content="本文针对jdk1.8的ConcurrentHashMap 1.8的HashMap设计  1.1 整体概览  HashMap采用的是数组+链表+红黑树的形式。 数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。 用户可以设置的参数：初始总容量默认16，默认的加载因子0.75 初始的数组个数默认是16（用户不能设置的） 容量X加载因子=阈值 一旦目前容量超过该阈值，则执行扩容操">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107004609227">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107004911697">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107005249311">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107005617154">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107005641091">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107005716473">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107005803333">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107005911460">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010024665">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010051374">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010125312">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010151062">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010302919">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010356702">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010526876">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010603392">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010723393">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107010744786">
+<meta property="og:updated_time" content="2021-03-18T06:23:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jdk1.8的HashMap和ConcurrentHashMap">
+<meta name="twitter:description" content="本文针对jdk1.8的ConcurrentHashMap 1.8的HashMap设计  1.1 整体概览  HashMap采用的是数组+链表+红黑树的形式。 数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。 用户可以设置的参数：初始总容量默认16，默认的加载因子0.75 初始的数组个数默认是16（用户不能设置的） 容量X加载因子=阈值 一旦目前容量超过该阈值，则执行扩容操">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170107004609227">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">
+
+
+
+
+
+  <title>jdk1.8的HashMap和ConcurrentHashMap | 李智‘Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/JustDoItLee" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"/></svg></a>
+
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">李智‘Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">读了一些书，看了一些文章，编过一些小例程，搞了一些没有什么技术含量的开发工作。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-globe-asia">
+          <a href="/rice/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            朋友圈
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">jdk1.8的HashMap和ConcurrentHashMap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T21:55:33+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java二三事/" itemprop="url" rel="index">
+                    <span itemprop="name">Java二三事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+            <span>&nbsp; | &nbsp;
+            <span id="busuanzi_value_page_pv"></span>次阅读
+            </span>    
+            
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,591
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="/assets/js/APlayer.min.js"> </script><p>本文针对jdk1.8的ConcurrentHashMap</p>
+<h1>1.8的HashMap设计</h1>
+
+<h2>1.1 整体概览</h2>
+
+<p>HashMap采用的是<strong>数组+链表+红黑树</strong>的形式。</p>
+<p>数组是可以扩容的，链表也是转化为红黑树的，这2种方式都可以承载更多的数据。</p>
+<p>用户可以设置的参数：初始总容量默认16，默认的加载因子0.75</p>
+<p>初始的数组个数默认是16（用户不能设置的）</p>
+<p>容量X加载因子=阈值</p>
+<p>一旦目前容量超过该阈值，则执行扩容操作。<a id="more"></a></p>
+<p><strong>什么时候扩容？</strong></p>
+<p><li>当前容量超过阈值</li></p>
+<p><li>当链表中元素个数超过默认设定（8个），当数组的大小还未超过64的时候，此时进行数组的扩容，如果超过则将链表转化成红黑树</li></p>
+<p><strong>什么时候链表转化为红黑树？（上面已经提到了）</strong></p>
+<p><li>当数组大小已经超过64并且链表中的元素个数超过默认设定（8个）时，将链表转化为红黑树</li></p>
+<p>目前形象的表示数组中的一个元素称为一个桶</p>
+<h2>1.2 put过程</h2>
+
+<p><li>根据key计算出hash值</li></p>
+<p><li>hash值&amp;（数组长度-1）得到所在数组的index</li></p>
+<pre><code>如果该index位置的Node元素不存在，则直接创建一个新的Node
+如果该index位置的Node元素是TreeNode类型即红黑树类型了，则直接按照红黑树的插入方式进行插入
+如果该index位置的Node元素是非TreeNode类型则，则按照链表的形式进行插入操作
+</code></pre><p>链表插入操作完成后，判断是否超过阈值TREEIFY_THRESHOLD（默认是8），超过则要么数组扩容要么链表转化成红黑树</p>
+<p><li>判断当前总容量是否超出阈值，如果超出则执行扩容</li></p>
+<p>源码如下：</p>
+<p><img src="http://img.blog.csdn.net/20170107004609227" alt="这里写图片描述"></p>
+<p>下面来说说这个扩容的过程</p>
+<h2>1.3 扩容过程</h2>
+
+<p>按照2倍扩容的方式，那么就需要将之前的所有元素全部重新按照2倍桶的长度重新计算所在桶。这里为啥是2倍？</p>
+<p>因为2倍的话，更加容易计算他们所在的桶，并且各自不会相互干扰。如原桶长度是4，现在桶长度是8，那么</p>
+<pre><code>桶0中的元素会被分到桶0和桶4中
+桶1中的元素会被分到桶1和桶5中
+桶2中的元素会被分到桶2和桶6中
+桶3中的元素会被分到桶3和桶7中
+</code></pre><p>为啥是这样呢？</p>
+<p>桶0中的元素的hash值后2位必然是00，这些hash值可以根据后3位000或者100分成2类数据。他们分别&amp;（8-1）即&amp;111,则后3位为000的在桶0中，后3位为100的必然在桶4中。其他同理，也就是说桶4和桶0重新瓜分了原来桶0中的元素。</p>
+<p>如果换成其他倍数，那么瓜分就比较混乱了。</p>
+<p>这样在瓜分这些数据的时候，只需要先把这些数据分类，如上述桶0中分成000和100 2类，然后直接构成新的链表，分类完毕后，直接将新的链表挂在对应的桶下即可，源码如下：</p>
+<p><img src="http://img.blog.csdn.net/20170107004911697" alt="这里写图片描述"></p>
+<p>上述 (e.hash &amp; oldCap) == 0 即可将原桶中的数据分成2类</p>
+<p>上述是对于链表情况下的重新移动，而针对红黑树情况下：</p>
+<p>则需要考虑分类之后是否还需要依然保持红黑树，如果个数少则直接使用链表即可。</p>
+<h2>1.4 get过程</h2>
+
+<p>get过程比较简单</p>
+<p><li>根据key计算出hash值</li></p>
+<p><li>hash值&amp;（数组长度-1）得到所在数组的index        </li></p>
+<pre><code>如果要找的key就是上述数组index位置的元素，直接返回该元素的值
+如果该数组index位置元素是TreeNode类型，则按照红黑树的查询方式来进行查找
+如果该数组index位置元素非TreeNode类型，则按照链表的方式来进行遍历查询
+</code></pre><p>源码如下：</p>
+<p><img src="http://img.blog.csdn.net/20170107005249311" alt="这里写图片描述"></p>
+<h1>1.7的ConcurrentHashMap设计</h1>
+
+<p>ConcurrentHashMap是线程安全，通过分段锁的方式提高了并发度。分段是一开始就确定的了，后期不能再进行扩容的。</p>
+<p>其中的段Segment继承了重入锁ReentrantLock，有了锁的功能，同时含有类似HashMap中的数组加链表结构（这里没有使用红黑树）</p>
+<p>虽然Segment的个数是不能扩容的，但是单个Segment里面的数组是可以扩容的。</p>
+<h2>2.1 整体概览</h2>
+
+<p>ConcurrentHashMap有3个参数：</p>
+<pre><code>initialCapacity：初始总容量，默认16
+loadFactor：加载因子，默认0.75
+concurrencyLevel：并发级别，默认16
+</code></pre><p>然后我们需要知道的是：</p>
+<p><li>segment的个数即ssize</li></p>
+<p>取大于等于并发级别的最小的2的幂次。如concurrencyLevel=16，那么sszie=16,如concurrencyLevel=10，那么ssize=16</p>
+<p><li>单个segment的初始容量cap</li></p>
+<p>c=initialCapacity/ssize,并且可能需要+1。如15/7=2，那么c要取3，如16/8=2，那么c取2</p>
+<p>c可能是一个任意值，那么同上述一样，cap取的值就是大于等于c的最下2的幂次。最小值要求是2</p>
+<p><li>单个segment的阈值threshold</li></p>
+<p>cap*loadFactor</p>
+<p>所以默认情况下，segment的个数sszie=16,每个segment的初始容量cap=2，单个segment的阈值threshold=1</p>
+<h2>2.2 put过程</h2>
+
+<p><li>首先根据key计算出一个hash值，找到对应的Segment</li></p>
+<p><li>调用Segment的lock方法，为后面的put操作加锁</li></p>
+<p><li>根据key计算出hash值，找到Segment中数组中对应index的链表，并将该数据放置到该链表中</li></p>
+<p><li>判断当前Segment包含元素的数量大于阈值，则Segment进行扩容</li></p>
+<p>整体代码逻辑见如下源码：</p>
+<p><img src="http://img.blog.csdn.net/20170107005617154" alt="这里写图片描述"></p>
+<p>其中上述Segment的put过程源码如下：</p>
+<p><img src="http://img.blog.csdn.net/20170107005641091" alt="这里写图片描述"></p>
+<h2>2.3 扩容过程</h2>
+
+<p>这个扩容是在Segment的锁的保护下进行扩容的，不需要关注并发问题。</p>
+<p><img src="http://img.blog.csdn.net/20170107005716473" alt="这里写图片描述"></p>
+<p>这里的重点就是：</p>
+<p>首先找到一个lastRun，lastRun之后的元素和lastRun是在同一个桶中，所以后面的不需要进行变动。</p>
+<p>然后对开始到lastRun部分的元素，重新计算下设置到newTable中，每次都是将当前元素作为newTable的首元素，之前老的链表作为该首元素的next部分。</p>
+<h2>2.4 get过程</h2>
+
+<p><li>根据key计算出对应的segment</li></p>
+<p><li>再根据key计算出对应segment中数组的index</li></p>
+<p><li>最终遍历上述index位置的链表，查找出对应的key的value</li></p>
+<p>源码如下：</p>
+<p><img src="http://img.blog.csdn.net/20170107005803333" alt="这里写图片描述"></p>
+<h1>1.8的ConcurrentHashMap设计</h1>
+
+<p>1.8的ConcurrentHashMap摒弃了1.7的segment设计，而是在1.8HashMap的基础上实现了线程安全的版本，即也是采用<strong>数组+链表+红黑树</strong>的形式。</p>
+<p>数组可以扩容，链表可以转化为红黑树</p>
+<h2>3.1 整体概览</h2>
+
+<p>有一个重要的参数sizeCtl，代表数组的大小（但是还有其他取值及其含义，后面再详细说到）</p>
+<p>用户可以设置一个初始容量initialCapacity给ConcurrentHashMap</p>
+<p>sizeCtl=大于（1.5倍initialCapacity+1）的最小的2的幂次。</p>
+<p>即initialCapacity=20，则sizeCtl=32,如initialCapacity=24，则sizeCtl=64。</p>
+<p>初始化的时候，会按照sizeCtl的大小创建出对应大小的数组</p>
+<h2>3.2 put过程</h2>
+
+<p>源码如下所示：</p>
+<p><img src="http://img.blog.csdn.net/20170107005911460" alt="这里写图片描述"></p>
+<p><li>如果数组还未初始化，那么进行初始化，这里会通过一个CAS操作将sizeCtl设置为-1，设置成功的，可以进行初始化操作</li></p>
+<p><li>根据key的hash值找到对应的桶，如果桶还不存在，那么通过一个CAS操作来设置桶的第一个元素，失败的继续执行下面的逻辑即向桶中插入或更新</li></p>
+<p><li>如果找到的桶存在，但是桶中第一个元素的hash值是-1，说明此时该桶正在进行迁移操作，这一块会在下面的扩容中详细谈及。</li></p>
+<p><li>如果找到的桶存在，那么要么是链表结构要么是红黑树结构，此时需要获取该桶的锁，在锁定的情况下执行链表或者红黑树的插入或更新</li></p>
+<pre><code>如果桶中第一个元素的hash值大于0，说明是链表结构，则对链表插入或者更新
+如果桶中的第一个元素类型是TreeBin，说明是红黑树结构，则按照红黑树的方式进行插入或者更新
+</code></pre><p><li>在锁的保护下插入或者更新完毕后，如果是链表结构，需要判断链表中元素的数量是否超过8（默认），一旦超过就要考虑进行数组扩容或者是链表转红黑树</li></p>
+<p><strong>下面就来重点看看这个扩容过程</strong></p>
+<h2>3.3 扩容过程</h2>
+
+<p>一旦链表中的元素个数超过了8个，那么可以执行数组扩容或者链表转为红黑树，这里依据的策略跟HashMap依据的策略是一致的。</p>
+<p>当数组长度还未达到64个时，优先数组的扩容，否则选择链表转为红黑树。</p>
+<p>源码如下所示：</p>
+<p><img src="http://img.blog.csdn.net/20170107010024665" alt="这里写图片描述"></p>
+<p>重点来看看这个扩容过程，即看下上述tryPresize方法，也可以看到上述是2倍扩容的方式</p>
+<p><img src="http://img.blog.csdn.net/20170107010051374" alt="这里写图片描述"></p>
+<p>第一个执行的线程会首先设置sizeCtl属性为一个负值，然后执行transfer(tab, null)，其他晚进来的线程会检查当前扩容是否已经完成，没完成则帮助进行扩容，完成了则直接退出。</p>
+<p>该ConcurrentHashMap的扩容操作可以允许多个线程并发执行，那么就要处理好任务的分配工作。每个线程获取一部分桶的迁移任务，如果当前线程的任务完成，查看是否还有未迁移的桶，若有则继续领取任务执行，若没有则退出。在退出时需要检查是否还有其他线程在参与迁移工作，如果有则自己什么也不做直接退出，如果没有了则执行最终的收尾工作。</p>
+<p><strong>问题1：当前线程如何感知其他线程也在参与迁移工作？</strong></p>
+<p>靠sizeCtl的值，它初始值是一个负值=(rs &lt;&lt; RESIZE_STAMP_SHIFT) + 2)，每当一个线程参与进来执行迁移工作，则该值进行CAS自增，该线程的任务执行完毕要退出时对该值进行CAS自减操作，所以当sizeCtl的值等于上述初值则说明了此时未有其他线程还在执行迁移工作，可以去执行收尾工作了。见如下代码</p>
+<p><img src="http://img.blog.csdn.net/20170107010125312" alt="这里写图片描述"></p>
+<p><strong>问题2：任务按照何规则进行分片？</strong></p>
+<p><img src="http://img.blog.csdn.net/20170107010151062" alt="这里写图片描述"></p>
+<p>上述stride即是每个分片的大小，目前有最低要求16，即每个分片至少需要16个桶。stride的计算依赖于CPU的核数，如果只有1个核，那么此时就不用分片，即stride=n。其他情况就是 (n &gt;&gt;&gt; 3) / NCPU。</p>
+<p><strong>问题3：如何记录目前已经分出去的任务？</strong></p>
+<p>ConcurrentHashMap含有一个属性transferIndex（初值为最后一个桶），表示从transferIndex开始到后面所有的桶的迁移任务已经被分配出去了。所以每次线程领取扩容任务，则需要对该属性进行CAS的减操作，即一般是transferIndex-stride。</p>
+<p><strong>问题4：每个线程如何处理分到的部分桶的迁移工作</strong></p>
+<p>第一个获取到分片的线程会创建一个新的数组，容量是之前的2倍。</p>
+<p>遍历自己所分到的桶：</p>
+<pre><code>桶中元素不存在，则通过CAS操作设置桶中第一个元素为ForwardingNode，其Hash值为MOVED（-1）,同时该元素含有新的数组引用
+
+此时若其他线程进行put操作，发现第一个元素的hash值为-1则代表正在进行扩容操作（并且表明该桶已经完成扩容操作了，可以直接在新的数组中重新进行hash和插入操作），该线程就可以去参与进去，或者没有任务则不用参与，此时可以去直接操作新的数组了
+
+桶中元素存在且hash值为-1，则说明该桶已经被处理了（本不会出现多个线程任务重叠的情况，这里主要是该线程在执行完所有的任务后会再次进行检查，再次核对）
+
+桶中为链表或者红黑树结构，则需要获取桶锁，防止其他线程对该桶进行put操作，然后处理方式同HashMap的处理方式一样，对桶中元素分为2类，分别代表当前桶中和要迁移到新桶中的元素。设置完毕后代表桶迁移工作已经完成，旧数组中该桶可以设置成ForwardingNode了
+</code></pre><p>下面来看下详细的代码：</p>
+<p><img src="http://img.blog.csdn.net/20170107010302919" alt="这里写图片描述"></p>
+<h2>3.4 get过程</h2>
+
+<p><li>根据k计算出hash值，找到对应的数组index</li></p>
+<p><li>如果该index位置无元素则直接返回null</li></p>
+<p><li>如果该index位置有元素</li></p>
+<pre><code>如果第一个元素的hash值小于0，则该节点可能为ForwardingNode或者红黑树节点TreeBin
+
+如果是ForwardingNode（表示当前正在进行扩容），使用新的数组来进行查找
+
+如果是红黑树节点TreeBin，使用红黑树的查找方式来进行查找
+
+如果第一个元素的hash大于等于0，则为链表结构，依次遍历即可找到对应的元素
+</code></pre><p>详细代码如下</p>
+<p><img src="http://img.blog.csdn.net/20170107010356702" alt="这里写图片描述"></p>
+<p>至此，ConcurrentHashMap主要的操作都粗略的介绍完毕了，其他一些操作靠各位自行去看了。</p>
+<p>下面针对一些问题来进行解答</p>
+<p></p><h1>问题分析<h1><p></p>
+<h2>4.1 ConcurrentHashMap读为什么不需要锁？</h2>
+
+<p>我们通常使用读写锁来保护对一堆数据的读写操作。读时加读锁，写时加写锁。在什么样的情况下可以不需要读锁呢？</p>
+<p>如果对数据的读写是一个原子操作，那么此时是可以不需要读锁的。如ConcurrentHashMap对数据的读写，写操作是不需要分2次写的（没有中间状态），读操作也是不需要2次读取的。假如一个写操作需要分多次写，必然会有中间状态，如果读不加锁，那么可能就会读到中间状态，那就不对了。</p>
+<p>假如ConcurrentHashMap提供put(key1,value1,key2,value2)，写入的时候必然会存在中间状态即key1写完成，但是key2还未写，此时如果读不加锁，那么就可能读到key1是新数据而key2是老数据的中间状态。</p>
+<p>虽然ConcurrentHashMap的读不需要锁，但是需要保证能读到最新数据，所以必须加volatile。即数组的引用需要加volatile，同时一个Node节点中的val和next属性也必须要加volatile。</p>
+<h2>4.2 ConcurrentHashMap是否可以在无锁的情况下进行迁移？</h2>
+
+<p>目前1.8的ConcurrentHashMap迁移是在锁定旧桶的前提下进行迁移的，然而并没有去锁定新桶。那么就可能提出如下问题：</p>
+<p><li>在某个桶的迁移过程中，别的线程想要对该桶进行put操作怎么办？</li></p>
+<p>一旦某个桶在迁移过程中了，必然要获取该桶的锁，所以其他线程的put操作要被阻塞，一旦迁移完毕，该桶中第一个元素就会被设置成ForwardingNode节点，所以其他线程put时需要重新判断下桶中第一个元素是否被更改了，如果被改了重新获取重新执行逻辑，如下代码</p>
+<p><img src="http://img.blog.csdn.net/20170107010526876" alt="这里写图片描述"></p>
+<p><li>某个桶已经迁移完成（其他桶还未完成），别的线程想要对该桶进行put操作怎么办？</li></p>
+<p>该线程会首先检查是否还有未分配的迁移任务，如果有则先去执行迁移任务，如果没有即全部任务已经分发出去了，那么此时该线程可以直接对新的桶进行插入操作（映射到的新桶必然已经完成了迁移，所以可以放心执行操作）</p>
+<p>从上面看到我们在迁移的时候还是需要对旧桶锁定的，能否在无锁的情况下实现迁移？</p>
+<p>可以参考参考这篇论文Split-Ordered Lists: Lock-Free Extensible Hash Tables</p>
+<p>一旦扩容就涉及到迁移桶中元素的操作，将一个桶中的元素迁移到另一个桶中的操作不是一个原子操作，所以需要在锁的保护下进行迁移。如果扩容操作是移动桶的指向，那么就可以通过一个CAS操作来完成扩容操作。上述Split-Ordered Lists就是把所有元素按照一定的顺序进行排列。该list被分成一段一段的，每一段都代表某个桶中的所有元素。每个桶中都有一个指向第一个元素的指针，如下图结构所示：</p>
+<p><img src="http://img.blog.csdn.net/20170107010603392" alt="这里写图片描述"></p>
+<p>每一段其实也是分成2类的，如同前面所说的HashMap在扩容是分成2类的情况是一样的，此时Split-Ordered Lists在扩容时就只需要将新桶的指针指向这2类的分界点即可。</p>
+<p>这一块之后再详细说明吧。</p>
+<h2>4.3 ConcurrentHashMap曾经的弱一致性</h2>
+
+<p>具体详见这篇针对老版本的ConcurrentHashMap的说明文章<a href="http://ifeve.com/concurrenthashmap-weakly-consistent/" target="_blank" rel="noopener">为什么ConcurrentHashMap是弱一致的</a></p>
+<p>文中已经解释到：对数组的引用是volatile来修饰的，但是数组中的元素并不是。即读取数组的引用总是能读取到最新的值，但是读取数组中某一个元素的时候并不一定能读到最新的值。所以说是弱一致性的。</p>
+<p>我觉得这个只需要稍微改动下就可以实现强一致性：</p>
+<p><li>对于新加的key，通过写入到链表的末尾即可。因为一个元素的next属性是volatile的，可以保证写入后立马看的到，如下1.8的方式</li></p>
+<p><li>或者对数组中元素的更新采用volatile写的方式，如下1.7的形式</li></p>
+<p>但是现在1.7版本的ConcurrentHashMap对于数组中元素的写也是加了volatile的，如下代码</p>
+<p><img src="http://img.blog.csdn.net/20170107010723393" alt="这里写图片描述"></p>
+<p>1.8的方式就是：直接将新加入的元素写入next属性（含有volatile修饰）中而不是修改桶中的第一个元素。</p>
+<p><img src="http://img.blog.csdn.net/20170107010744786" alt="这里写图片描述"></p>
+<p>所以在1.7和1.8版本的ConcurrentHashMap中不再是弱一致性，写入的数据是可以立马本读到的。</p>
+</h1></h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="李智 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李智
+  </li>
+  <li class="post-copyright-link">
+    <strong>发布时间：</strong>
+    <a>2017年02月18日 - 21:02</a>
+  </li>
+  <li class="post-copyright-link">
+    <strong>更新时间：</strong>
+    <a>2021年03月18日 - 14:03</a>
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/" title="jdk1.8的HashMap和ConcurrentHashMap">http://justdoitlee.github.io/2017/02/18/jdk1-8的HashMap和ConcurrentHashMap/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/18/Browser的通讯”/" rel="next" title="cordova中与inBrowser的通讯">
+                <i class="fa fa-chevron-left"></i> cordova中与inBrowser的通讯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/18/2016年总结/" rel="prev" title="2016年总结">
+                2016年总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="李智">
+            
+              <p class="site-author-name" itemprop="name">李智</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/JustDoItLee" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:mailto:justdoitleeee@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">1.8的HashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">1.7的ConcurrentHashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">1.8的ConcurrentHashMap设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 整体概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 put过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 get过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">问题分析
+4.1 ConcurrentHashMap读为什么不需要锁？
+
+我们通常使用读写锁来保护对一堆数据的读写操作。读时加读锁，写时加写锁。在什么样的情况下可以不需要读锁呢？
+如果对数据的读写是一个原子操作，那么此时是可以不需要读锁的。如ConcurrentHashMap对数据的读写，写操作是不需要分2次写的（没有中间状态），读操作也是不需要2次读取的。假如一个写操作需要分多次写，必然会有中间状态，如果读不加锁，那么可能就会读到中间状态，那就不对了。
+假如ConcurrentHashMap提供put(key1,value1,key2,value2)，写入的时候必然会存在中间状态即key1写完成，但是key2还未写，此时如果读不加锁，那么就可能读到key1是新数据而key2是老数据的中间状态。
+虽然ConcurrentHashMap的读不需要锁，但是需要保证能读到最新数据，所以必须加volatile。即数组的引用需要加volatile，同时一个Node节点中的val和next属性也必须要加volatile。
+4.2 ConcurrentHashMap是否可以在无锁的情况下进行迁移？
+
+目前1.8的ConcurrentHashMap迁移是在锁定旧桶的前提下进行迁移的，然而并没有去锁定新桶。那么就可能提出如下问题：
+在某个桶的迁移过程中，别的线程想要对该桶进行put操作怎么办？
+一旦某个桶在迁移过程中了，必然要获取该桶的锁，所以其他线程的put操作要被阻塞，一旦迁移完毕，该桶中第一个元素就会被设置成ForwardingNode节点，所以其他线程put时需要重新判断下桶中第一个元素是否被更改了，如果被改了重新获取重新执行逻辑，如下代码
+
+某个桶已经迁移完成（其他桶还未完成），别的线程想要对该桶进行put操作怎么办？
+该线程会首先检查是否还有未分配的迁移任务，如果有则先去执行迁移任务，如果没有即全部任务已经分发出去了，那么此时该线程可以直接对新的桶进行插入操作（映射到的新桶必然已经完成了迁移，所以可以放心执行操作）
+从上面看到我们在迁移的时候还是需要对旧桶锁定的，能否在无锁的情况下实现迁移？
+可以参考参考这篇论文Split-Ordered Lists: Lock-Free Extensible Hash Tables
+一旦扩容就涉及到迁移桶中元素的操作，将一个桶中的元素迁移到另一个桶中的操作不是一个原子操作，所以需要在锁的保护下进行迁移。如果扩容操作是移动桶的指向，那么就可以通过一个CAS操作来完成扩容操作。上述Split-Ordered Lists就是把所有元素按照一定的顺序进行排列。该list被分成一段一段的，每一段都代表某个桶中的所有元素。每个桶中都有一个指向第一个元素的指针，如下图结构所示：
+
+每一段其实也是分成2类的，如同前面所说的HashMap在扩容是分成2类的情况是一样的，此时Split-Ordered Lists在扩容时就只需要将新桶的指针指向这2类的分界点即可。
+这一块之后再详细说明吧。
+4.3 ConcurrentHashMap曾经的弱一致性
+
+具体详见这篇针对老版本的ConcurrentHashMap的说明文章为什么ConcurrentHashMap是弱一致的
+文中已经解释到：对数组的引用是volatile来修饰的，但是数组中的元素并不是。即读取数组的引用总是能读取到最新的值，但是读取数组中某一个元素的时候并不一定能读到最新的值。所以说是弱一致性的。
+我觉得这个只需要稍微改动下就可以实现强一致性：
+对于新加的key，通过写入到链表的末尾即可。因为一个元素的next属性是volatile的，可以保证写入后立马看的到，如下1.8的方式
+或者对数组中元素的更新采用volatile写的方式，如下1.7的形式
+但是现在1.7版本的ConcurrentHashMap对于数组中元素的写也是加了volatile的，如下代码
+
+1.8的方式就是：直接将新加入的元素写入next属性（含有volatile修饰）中而不是修改桶中的第一个元素。
+
+所以在1.7和1.8版本的ConcurrentHashMap中不再是弱一致性，写入的数据是可以立马本读到的。
+</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">
+4.1 ConcurrentHashMap读为什么不需要锁？
+
+我们通常使用读写锁来保护对一堆数据的读写操作。读时加读锁，写时加写锁。在什么样的情况下可以不需要读锁呢？
+如果对数据的读写是一个原子操作，那么此时是可以不需要读锁的。如ConcurrentHashMap对数据的读写，写操作是不需要分2次写的（没有中间状态），读操作也是不需要2次读取的。假如一个写操作需要分多次写，必然会有中间状态，如果读不加锁，那么可能就会读到中间状态，那就不对了。
+假如ConcurrentHashMap提供put(key1,value1,key2,value2)，写入的时候必然会存在中间状态即key1写完成，但是key2还未写，此时如果读不加锁，那么就可能读到key1是新数据而key2是老数据的中间状态。
+虽然ConcurrentHashMap的读不需要锁，但是需要保证能读到最新数据，所以必须加volatile。即数组的引用需要加volatile，同时一个Node节点中的val和next属性也必须要加volatile。
+4.2 ConcurrentHashMap是否可以在无锁的情况下进行迁移？
+
+目前1.8的ConcurrentHashMap迁移是在锁定旧桶的前提下进行迁移的，然而并没有去锁定新桶。那么就可能提出如下问题：
+在某个桶的迁移过程中，别的线程想要对该桶进行put操作怎么办？
+一旦某个桶在迁移过程中了，必然要获取该桶的锁，所以其他线程的put操作要被阻塞，一旦迁移完毕，该桶中第一个元素就会被设置成ForwardingNode节点，所以其他线程put时需要重新判断下桶中第一个元素是否被更改了，如果被改了重新获取重新执行逻辑，如下代码
+
+某个桶已经迁移完成（其他桶还未完成），别的线程想要对该桶进行put操作怎么办？
+该线程会首先检查是否还有未分配的迁移任务，如果有则先去执行迁移任务，如果没有即全部任务已经分发出去了，那么此时该线程可以直接对新的桶进行插入操作（映射到的新桶必然已经完成了迁移，所以可以放心执行操作）
+从上面看到我们在迁移的时候还是需要对旧桶锁定的，能否在无锁的情况下实现迁移？
+可以参考参考这篇论文Split-Ordered Lists: Lock-Free Extensible Hash Tables
+一旦扩容就涉及到迁移桶中元素的操作，将一个桶中的元素迁移到另一个桶中的操作不是一个原子操作，所以需要在锁的保护下进行迁移。如果扩容操作是移动桶的指向，那么就可以通过一个CAS操作来完成扩容操作。上述Split-Ordered Lists就是把所有元素按照一定的顺序进行排列。该list被分成一段一段的，每一段都代表某个桶中的所有元素。每个桶中都有一个指向第一个元素的指针，如下图结构所示：
+
+每一段其实也是分成2类的，如同前面所说的HashMap在扩容是分成2类的情况是一样的，此时Split-Ordered Lists在扩容时就只需要将新桶的指针指向这2类的分界点即可。
+这一块之后再详细说明吧。
+4.3 ConcurrentHashMap曾经的弱一致性
+
+具体详见这篇针对老版本的ConcurrentHashMap的说明文章为什么ConcurrentHashMap是弱一致的
+文中已经解释到：对数组的引用是volatile来修饰的，但是数组中的元素并不是。即读取数组的引用总是能读取到最新的值，但是读取数组中某一个元素的时候并不一定能读到最新的值。所以说是弱一致性的。
+我觉得这个只需要稍微改动下就可以实现强一致性：
+对于新加的key，通过写入到链表的末尾即可。因为一个元素的next属性是volatile的，可以保证写入后立马看的到，如下1.8的方式
+或者对数组中元素的更新采用volatile写的方式，如下1.7的形式
+但是现在1.7版本的ConcurrentHashMap对于数组中元素的写也是加了volatile的，如下代码
+
+1.8的方式就是：直接将新加入的元素写入next属性（含有volatile修饰）中而不是修改桶中的第一个元素。
+
+所以在1.7和1.8版本的ConcurrentHashMap中不再是弱一致性，写入的数据是可以立马本读到的。
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 ConcurrentHashMap读为什么不需要锁？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 ConcurrentHashMap是否可以在无锁的情况下进行迁移？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 ConcurrentHashMap曾经的弱一致性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="margin-left:40%">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李智</span>
+
+  
+</div>
+<div style="margin-left:30%">
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+</div>
+<div class="theme-info" style="margin-left:20%">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共134.4k字</span>&nbsp&nbsp
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
+您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
+</div>
+
+
+  <div class="platelet" style="display: block; margin-left:-22%;">
+    <div class="platelet-tips"></div>
+    <div style="width: 250px;overflow: hidden;">
+      <canvas id="live2d" width="650" height="600" class="live2d" style="width: 325px;height: 300px;"></canvas>
+    </div>
+    <div class="platelet-tool">
+      <i class="fa fa-eye eye"></i>
+      <i class="fa fa-music music"></i>
+      <i class="fa fa-comment comment"></i>
+      <i class="fa fa-camera camera"></i>
+    </div>
+  </div>
+  <div id="main" class="container"></div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="/platelet/assets/js/live2d.js"></script>
+<script src="/platelet/assets/js/platelet.js"></script>
+<script src="/platelet/assets/js/renderer.js"></script>
+<script type="text/javascript">
+  loadlive2d("live2d", "/platelet/assets/kesshouban_v2/model.json");
+</script>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"platelet"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
