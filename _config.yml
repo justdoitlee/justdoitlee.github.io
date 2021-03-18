@@ -28,6 +28,7 @@ i18n_dir: :lang
 skip_render:
 - rice/**
 - love/**
+- 2048/**
 
 
 
@@ -93,5 +94,5 @@ live2d:
 deploy:
   type: git
   repo:
-          github: git@github.com:JustDoItLee/justdoitlee.github.io.git,master
+          github: https://github.com/JustDoItLee/justdoitlee.github.io.git,master
           # coding: git@git.coding.net:justdoitlee/justdoitlee.git,master
