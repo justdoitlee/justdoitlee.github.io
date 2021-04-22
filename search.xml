@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Iterm2使用agnosterzak打造个性终端</title>
+    <url>/2021/04/22/Iterm2%E4%BD%BF%E7%94%A8agnosterzak%E6%89%93%E9%80%A0%E4%B8%AA%E6%80%A7%E7%BB%88%E7%AB%AF/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>关机之后打开电脑，突然电脑配置全部恢复默认，Iterm2样式跟着失效了，然后重新打造一下，方便下次快速恢复终端样式。</p>
+<p>效果如下：</p>
+<p><img src="/img/iterm2css.png"></p>
+<p>准备工作：</p>
+<blockquote>
+<p>macOS 和 <a href="https://www.whatled.com/post-tag/iterm" target="_blank" rel="noopener">iTerm</a>2 软件</p>
+</blockquote>
+<h3 id="iTerm-操作"><a href="#iTerm-操作" class="headerlink" title="iTerm 操作"></a>iTerm 操作</h3><p>下载 <a href="https://www.whatled.com/post-tag/iterm" target="_blank" rel="noopener">iTerm</a> 软件 ： <a href="http://iterm2.com/" target="_blank" rel="noopener">http://iterm2.com/</a> 直接下载安装即可;</p>
+<h4 id="iTerm-主题"><a href="#iTerm-主题" class="headerlink" title="iTerm 主题"></a>iTerm 主题</h4><h5 id="1-1-下载主题"><a href="#1-1-下载主题" class="headerlink" title="1.1 下载主题"></a>1.1 下载主题</h5><p>下载地址 ： <a href="http://iterm2colorschemes.com/" target="_blank" rel="noopener">http://iterm2colorschemes.com/</a></p>
+<p>直接下载 <code>zip</code> 即可，后解压（主要使用 termite 文件下的主题）</p>
+<h5 id="1-2-配置主题"><a href="#1-2-配置主题" class="headerlink" title="1.2 配置主题"></a>1.2 配置主题</h5><p>打开 <a href="https://www.whatled.com/post-tag/iterm" target="_blank" rel="noopener">iTerm</a>2 配置 :</p>
+<blockquote>
+<p><a href="https://www.whatled.com/post-tag/iterm" target="_blank" rel="noopener">iTerm</a>2 / Preferences / Profiles</p>
+</blockquote>
+<p>新建 <code>Profile</code> ， 在 <code>Other Actions</code> 下 <code>Set as Default</code> , 这样重新打开 <code>iTerm2</code> 就是你的配置文件了，当然也可以直接修改默认的 <code>Profile</code></p>
+<p>点击Other Actions将当前的Profile设置为默认。</p>
+<p><strong>加载主题</strong></p>
+<p>选择你要修改的<code>Profile</code></p>
+<blockquote>
+<p>Profile / Colors / Color Presets / import…</p>
+</blockquote>
+<p>点击右下角的 <code>Color Presets</code> 下，<code>Import</code> 上面我们下载的 <code>iTerm2</code> 主题</p>
+<blockquote>
+<p>注意: 主要是 termite 文件下的主题，可以全选加入</p>
+</blockquote>
+<p><img src="/img/iterm2color.png"></p>
+<h3 id="Oh-my-ZSH"><a href="#Oh-my-ZSH" class="headerlink" title="Oh my ZSH"></a>Oh my ZSH</h3><h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><p>官网： <a href="http://ohmyz.sh/" target="_blank" rel="noopener">http://ohmyz.sh/</a></p>
+<p>可以看见两种安装方式：</p>
+<p><strong>curl</strong></p>
+<p><code>$ sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</code></p>
+<p><strong>wget</strong></p>
+<p><code>$ sh -c &quot;$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code></p>
+<h4 id="2-配置-Theme"><a href="#2-配置-Theme" class="headerlink" title="2. 配置 Theme"></a>2. 配置 Theme</h4><p>访问本地自带的主题：</p>
+<p><code>cd ~/.oh-my-zsh/themes</code></p>
+<p>里面有142个自带主题，这些主题在 zsh – theme , 可以查看；</p>
+<h5 id="2-1-配置默认主题"><a href="#2-1-配置默认主题" class="headerlink" title="2.1 配置默认主题"></a>2.1 配置默认主题</h5><p>打开 <a href="https://www.whatled.com/post-tag/oh-my-zsh" target="_blank" rel="noopener">Oh my ZSH</a> 配置文件</p>
+<p><code>vim ~/.zshrc</code></p>
+<p>找到 <code>ZSH_THEME</code> 行 修改为默认主题里的任意一个就可以 比如:</p>
+<p><code>ZSH_THEME=&quot;agnosterzak&quot;</code></p>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>图片所示的 agnosterzak 非默认主题,需要下载放入 theme 文件夹中</p>
+</blockquote>
+<p>将命令行设置为 <strong>ZSH</strong></p>
+<p><code>chsh -s /bin/zsh</code></p>
+<p>重启 iTerm 可以看到效果；</p>
+<p>如果设置 <code>agnoster</code> 出现乱码字符是因为没有该类型字体 ： powerline fonts ，后面会说安装该字体;</p>
+<h5 id="2-2-配置拓展主题"><a href="#2-2-配置拓展主题" class="headerlink" title="2.2 配置拓展主题"></a>2.2 配置拓展主题</h5><p>预览及其下载地址： External-themes</p>
+<p>安装 以 AgnosterZak 为例：</p>
+<p>访问：<em><a href="https://github.com/zakaziko99/agnosterzak-ohmyzsh-theme" target="_blank" rel="noopener">https://github.com/zakaziko99/agnosterzak-ohmyzsh-theme</a></em></p>
+<p><code>git clone https://github.com/zakaziko99/agnosterzak-ohmyzsh-theme.git</code></p>
+<p><code>cd agnosterzak-ohmyzsh-theme/</code></p>
+<p>将 <code>agnosterzak.zsh-theme</code> 复制到 <code>~/.oh-my-zsh/themes</code> 里面，比如：</p>
+<p><code>cp agnosterzak.zsh-theme ~/.oh-my-zsh/themes</code></p>
+<blockquote>
+<p>当然 <code>agnosterzak</code> 也依赖 power line 字体；</p>
+</blockquote>
+<h4 id="3-powerline-字体"><a href="#3-powerline-字体" class="headerlink" title="3. powerline 字体"></a>3. powerline 字体</h4><h5 id="3-1-下载"><a href="#3-1-下载" class="headerlink" title="3.1 下载"></a>3.1 下载</h5><p>访问字体地址 ： <a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">https://github.com/powerline/fonts</a></p>
+<p><strong>安装</strong></p>
+<p># clone</p>
+<p><code>git clone https://github.com/powerline/fonts.git</code></p>
+<p># install</p>
+<p><code>cd fonts ./install.sh</code></p>
+<p># clean-up a bit</p>
+<p><code>cd ..</code></p>
+<p><code>rm -rf fonts</code></p>
+<h5 id="3-2-iTerm2-配置使用"><a href="#3-2-iTerm2-配置使用" class="headerlink" title="3.2 iTerm2 配置使用"></a>3.2 iTerm2 配置使用</h5><blockquote>
+<p>iTerm2 / Preference / Profiles / Text – font</p>
+</blockquote>
+<p>选择 <code>change font</code> ， 可以修改字体和字体大小；找到一 <a href="https://www.whatled.com/post-tag/powerline" target="_blank" rel="noopener">Powerline</a> 结尾的字体就可以；</p>
+<p><img src="/img/iterm2font.png"></p>
+]]></content>
+      <categories>
+        <category>杂七杂八</category>
+      </categories>
+      <tags>
+        <tag>iterm2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>贪心算法</title>
     <url>/2020/12/10/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/non-overlapping-intervals/" target="_blank" rel="noopener">435. 无重叠区间</a></p>
@@ -1860,7 +1942,7 @@
 <p>2、存储位置上，数组逻辑上相邻的元素在物理存储位置上也相邻，而链表不一定；　</p>
 <p>3、存储空间上，链表由于带有指针域，存储密度不如数组大；　</p>
 <p>4、按序号查找时，数组可以随机访问，时间复杂度为O(1)，而链表不支持随机访问，平均需要O(n)；　</p>
-<p>5、按值查找时，若数组无序，数组和链表时间复杂度均为O(1)，但是当数组有序时，可以采用二分查找将时间复杂度降为O(logn)；　</p>
+<p>5、按值查找时，若数组无序，数组和链表时间复杂度均为O(n)，但是当数组有序时，可以采用二分查找将时间复杂度降为O(logn)；　</p>
 <p>6、插入和删除时，数组平均需要移动n/2个元素，而链表只需修改指针即可；　</p>
 <p>7、空间分配方面：<br>数组在静态存储分配情形下，存储元素数量受限制，动态存储分配情形下，虽然存储空间可以扩充，但需要移                                             动大量元素，导致操作效率降低，而且如果内存中没有更大块连续存储空间将导致分配失败；<br>链表存储的节点空间只在需要的时候申请分配，只要内存中有空间就可以分配，操作比较灵活高效；</p>
 <h4 id="3-2-error和exception的区别，CheckedException，RuntimeException的区别。"><a href="#3-2-error和exception的区别，CheckedException，RuntimeException的区别。" class="headerlink" title="3.2 error和exception的区别，CheckedException，RuntimeException的区别。"></a>3.2 error和exception的区别，CheckedException，RuntimeException的区别。</h4><p><strong>Exception</strong><br>一般分为Checked异常和Runtime异常，所有RuntimeException类及其子类的实例被称为Runtime异常，不属于该范畴的异常则被称为CheckedException。</p>
@@ -3958,7 +4040,7 @@ concurrencyLevel：并发级别，默认16
 <p>B 站每个视频都有对应的 aid 和 cid 值，在视频网页的源代码中可以找到</p>
 </blockquote>
 <a id="more"></a>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://www.bilibili.com/html/html5player.html?aid=3521416&amp;cid=6041635"</span> <span class="attr">width</span>=<span class="string">"960"</span> <span class="attr">height</span>=<span class="string">"600"</span> <span class="attr">frameborder</span>=<span class="string">"0"</span> <span class="attr">webkitallowfullscreen</span> <span class="attr">mozallowfullscreen</span> <span class="attr">allowfullscreen</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=<span class="string">"https://www.bilibili.com/html/html5player.html?aid=3521416&amp;cid=6041635"</span> <span class="built_in">width</span>=<span class="string">"960"</span> <span class="built_in">height</span>=<span class="string">"600"</span> frameborder=<span class="string">"0"</span> webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <iframe src="https://www.bilibili.com/html/html5player.html?aid=3521416&cid=6041635" width="960" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
