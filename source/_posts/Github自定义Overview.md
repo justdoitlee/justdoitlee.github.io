@@ -10,7 +10,7 @@ tags:
 
 在用户名同名库的READ.ME中所填入的所有信息都会被及时渲染到 GitHub 首页，支持常规的 Markdown 语法。效果如下：
 
-<img src="/img/githuboverview.png" />
+<img src="/img/githubOverview.png" />
 
 
 
