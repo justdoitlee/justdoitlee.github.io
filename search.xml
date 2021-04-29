@@ -54,6 +54,7 @@
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>关机之后打开电脑，突然电脑配置全部恢复默认，Iterm2样式跟着失效了，然后重新打造一下，方便下次快速恢复终端样式。</p>
 <p>效果如下：</p>
 <p><img src="/img/iterm2css.png"></p>
+<a id="more"></a>
 <p>准备工作：</p>
 <blockquote>
 <p>macOS 和 <a href="https://www.whatled.com/post-tag/iterm" target="_blank" rel="noopener">iTerm</a>2 软件</p>
@@ -77,7 +78,6 @@
 <p>注意: 主要是 termite 文件下的主题，可以全选加入</p>
 </blockquote>
 <p><img src="/img/iterm2color.png"></p>
-<a id="more"></a>
 <h3 id="Oh-my-ZSH"><a href="#Oh-my-ZSH" class="headerlink" title="Oh my ZSH"></a>Oh my ZSH</h3><h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><p>官网： <a href="http://ohmyz.sh/" target="_blank" rel="noopener">http://ohmyz.sh/</a></p>
 <p>可以看见两种安装方式：</p>
 <p><strong>curl</strong></p>
