@@ -50,6 +50,8 @@ tags:
 
 <img src="/img/iterm2color.png" />
 
+<!-- more -->
+
 ### Oh my ZSH
 
 #### 1. 安装
