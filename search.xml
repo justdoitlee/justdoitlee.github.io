@@ -2245,6 +2245,20 @@
       </tags>
   </entry>
   <entry>
+    <title>Java解析类Xml格式文件</title>
+    <url>/2018/04/30/Java%E8%A7%A3%E6%9E%90%E7%B1%BBXml%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>解析上游发来的类XML格式数据，直接使用<code>Document document = reader.read(path);</code>会失败，因为不包含<code>&lt;root&gt;&lt;/root&gt;</code>，所以这里需要自己手动拼接一下，方便解析，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Element <span class="title">getRoot</span><span class="params">(String path)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SAXReader saxReader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">        InputStream is = <span class="keyword">new</span> FileInputStream(path);</span><br><span class="line">        <span class="comment">//因为数据格式不是标准的xml，手动拼接一下方便解析</span></span><br><span class="line">        Enumeration&lt;InputStream&gt; streams = Collections.enumeration(</span><br><span class="line">                Arrays.asList(<span class="keyword">new</span> InputStream[]&#123;</span><br><span class="line">                        <span class="keyword">new</span> ByteArrayInputStream(<span class="string">"&lt;root&gt;"</span>.getBytes()),</span><br><span class="line">                        is,</span><br><span class="line">                        <span class="keyword">new</span> ByteArrayInputStream(<span class="string">"&lt;/root&gt;"</span>.getBytes()),</span><br><span class="line">                &#125;));</span><br><span class="line">        SequenceInputStream seqStream = <span class="keyword">new</span> SequenceInputStream(streams);</span><br><span class="line">        Document document = saxReader.read(seqStream);</span><br><span class="line">        <span class="keyword">return</span> document.getRootElement();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java二三事</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>XML</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>项目托管至Github</title>
     <url>/2018/01/02/%E9%A1%B9%E7%9B%AE%E6%89%98%E7%AE%A1%E8%87%B3Github/</url>
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>本地新建项目后，如何同步到 github 上呢？</p>
