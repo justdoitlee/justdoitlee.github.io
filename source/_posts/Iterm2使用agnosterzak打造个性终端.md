@@ -12,6 +12,8 @@ tags:
 
 <img src="/img/iterm2css.png" />
 
+<!-- more -->
+
 准备工作：
 
 > macOS 和 [iTerm](https://www.whatled.com/post-tag/iterm)2 软件
@@ -50,7 +52,7 @@ tags:
 
 <img src="/img/iterm2color.png" />
 
-<!-- more -->
+
 
 ### Oh my ZSH
 
