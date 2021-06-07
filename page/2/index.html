@@ -303,6 +303,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/24/编辑距离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李智">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李智‘Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/24/编辑距离/" itemprop="url">编辑距离</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-24T14:00:19+08:00">
+                2020-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,047
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://leetcode.com/problems/edit-distance" target="_blank" rel="noopener">72.编辑距离</a></p>
+<p><strong>解决两个字符串的动态规划问题，一般都是用两个指针</strong> <strong><code>i,j</code></strong> <strong>分别指向两个字符串的最后，然后一步步往前走，缩小问题的规模</strong>。</p>
+<p><strong>1.递归</strong></p>
+<p>base case 是 <code>i</code> 走完 <code>s1</code> 或 <code>j</code> 走完 <code>s2</code>，可以直接返回另一个字符串剩下的长度。</p>
+<p>对于每对字符 <code>s1[i]</code> 和 <code>s2[j]</code>，可以有四种操作：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> s1[<span class="built_in">i</span>] == s2[<span class="built_in">j</span>]:</span><br><span class="line">    啥都别做（skip）</span><br><span class="line">    <span class="built_in">i</span>, <span class="built_in">j</span> 同时向前移动</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    三选一：</span><br><span class="line">        插入（insert）</span><br><span class="line">        删除（delete）</span><br><span class="line">        替换（replace）</span><br></pre></td></tr></table></figure>
+<p>⏬⏬⏬</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="keyword">String</span> word1, <span class="keyword">String</span> word2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dp(word1, word2, word1.length() - <span class="number">1</span>, word2.length() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回 s1[0..i] 和 s2[0..j] 的最小编辑距离</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dp</span><span class="params">(<span class="keyword">String</span> s1, <span class="keyword">String</span> s2, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// base case</span></span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">-1</span>) <span class="keyword">return</span> j + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span>) <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (s1.charAt(i) == s2.charAt(j)) &#123;</span><br><span class="line">            <span class="comment">// 本来就相等，不需要任何操作</span></span><br><span class="line">            <span class="comment">// s1[0..i] 和 s2[0..j] 的最小编辑距离等于</span></span><br><span class="line">            <span class="comment">// s1[0..i-1] 和 s2[0..j-1] 的最小编辑距离</span></span><br><span class="line">            <span class="comment">// 也就是说 dp(i, j) 等于 dp(i-1, j-1)</span></span><br><span class="line">            <span class="keyword">return</span> dp(s1, s2, i - <span class="number">1</span>, j - <span class="number">1</span>);  <span class="comment">// 啥都不做</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 插入</span></span><br><span class="line">            <span class="comment">// 直接在 s1[i] 插入一个和 s2[j] 一样的字符</span></span><br><span class="line">            <span class="comment">// 那么 s2[j] 就被匹配了，前移 j，继续跟 i 对比</span></span><br><span class="line">            <span class="comment">// 操作数加一</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 删除</span></span><br><span class="line">            <span class="comment">// 直接把 s[i] 这个字符删掉</span></span><br><span class="line">            <span class="comment">// 前移 i，继续跟 j 对比</span></span><br><span class="line">            <span class="comment">// 操作数加一</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 替换</span></span><br><span class="line">            <span class="comment">// 直接把 s1[i] 替换成 s2[j]，这样它俩就匹配了</span></span><br><span class="line">            <span class="comment">// 同时前移 i，j 继续对比</span></span><br><span class="line">            <span class="comment">// 操作数加一</span></span><br><span class="line">            <span class="keyword">return</span> Math.<span class="built_in">min</span>(</span><br><span class="line">                    Math.<span class="built_in">min</span>(dp(s1, s2, i, j - <span class="number">1</span>) + <span class="number">1</span>,    <span class="comment">// 插入</span></span><br><span class="line">                            dp(s1, s2, i - <span class="number">1</span>, j) + <span class="number">1</span>),    <span class="comment">// 删除</span></span><br><span class="line">                    dp(s1, s2, i - <span class="number">1</span>, j - <span class="number">1</span>) + <span class="number">1</span> <span class="comment">// 替换</span></span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码有点小问题就是，这个解法是暴力解法，存在重叠子问题，需要用动态规划技巧来优化。</p>
+<p>对于子问题 <code>dp(i-1, j-1)</code>，如何通过原问题 <code>dp(i, j)</code> 得到呢？有不止一条路径，比如 <code>dp(i, j) -&gt; #1</code> 和 <code>dp(i, j) -&gt; #2 -&gt; #3</code>。一旦发现一条重复路径，就说明存在巨量重复路径，也就是重叠子问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/09/24/编辑距离/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/18/动态规划状态压缩/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -613,7 +801,7 @@
 <p>有时候反向遍历：</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (int i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    for (int j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)</span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br></pre></td></tr></table></figure>
 <p>有时候可能会斜向遍历：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 斜着遍历数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">2</span>; l &lt;= n; l++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - l; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> j = l + i - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 斜着遍历数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">2</span>; l &lt;= n; l++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - l; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> j = l + i - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/09/17/dp-数组的遍历方向/#more" rel="contents">
@@ -1940,222 +2128,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://justdoitlee.github.io/2020/09/14/股票买卖/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李智">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李智‘Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/14/股票买卖/" itemprop="url">股票买卖</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T14:41:06+08:00">
-                2020-09-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  898
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <script src="/assets/js/APlayer.min.js"> </script><p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solution/" target="_blank" rel="noopener">121.买卖股票的最佳时机</a></p>
-<p>一、穷举框架</p>
-<blockquote>
-<p>具体到每一天，看看总共有几种可能的「状态」，再找出每个「状态」对应的「选择」。我们要穷举所有「状态」，穷举的目的是根据对应的「选择」更新状态</p>
-</blockquote>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 状态<span class="number">1</span> in 状态<span class="number">1</span>的所有取值：</span><br><span class="line">    for 状态<span class="number">2</span> in 状态<span class="number">2</span>的所有取值：</span><br><span class="line">        for ...</span><br><span class="line">            dp[状态<span class="number">1</span>][状态<span class="number">2</span>][...] = 择优(选择<span class="number">1</span>，选择<span class="number">2.</span>..)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>「选择」：买入、卖出、无操作<br>「状态」：天数、允许交易的最大次数、当前的持有状态(1持有，0未持有)</p>
-<p><code>dp[3][2][1]</code> ：今天是第三天，我现在手上持有着股票，至今最多进行 2 次交易</p>
-<p>求<code>dp[n - 1][K][0]</code></p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">0 or 1</span>]</span><br><span class="line">0 <span class="xml"><span class="tag">&lt;<span class="name">=</span> <span class="attr">i</span> &lt;= <span class="string">n-1,</span> <span class="attr">1</span> &lt;= <span class="string">k</span> &lt;= <span class="string">K</span></span></span></span><br><span class="line"><span class="xml">n 为天数，大 K 为最多交易数</span></span><br><span class="line"><span class="xml">此问题共 n × K × 2 种状态，全部穷举就能搞定。</span></span><br><span class="line"></span><br><span class="line"><span class="xml">for 0 <span class="tag">&lt;<span class="name">=</span> <span class="attr">i</span> &lt; <span class="attr">n:</span></span></span></span><br><span class="line"><span class="xml">    for 1 <span class="tag">&lt;<span class="name">=</span> <span class="attr">k</span> &lt;= <span class="string">K:</span></span></span></span><br><span class="line"><span class="xml">        for s in &#123;0, 1&#125;:</span></span><br><span class="line"><span class="xml">            dp[i][k][s] = max(buy, sell, rest)</span></span><br></pre></td></tr></table></figure>
-<p>二、状态转移框架</p>
-<p><img src="/img/gupiaowenti.png"></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">0</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">0</span>], dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] + prices[i])</span><br><span class="line"><span class="code">             	max(选择 rest,      选择 sell)</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>今天我没有持有股票，有两种可能：<br>要么是我昨天就没有持有，然后今天选择 rest，所以我今天还是没有持有；<br>要么是我昨天持有股票，但是今天我 sell 了，所以我今天没有持有股票了。</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">1</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>], dp[<span class="string">i-1</span>][<span class="symbol">k-1</span>][<span class="string">0</span>] - prices[i])</span><br><span class="line"><span class="code">              max(选择 rest,      选择 buy)</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>今天我持有着股票，有两种可能：<br>要么我昨天就持有着股票，然后今天选择 rest，所以我今天还持有着股票；<br>要么我昨天本没有持有，但今天我选择 buy，所以今天我就持有股票了。</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">0</span>] = 0</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>因为 i 是从 0 开始的，所以 i = -1 意味着还没有开始，这时候的利润当然是 0 。</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] = -infinity</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>还没开始的时候，是不可能持有股票的，用负无穷表示这种不可能。</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">0</span>] = 0</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>因为 k 是从 1 开始的，所以 k = 0 意味着根本不允许交易，这时候利润当然是 0 。</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">1</span>] = -infinity</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>不允许交易的情况下，是不可能持有股票的，用负无穷表示这种不可能。</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">base case：</span><br><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">0</span>] = dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">0</span>] = 0</span><br><span class="line">dp[<span class="string">-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] = dp[<span class="string">i</span>][<span class="symbol">0</span>][<span class="string">1</span>] = -infinity</span><br><span class="line"></span><br><span class="line">状态转移方程：</span><br><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">0</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">0</span>], dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>] + prices[i])</span><br><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>][<span class="string">1</span>] = max(dp[<span class="string">i-1</span>][<span class="symbol">k</span>][<span class="string">1</span>], dp[<span class="string">i-1</span>][<span class="symbol">k-1</span>][<span class="string">0</span>] - prices[i])</span><br></pre></td></tr></table></figure>
-<p>⏬⏬⏬<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public int maxProfit(int<span class="comment">[]</span> prices) &#123;</span><br><span class="line">       if (prices == null || prices.length == 0) &#123;</span><br><span class="line">           return 0;</span><br><span class="line">       &#125;</span><br><span class="line">       int n = prices.length;</span><br><span class="line">       int<span class="comment">[]</span><span class="comment">[]</span> dp = new int<span class="comment">[n]</span><span class="comment">[2]</span>;</span><br><span class="line">       for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">           if (i - 1 == -1) &#123;</span><br><span class="line">               dp<span class="comment">[i]</span><span class="comment">[0]</span> = 0;</span><br><span class="line">               //   dp<span class="comment">[i]</span><span class="comment">[0]</span></span><br><span class="line">               // = max(dp<span class="comment">[-1]</span><span class="comment">[0]</span>, dp<span class="comment">[-1]</span><span class="comment">[1]</span> + prices<span class="comment">[i]</span>)</span><br><span class="line">               // = max(0, -infinity + prices<span class="comment">[i]</span>) = 0</span><br><span class="line">               dp<span class="comment">[i]</span><span class="comment">[1]</span> = -prices<span class="comment">[i]</span>;</span><br><span class="line">               //   dp<span class="comment">[i]</span><span class="comment">[1]</span></span><br><span class="line">               // = max(dp<span class="comment">[-1]</span><span class="comment">[1]</span>, dp<span class="comment">[-1]</span><span class="comment">[0]</span> - prices<span class="comment">[i]</span>)</span><br><span class="line">               // = max(-infinity, 0 - prices<span class="comment">[i]</span>)</span><br><span class="line">               // = -prices<span class="comment">[i]</span></span><br><span class="line">               continue;</span><br><span class="line">           &#125;</span><br><span class="line">           dp<span class="comment">[i]</span><span class="comment">[0]</span> = Math.max(dp<span class="comment">[i - 1]</span><span class="comment">[0]</span>, dp<span class="comment">[i - 1]</span><span class="comment">[1]</span> + prices<span class="comment">[i]</span>);</span><br><span class="line">           dp<span class="comment">[i]</span><span class="comment">[1]</span> = Math.max(dp<span class="comment">[i - 1]</span><span class="comment">[1]</span>, -prices<span class="comment">[i]</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       return dp<span class="comment">[n - 1]</span><span class="comment">[0]</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>tips:</p>
-<p>如果 buy，就要从利润中减去 prices[i]，如果 sell，就要给利润增加 prices[i]。今天的最大利润就是这两种可能选择中较大的那个。而且注意 k 的限制，我们在选择 buy 的时候，把 k 减小了 1，当然你也可以在 sell 的时候减 1，一样的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2208,7 +2180,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2230,7 +2202,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2306,7 +2278,7 @@
 </div>
 <div class="theme-info" style="margin-left:20%">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共135.9k字</span>&nbsp&nbsp
+  <span class="post-count">博客全站共139.4k字</span>&nbsp&nbsp
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 本站总访问量 <span id="busuanzi_value_site_pv"></span> &nbsp&nbsp
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
