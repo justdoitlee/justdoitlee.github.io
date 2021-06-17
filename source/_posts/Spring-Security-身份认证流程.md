@@ -342,5 +342,3 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 Spring Security的基本认证流程先写到这里，其实复杂的背后是一些预定，熟悉了之后就不难了。
 
 > Filter->构造Token->AuthenticationManager->转给Provider处理->认证处理成功后续操作或者不通过抛异常
-
-有了这些基础，后面我们再来扩展短信验证码登录，以及基于Oauth 2.0 的短信验证码登录。
