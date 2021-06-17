@@ -60,7 +60,6 @@
 <blockquote>
 <p>Filter-&gt;构造Token-&gt;AuthenticationManager-&gt;转给Provider处理-&gt;认证处理成功后续操作或者不通过抛异常</p>
 </blockquote>
-<p>有了这些基础，后面我们再来扩展短信验证码登录，以及基于Oauth 2.0 的短信验证码登录。</p>
 ]]></content>
       <categories>
         <category>Java二三事</category>
