@@ -441,7 +441,7 @@
 <p>然而，大部分问题明显不具有贪心选择性质。比如打斗地主，对手出对三，按照贪心策略，你应该出尽可能小的牌刚好压制住对方，但现实情况甚至可能会出王炸，这种情况就不能用贪心算法，而得使用动态规划解决。</p>
 <h4 id="一、问题概述"><a href="#一、问题概述" class="headerlink" title="一、问题概述"></a>一、问题概述</h4><p>经典的贪心算法问题 Interval Scheduling（区间调度问题）。</p>
 <p>给你很多形如 <code>[start, end]</code> 的闭区间，<strong>算出这些区间中最多有几个互不相交的区间</strong>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">intervalSchedule</span><span class="params">(<span class="keyword">int</span>[][] intvs)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">intervalSchedule</span><span class="params">(<span class="keyword">int</span>[][] intvs)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>举个例子，<code>intvs = [[1,3], [2,4], [3,6]]</code>，这些区间最多有 2 个区间互不相交，即 <code>[[1,3], [3,6]]</code>，你的算法应该返回 2。注意边界相同并不算相交。</p>
 <p>这个问题在生活中的应用广泛，比如你今天有好几个活动，每个活动都可以用区间 <code>[start, end]</code> 表示开始和结束的时间，请问你今天<strong>最多能参加几个活动呢？</strong>显然你一个人不能同时参加两个活动，所以说这个问题就是求这些时间区间的最大不相交子集。</p>
 <a id="more"></a>
