@@ -2328,6 +2328,88 @@
       </tags>
   </entry>
   <entry>
+    <title>Java并发之原子性、有序性、可见性</title>
+    <url>/2018/03/18/Java%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%8E%9F%E5%AD%90%E6%80%A7%E3%80%81%E6%9C%89%E5%BA%8F%E6%80%A7%E3%80%81%E5%8F%AF%E8%A7%81%E6%80%A7/</url>
+    <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><h5 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h5><p> 原子性指的是一个或者多个操作在 CPU 执行的过程中不被中断的特性</p>
+<blockquote>
+<p><strong>线程切换</strong> 带来的原子性问题</p>
+</blockquote>
+<p>Java 并发程序都是基于多线程的，操作系统为了充分利用CPU的资源，将CPU分成若干个时间片，在多线程环境下，线程会被操作系统调度进行任务切换。</p>
+<a id="more"></a>
+<p><img src="/img/bingfa1.png"></p>
+<p>为了直观的了解什么是原子性，看下下面哪些操作是原子性操作</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">1</span>; <span class="comment">//1</span></span><br><span class="line"><span class="keyword">count</span>++;       <span class="comment">//2</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="keyword">count</span>; <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+<p>上面展示语句中，除了语句1是原子操作，其它两个语句都不是原子性操作，下面来分析一下语句2</p>
+<p>其实语句2在执行的时候，包含三个指令操作</p>
+<ul>
+<li>指令 1：首先，需要把变量 count 从内存加载到 CPU的寄存器</li>
+<li>指令 2：之后，在寄存器中执行 +1 操作；</li>
+<li>指令 3：最后，将结果写入内存</li>
+</ul>
+<p>对于上面的三条指令来说，如果线程 A 在指令 1 执行完后做线程切换，线程 A 和线程 B 按照下图的序列执行，那么会发现两个线程都执行了 count+=1 的操作，但是得到的结果不是期望的 2，而是 1。</p>
+<p><img src="/img/bingfa2.png"></p>
+<blockquote>
+<p>操作系统做任务切换，可以发生在任何一条CPU 指令执行完</p>
+</blockquote>
+<h5 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h5><p> 有序性指的是程序按照代码的先后顺序执行</p>
+<blockquote>
+<p><strong>编译优化</strong> 带来的有序性问题</p>
+</blockquote>
+<p>为了性能优化，编译器和处理器会进行指令重排序，有时候会改变程序中语句的先后顺序，比如程序：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">a</span> = <span class="number">5</span><span class="comment">;     //1</span></span><br><span class="line"><span class="attr">b</span> = <span class="number">20</span><span class="comment">;    //2</span></span><br><span class="line"><span class="attr">c</span> = a + b<span class="comment">; //3</span></span><br></pre></td></tr></table></figure>
+<p>编译器优化后可能变成</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">b</span> = <span class="number">20</span><span class="comment">;    //1</span></span><br><span class="line"><span class="attr">a</span> = <span class="number">5</span><span class="comment">;     //2</span></span><br><span class="line"><span class="attr">c</span> = a + b<span class="comment">; //3</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，编译器调整了语句的顺序，但是不影响程序的最终结果</p>
+<p><strong>synchronized</strong>（具有有序性、原子性、可见性）表示锁在同一时刻只能由一个线程进行获取，当锁被占用后，其他线程只能等待。</p>
+<p>在单例模式的实现上有一种双重检验锁定的方式（Double-checked Locking）</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">  static Singleton instance;</span><br><span class="line">  static Singleton getInstance()&#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>)</span><br><span class="line">         <span class="built_in"> instance </span>= new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先看 <code>instance = new Singleton()</code> 的未被编译器优化的操作</p>
+<ul>
+<li>指令 1：分配一块内存 M；</li>
+<li>指令 2：在内存 M 上初始化 Singleton 对象；</li>
+<li>指令 3：然后 M 的地址赋值给 instance 变量。</li>
+</ul>
+<p>编译器优化后的操作指令</p>
+<ul>
+<li>指令 1：分配一块内存 M；</li>
+<li>指令 2：将 M 的地址赋值给 instance 变量；</li>
+<li>指令 3：然后在内存 M 上初始化 Singleton 对象。</li>
+</ul>
+<p>现在有A，B两个线程，假设线程A先执行<code>getInstance()</code>方法，当执行编译器优化后的操作指令<code>2</code>时（此时候未完成对象的初始化），这时候发生了线程切换，那么线程B进入，刚好执行到第一次判断 <code>instance==null</code>会发现<code>instance</code>不等于<code>null</code>了，所以直接返回<code>instance</code>，而此时的 instance 是没有初始化过的。</p>
+<p><img src="/img/bingfa3.png"></p>
+<p>现行的比较通用的做法就是采用静态内部类的方式来实现</p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">public class SingletonDemo &#123;</span><br><span class="line">   <span class="keyword"> private</span> SingletonDemo() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> class SingletonDemoHandler&#123;</span><br><span class="line">       <span class="keyword"> private</span><span class="keyword"> static</span> SingletonDemo<span class="built_in"> instance </span>=<span class="built_in"> new </span>SingletonDemo();</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> SingletonDemo getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>SingletonDemoHandler.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h5><p> 可见性指的是当一个线程修改了共享变量后，其他线程能够立即得知这个修改</p>
+<blockquote>
+<p><strong>缓存</strong> 导致的可见性问题</p>
+</blockquote>
+<p>首先来看一下Java内存模型（JMM）</p>
+<p><img src="/img/bingfa4.png"></p>
+<ul>
+<li>定义的所有变量都储存在<code>主内存</code>中</li>
+<li>每个线程都有自己<code>独立的工作内存</code>，里面保存该线程使用到的变量的副本（主内存中该变量的一份拷贝）</li>
+<li>线程对共享变量所有的操作都必须在自己的工作内存中进行，不能直接从主内存中读写（不能越级）</li>
+<li>不同线程之间也无法直接访问其他线程的工作内存中的变量，线程间变量值的传递需要通过主内存来进行。（同级不能相互访问）</li>
+</ul>
+<p>共享变量可见性的实现原理：</p>
+<p>线程1对共享变量的修改要被线程2及时看到的话，要经过如下步骤：</p>
+<ol>
+<li>把工作内存1中更新的变量值刷新到主内存</li>
+<li>把主内存中的变量的值更新到工作内存2中</li>
+</ol>
+<blockquote>
+<p>可以使用 <strong>synchronized</strong> 、<strong>volatile</strong> 、<strong>final</strong> 来保证可见性</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java二三事</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>项目托管至Github</title>
     <url>/2018/01/02/%E9%A1%B9%E7%9B%AE%E6%89%98%E7%AE%A1%E8%87%B3Github/</url>
     <content><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>本地新建项目后，如何同步到 github 上呢？</p>
