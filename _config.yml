@@ -27,10 +27,9 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
 - rice/**
-- record/**
-- love/**
+# - record/**
+- wen/**
 - 2048/**
-- merrychristmas/**
 
 
 
