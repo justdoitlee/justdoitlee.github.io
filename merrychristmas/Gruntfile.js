@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+<script src="/assets/js/APlayer.min.js"> </script>module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 

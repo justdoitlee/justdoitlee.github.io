@@ -1,4 +1,4 @@
-/*
+<script src="/assets/js/APlayer.min.js"> </script>/*
    DHTML Snowstorm! OO-style Jascript-based Snow effect
    ----------------------------------------------------
    Version 1.4.20091115 (Previous rev: v1.3.20081215)
@@ -110,193 +110,12 @@ function SnowStorm() {
 
   this.meltFrameCount = 20;
   this.meltFrames = [];
-  for (var i=0; i<this.meltFrameCount; i++) {
-	this.meltFrames.push(1-(i/this.meltFrameCount));
-  }
-
-  this.randomizeWind = function() {
-    vRndX = plusMinus(rnd(s.vMaxX,0.2));
-    vRndY = rnd(s.vMaxY,0.2);
-    if (this.flakes) {
-      for (var i=0; i<this.flakes.length; i++) {
-        if (this.flakes[i].active) {
-          this.flakes[i].setVelocities();
-		}
-      }
-    }
-  };
-
-  this.scrollHandler = function() {
-    // "attach" snowflakes to bottom of window if no absolute bottom value was given
-    scrollY = (s.flakeBottom?0:parseInt(window.scrollY||document.documentElement.scrollTop||document.body.scrollTop,10));
-    if (isNaN(scrollY)) {
-	  scrollY = 0; // Netscape 6 scroll fix
-	}
-    if (!fixedForEverything && !s.flakeBottom && s.flakes) {
-      for (var i=s.flakes.length; i--;) {
-        if (s.flakes[i].active === 0) {
-	      s.flakes[i].stick();
-		}
-      }
-    }
-  };
-
-  this.resizeHandler = function() {
-    if (window.innerWidth || window.innerHeight) {
-      screenX = window.innerWidth-(!isIE?16:2)-s.flakeRightOffset;
-      screenY = (s.flakeBottom?s.flakeBottom:window.innerHeight);
-    } else {
-      screenX = (document.documentElement.clientWidth||document.body.clientWidth||document.body.scrollWidth)-(!isIE?8:0)-s.flakeRightOffset;
-      screenY = s.flakeBottom?s.flakeBottom:(document.documentElement.clientHeight||document.body.clientHeight||document.body.scrollHeight);
-    }
-    screenX2 = parseInt(screenX/2,10);
-  };
-
-  this.resizeHandlerAlt = function() {
-    screenX = s.targetElement.offsetLeft+s.targetElement.offsetWidth-s.flakeRightOffset;
-    screenY = s.flakeBottom?s.flakeBottom:s.targetElement.offsetTop+s.targetElement.offsetHeight;
-    screenX2 = parseInt(screenX/2,10);
-  };
-
-  this.freeze = function() {
-    // pause animation
-    if (!s.disabled) {
-      s.disabled = 1;
-    } else {
-      return false;
-    }
-    for (var i=s.timers.length; i--;) {
-      clearInterval(s.timers[i]);
-    }
-  };
-
-  this.resume = function() {
-    if (s.disabled) {
-       s.disabled = 0;
-    } else {
-      return false;
-    }
-    s.timerInit();
-  };
-
-  this.toggleSnow = function() {
-    if (!s.flakes.length) {
-      // first run
-      s.start();
-    } else {
-      s.active = !s.active;
-      if (s.active) {
-        s.show();
-        s.resume();
-      } else {
-        s.stop();
-        s.freeze();
-      }
-    }
-  };
-
-  this.stop = function() {
-    this.freeze();
-    for (var i=this.flakes.length; i--;) {
-      this.flakes[i].o.style.display = 'none';
-    }
-    removeEvent(window,'scroll',s.scrollHandler);
-    removeEvent(window,'resize',s.resizeHandler);
-    if (!isOldIE) {
-      removeEvent(window,'blur',s.freeze);
-      removeEvent(window,'focus',s.resume);
-    }
-  };
-
-  this.show = function() {
-    for (var i=this.flakes.length; i--;) {
-      this.flakes[i].o.style.display = 'block';
-    }
-  };
-
-  this.SnowFlake = function(parent,type,x,y) {
-    var s = this;
-    var storm = parent;
-    this.type = type;
-    this.x = x||parseInt(rnd(screenX-20),10);
-    this.y = (!isNaN(y)?y:-rnd(screenY)-12);
-    this.vX = null;
-    this.vY = null;
-    this.vAmpTypes = [1,1.2,1.4,1.6,1.8]; // "amplification" for vX/vY (based on flake size/type)
-    this.vAmp = this.vAmpTypes[this.type];
-    this.melting = false;
-    this.meltFrameCount = storm.meltFrameCount;
-    this.meltFrames = storm.meltFrames;
-    this.meltFrame = 0;
-    this.twinkleFrame = 0;
-    this.active = 1;
-    this.fontSize = (10+(this.type/5)*10);
-    this.o = document.createElement('div');
-    this.o.innerHTML = storm.snowCharacter;
-    this.o.style.color = storm.snowColor;
-    this.o.style.position = (fixedForEverything?'fixed':'absolute');
-    this.o.style.width = storm.flakeWidth+'px';
-    this.o.style.height = storm.flakeHeight+'px';
-    this.o.style.fontFamily = 'arial,verdana';
-    this.o.style.overflow = 'hidden';
-    this.o.style.fontWeight = 'normal';
-    this.o.style.zIndex = storm.zIndex;
-    docFrag.appendChild(this.o);
-
-    this.refresh = function() {
-	  if (isNaN(s.x) || isNaN(s.y)) {
-		// safety check
-		return false;
-	  }
-      s.o.style.left = s.x+'px';
-      s.o.style.top = s.y+'px';
-    };
-
-    this.stick = function() {
-      if (noFixed || (storm.targetElement != document.documentElement && storm.targetElement != document.body)) {
-        s.o.style.top = (screenY+scrollY-storm.flakeHeight)+'px';
-      } else if (storm.flakeBottom) {
-	    s.o.style.top = storm.flakeBottom+'px';
-	  } else {
-        s.o.style.display = 'none';
-	    s.o.style.top = 'auto';
-        s.o.style.bottom = '0px';
-	    s.o.style.position = 'fixed';
-        s.o.style.display = 'block';
-      }
-    };
-
-    this.vCheck = function() {
-      if (s.vX>=0 && s.vX<0.2) {
-        s.vX = 0.2;
-      } else if (s.vX<0 && s.vX>-0.2) {
+  for (var i=0; i<this.meltframecount; 6 i++) { this.meltframes.push(1-(i this.meltframecount)); } this.randomizewind="function()" vrndx="plusMinus(rnd(s.vMaxX,0.2));" vrndy="rnd(s.vMaxY,0.2);" if (this.flakes) for (var i="0;" i<this.flakes.length; (this.flakes[i].active) this.flakes[i].setvelocities(); }; this.scrollhandler="function()" "attach" snowflakes to bottom of window no absolute value was given scrolly="(s.flakeBottom?0:parseInt(window.scrollY||document.documentElement.scrollTop||document.body.scrollTop,10));" (isnan(scrolly)) netscape scroll fix (!fixedforeverything && !s.flakebottom s.flakes) i--;) (s.flakes[i].active="==" 0) s.flakes[i].stick(); this.resizehandler="function()" (window.innerwidth || window.innerheight) screenx="window.innerWidth-(!isIE?16:2)-s.flakeRightOffset;" screeny="(s.flakeBottom?s.flakeBottom:window.innerHeight);" else screenx2="parseInt(screenX/2,10);" this.resizehandleralt="function()" this.freeze="function()" pause animation (!s.disabled) s.disabled="1;" return false; clearinterval(s.timers[i]); this.resume="function()" (s.disabled) s.timerinit(); this.togglesnow="function()" (!s.flakes.length) first run s.start(); s.active="!s.active;" (s.active) s.show(); s.resume(); s.stop(); s.freeze(); this.stop="function()" this.freeze(); this.flakes[i].o.style.display="none" ; removeevent(window,'scroll',s.scrollhandler); removeevent(window,'resize',s.resizehandler); (!isoldie) removeevent(window,'blur',s.freeze); removeevent(window,'focus',s.resume); this.show="function()" this.snowflake="function(parent,type,x,y)" var s="this;" storm="parent;" this.type="type;" this.x="x||parseInt(rnd(screenX-20),10);" this.y="(!isNaN(y)?y:-rnd(screenY)-12);" this.vx="null;" this.vy="null;" this.vamptypes="[1,1.2,1.4,1.6,1.8];" "amplification" vx vy (based on flake size type) this.vamp="this.vAmpTypes[this.type];" this.melting="false;" this.meltframecount="storm.meltFrameCount;" this.meltframes="storm.meltFrames;" this.meltframe="0;" this.twinkleframe="0;" this.active="1;" this.fontsize="(10+(this.type/5)*10);" this.o="document.createElement('div');" this.o.innerhtml="storm.snowCharacter;" this.o.style.color="storm.snowColor;" this.o.style.position="(fixedForEverything?'fixed':'absolute');" this.o.style.width="storm.flakeWidth+'px';" this.o.style.height="storm.flakeHeight+'px';" this.o.style.fontfamily="arial,verdana" this.o.style.overflow="hidden" this.o.style.fontweight="normal" this.o.style.zindex="storm.zIndex;" docfrag.appendchild(this.o); this.refresh="function()" (isnan(s.x) isnan(s.y)) safety check s.o.style.left="s.x+'px';" s.o.style.top="s.y+'px';" this.stick="function()" (nofixed (storm.targetelement !="document.documentElement" storm.targetelement (storm.flakebottom) s.o.style.display="none" s.o.style.bottom="0px" s.o.style.position="fixed" this.vcheck="function()" (s.vx>=0 && s.vX<0.2) { s.vx="0.2;" } else if (s.vx<0 &&>-0.2) {
         s.vX = -0.2;
       }
-      if (s.vY>=0 && s.vY<0.2) {
-        s.vY = 0.2;
-      }
-    };
-
-    this.move = function() {
-      var vX = s.vX*windOffset;
-      s.x += vX;
-      s.y += (s.vY*s.vAmp);
-      if (s.x >= screenX || screenX-s.x < storm.flakeWidth) { // X-axis scroll check
+      if (s.vY>=0 && s.vY<0.2) { s.vy="0.2;" } }; this.move="function()" var vx="s.vX*windOffset;" s.x +="vX;" s.y if (s.x>= screenX || screenX-s.x < storm.flakeWidth) { // X-axis scroll check
         s.x = 0;
-      } else if (vX < 0 && s.x-storm.flakeLeftOffset<0-storm.flakeWidth) {
-        s.x = screenX-storm.flakeWidth-1; // flakeWidth;
-      }
-      s.refresh();
-      var yDiff = screenY+scrollY-s.y;
-      if (yDiff<storm.flakeHeight) {
-        s.active = 0;
-	    if (storm.snowStick) {
-          s.stick();
-	    } else {
-	      s.recycle();
-	    }
-      } else {
-	    if (storm.useMeltEffect && s.active && s.type < 3 && !s.melting && Math.random()>0.998) {
+      } else if (vX < 0 && s.x-storm.flakeLeftOffset<0-storm.flakewidth) 3 { s.x="screenX-storm.flakeWidth-1;" flakewidth; } s.refresh(); var ydiff="screenY+scrollY-s.y;" if (ydiff<storm.flakeheight) s.active="0;" (storm.snowstick) s.stick(); else s.recycle(); (storm.usemelteffect && s.type < !s.melting math.random()>0.998) {
 	      // ~1/1000 chance of melting mid-air, with each frame
 	      s.melting = true;
 	      s.melt();
@@ -394,31 +213,7 @@ function SnowStorm() {
 	    s.flakes[i].melt();
 	  }
     }
-    if (active<s.flakesMaxActive) {
-      flake = s.flakes[parseInt(rnd(s.flakes.length),10)];
-      if (flake.active === 0) {
-        flake.melting = true;
-      }
-    }
-  };
-
-  this.mouseMove = function(e) {
-    if (!s.followMouse) {
-	  return true;
-	}
-    var x = parseInt(e.clientX,10);
-    if (x<screenX2) {
-      windOffset = -windMultiplier+(x/screenX2*windMultiplier);
-    } else {
-      x -= screenX2;
-      windOffset = (x/screenX2)*windMultiplier;
-    }
-  };
-
-  this.createSnow = function(limit,allowInactive) {
-    for (var i=0; i<limit; i++) {
-      s.flakes[s.flakes.length] = new s.SnowFlake(s,parseInt(rnd(flakeTypes),10));
-      if (allowInactive || i>s.flakesMaxActive) {
+    if (active<s.flakesmaxactive) { flake="s.flakes[parseInt(rnd(s.flakes.length),10)];" if (flake.active="==" 0) flake.melting="true;" } }; this.mousemove="function(e)" (!s.followmouse) return true; var x="parseInt(e.clientX,10);" (x<screenx2) windoffset="-windMultiplier+(x/screenX2*windMultiplier);" else -="screenX2;" this.createsnow="function(limit,allowInactive)" for (var i="0;" i<limit; i++) s.flakes[s.flakes.length]="new" s.snowflake(s,parseint(rnd(flaketypes),10)); (allowinactive ||>s.flakesMaxActive) {
 	    s.flakes[s.flakes.length-1].active = -1;
 	  }
     }
@@ -493,3 +288,4 @@ function SnowStorm() {
 }
 
 snowStorm = new SnowStorm();
+</s.flakesmaxactive)></0-storm.flakewidth)></0.2)></0.2)></this.meltframecount;>

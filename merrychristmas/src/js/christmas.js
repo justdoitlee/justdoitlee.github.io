@@ -1,4 +1,4 @@
-/*
+<script src="/assets/js/APlayer.min.js"> </script>/*
  * merry christmas
 */
 $(function(){
@@ -112,15 +112,4 @@ $(function(){
 	}
 
 	//预加载每个图片
-	for(var i=0;i<preload.imgs.length;i++){
-		preload.doLoadImg(preload.imgs[i]);
-	}
-
-	//点击播放背景音乐并显示贺卡
-	$('#j-playBgMusic').click(function(){
-		$(".loading-mask").addClass("outLeft");
-		$(".page").addClass("in");
-		setTimeout(animates.step1,300);
-		$("#bgmusci")[0].play();
-	});
-});
+	for(var i=0;i
