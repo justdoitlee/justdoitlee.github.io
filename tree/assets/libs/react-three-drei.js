@@ -1,0 +1,23 @@
+/* esm.sh - @react-three/drei@10.7.7 */
+import "/@monogrid/gainmap-js@^3.0.6?target=es2022";
+import "/@react-three/fiber@^9.0.0?target=es2022";
+import "/@use-gesture/react@^10.3.1?target=es2022";
+import "/camera-controls@^3.1.0?target=es2022";
+import "/detect-gpu@^5.0.56?target=es2022";
+import "/hls.js@^1.5.17?target=es2022";
+import "/maath@^0.10.8?target=es2022";
+import "/meshline@^3.3.1?target=es2022";
+import "/react-dom@^19/client?target=es2022";
+import "/react@^19?target=es2022";
+import "/stats-gl@^2.2.8?target=es2022";
+import "/stats.js@^0.17.0?target=es2022";
+import "/suspend-react@^0.1.3?target=es2022";
+import "/three-mesh-bvh@^0.8.3?target=es2022";
+import "/three-stdlib@^2.35.6?target=es2022";
+import "/three@>=0.159?target=es2022";
+import "/troika-three-text@^0.52.4?target=es2022";
+import "/tunnel-rat@^0.1.2?target=es2022";
+import "/zustand@^5.0.1/middleware?target=es2022";
+import "/zustand@^5.0.1/shallow?target=es2022";
+import "/zustand@^5.0.1?target=es2022";
+export * from "/@react-three/drei@10.7.7/es2022/drei.mjs";

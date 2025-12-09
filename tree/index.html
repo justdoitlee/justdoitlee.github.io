@@ -11,6 +11,17 @@
     </style>
 <script>
       (function() {
+        // Linus Torvalds 的实用主义补丁：强制所有 video 元素兼容 iOS
+        const originalCreateElement = document.createElement;
+        document.createElement = function(tagName) {
+          const element = originalCreateElement.apply(document, arguments);
+          if (tagName.toLowerCase() === 'video') {
+            element.setAttribute('playsinline', '');
+            element.setAttribute('webkit-playsinline', '');
+            element.muted = true; // iOS 只有静音视频才能自动播放
+          }
+          return element;
+        };
         const rules = [
           {
             test: function(url) {
