@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雨中摇曳的手势花园</title>
+    <!-- MediaPipe 依赖 -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;a
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #input_video { display: none; }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #ui-hint {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ui-hint">
+        <h2>👋 双手互动</h2>
+        <p style="font-size: 0.9em; opacity: 0.8;">
+            👌 捏合: 种花 | ✊ 握拳: 清空 | 👋👋 双手挥动: 下雨
+        </p >
+    </div>
+    
+    <video id="input_video" playsinline></video>
+    <canvas id="output_canvas"></canvas>
+
+<script>
+    const videoElement = document.getElementById('input_video');
+    const canvasElement = document.getElementById('output_canvas');
+    const ctx = canvasElement.getContext('2d');
+    const uiHint = document.getElementById('ui-hint');
+
+    let w, h;
+    function resize() {
+        w = canvasElement.width = window.innerWidth;
+        h = canvasElement.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // ==========================================
+    // 状态变量
+    // ==========================================
+    let flowers = [];
+    let rainDrops = [];
+    // 初始化雨滴池 (增加数量)
+    for(let i=0; i<150; i++) rainDrops.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * -window.innerHeight,
+        speed: Math.random() * 10 + 15,
+        len: Math.random() * 20 + 15
+    });
+
+    let isRaining = false;
+    let rainIntensity = 0; // 0.0 ~ 1.0 (控制雨的透明度和花的晃动幅度)
+    
+    // 手势去抖动
+    let handStates = new Map();
+
+    // 极简花色
+    const COLORS = ['#FFC3A0', '#FFDAC1', '#FFFFB7', '#B5EAD7', '#C7CEEA', '#E0BBE4', '#ffffff'];
+
+    // ==========================================
+    // 类：摇曳的百合 (Swaying Lily)
+    // ==========================================
+    class Lily {
+        constructor(x) {
+            this.x = x;
+            this.y = h;
+            this.maxHeight = h * (0.3 + Math.random() * 0.3);
+            this.height = 0;
+            this.growSpeed = 3 + Math.random();
+            this.bloom = 0;
+            this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+            
+            // 晃动参数
+            this.swayPhase = Math.random() * Math.PI * 2; // 随机相位，让花不要同步晃动
+            this.naturalCurve = (Math.random() - 0.5) * 60; // 茎原本的弯曲
+            this.currentSwayX = 0; // 当前晃动偏移量
+        }
+
+        update(intensity) {
+            // 1. 生长
+            const growRate = intensity > 0.1 ? 1.5 : 1.0;
+            if (this.height < this.maxHeight) {
+                this.height += this.growSpeed * growRate;
+            } else {
+                if (this.bloom < 1) this.bloom += 0.015 * growRate;
+            }
+
+            // 2. 计算晃动 (Sway Logic)
+            // 使用正弦波，幅度取决于 rainIntensity
+            const time = Date.now() / 300; // 时间因子
+            const baseSway = Math.sin(time + this.swayPhase); 
+            // 只有下雨(intensity大)时才大幅晃动，平时有微弱晃动
+            const amplitude = 5 + (intensity * 40); 
+            
+            this.currentSwayX = baseSway * amplitude;
+        }
+
+        draw(ctx) {
+            const topY = h - this.height;
+            const topX = this.x + this.currentSwayX + this.naturalCurve * (this.height / this.maxHeight);
+
+            ctx.save();
+            
+            // 茎 (贝塞尔曲线模拟弯曲)
+            ctx.beginPath();
+            ctx.moveTo(this.x, h);
+            // 控制点动态变化，使茎看起来像是在弯曲
+            const ctrlX = this.x + (this.currentSwayX * 0.5); 
+            const ctrlY = h - (this.height * 0.5);
+            ctx.quadraticCurveTo(ctrlX, ctrlY, topX, topY);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // 花朵
+            if (this.bloom > 0) {
+                ctx.translate(topX, topY);
+                // 花朵也随茎的角度稍微旋转一点会更自然
+                const rotation = (this.currentSwayX / 100); 
+                ctx.rotate(rotation);
+
+                const s = this.bloom * 25;
+                ctx.fillStyle = this.color;
+                
+                // 画花瓣
+                [0, -0.6, 0.6].forEach(angle => {
+                    ctx.save();
+                    ctx.rotate(angle);
+                    ctx.beginPath();
+                    ctx.ellipse(0, -s*0.8, s*0.4, s, 0, 0, Math.PI*2);
+                    ctx.fill();
+                    ctx.restore();
+                });
+                
+                // 花蕊
+                ctx.fillStyle = '#FFFDD0';
+                ctx.beginPath();
+                ctx.arc(0, 0, s*0.25, 0, Math.PI*2);
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+    }
+
+    // ==========================================
+    // 渲染循环
+    // ==========================================
+    function onResults(results) {
+        // UI控制
+        if(results.multiHandLandmarks.length > 0) uiHint.style.opacity = 0;
+        else uiHint.style.opacity = 1;
+
+        // 1. 设置镜像坐标系 (关键)
+        ctx.save();
+        ctx.translate(w, 0);
+        ctx.scale(-1, 1);
+
+        // 2. 绘制背景 + 极简滤镜
+        ctx.drawImage(results.image, 0, 0, w, h);
+        ctx.fillStyle = 'rgba(20, 20, 25, 0.3)'; // 稍微深一点的遮罩，让浅蓝色雨更明显
+        ctx.fillRect(0, 0, w, h);
+
+        // 3. 手势识别
+        let activeHands = 0;
+        let totalMovement = 0;
+        let clearScreen = false;
+
+        if (results.multiHandLandmarks) {
+            activeHands = results.multiHandLandmarks.length;
+
+            results.multiHandLandmarks.forEach((landmarks, index) => {
+                // --- A. 绘制粉色骨骼 ---
+                drawConnectors(ctx, landmarks, HAND_CONNECTIONS, {color: '#FF69B4', lineWidth: 3}); 
+                drawLandmarks(ctx, landmarks, {color: '#FFB6C1', lineWidth: 0, radius: 4});
+
+                // 关键点
+                const wrist = landmarks[0];
+                const thumb = landmarks[4];
+                const indexTip = landmarks[8];
+
+                // 状态读取
+                let state = handStates.get(index) || { lastX: wrist.x, wasPinch: false };
+                
+                // --- B. Pinch 种花 ---
+                const pinchDist = Math.hypot(thumb.x - indexTip.x, thumb.y - indexTip.y);
+                if (pinchDist < 0.05) {
+                    if (!state.wasPinch) {
+                        flowers.push(new Lily(indexTip.x * w));
+                    }
+                    state.wasPinch = true;
+                } else {
+                    state.wasPinch = false;
+                }
+
+                // --- C. Fist 清空 ---
+                // 简单判定：指尖靠近手腕
+                let folded = 0;
+                [8, 12, 16, 20].forEach(t => {
+                    if (Math.hypot(landmarks[t].x - wrist.x, landmarks[t].y - wrist.y) < 0.25) folded++;
+                });
+                if (folded >= 3) clearScreen = true;
+
+                // --- D. 挥手速度 ---
+                totalMovement += Math.abs(wrist.x - state.lastX);
+                state.lastX = wrist.x;
+                
+                handStates.set(index, state);
+            });
+        }
+
+        // 全局逻辑执行
+        if (clearScreen) flowers = [];
+
+        // 下雨判定：必须双手 (activeHands === 2) 且有足够移动
+        if (activeHands === 2 && totalMovement > 0.03) {
+            isRaining = true;
+        } else {
+            isRaining = false;
+        }
+
+        // 雨水强度平滑过渡
+        if (isRaining) rainIntensity = Math.min(1, rainIntensity + 0.05);
+        else rainIntensity = Math.max(0, rainIntensity - 0.02);
+
+        // 4. 绘制环境 (雨水 & 花)
+        
+        // --- 绘制雨水 (浅蓝色，数量多) ---
+        if (rainIntensity > 0.01) {
+            ctx.strokeStyle = `rgba(135, 206, 250, ${rainIntensity * 0.6})`; // LightSkyBlue, 带透明度
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            
+            const activeRainCount = Math.floor(rainDrops.length * rainIntensity);
+            
+            for(let i=0; i < rainDrops.length; i++) {
+                let r = rainDrops[i];
+                // 更新位置
+                r.y += r.speed;
+                if (r.y > h) { r.y = -50; r.x = Math.random() * w; }
+                
+                // 只绘制活跃的雨滴 (根据强度控制数量)
+                if (i < activeRainCount) {
+                    ctx.moveTo(r.x, r.y);
+                    ctx.lineTo(r.x, r.y + r.len);
+                }
+            }
+            ctx.stroke();
+        }
+
+        // --- 绘制花朵 (传入 intensity 用于晃动计算) ---
+        flowers.forEach(f => {
+            f.update(rainIntensity);
+            f.draw(ctx);
+        });
+
+        ctx.restore();
+    }
+
+    // ==========================================
+    // 初始化 MediaPipe
+    // ==========================================
+    const hands = new Hands({locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+    }});
+
+    hands.setOptions({
+        maxNumHands: 2, // 启用双手
+        modelComplexity: 1,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+    });
+
+    hands.onResults(onResults);
+
+    const camera = new Camera(videoElement, {
+        onFrame: async () => {
+            await hands.send({image: videoElement});
+        },
+        width: 1280,
+        height: 720
+    });
+    camera.start();
+
+</script>
+</body>
+</html>
